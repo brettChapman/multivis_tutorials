@@ -100,8 +100,9 @@ Launch tutorial 1 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 <a id="two"></a>
 ## Tutorial 2: Hierarchical Clustered Heatmap
-<p align="justify"><i>
-<i>In this tutorial we will step through a workflow to produce a Hierarchical Clustered Heatmap.</i></p>
+<p align="justify">
+<i>In this tutorial we will step through a workflow to produce a Hierarchical Clustered Heatmap.</i>
+</p>
 
 Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial2.ipynb)
 
@@ -109,8 +110,9 @@ Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 <a id="three"></a>
 ## Tutorial 3: Polar Dendrogram
-<p align="justify"><i>
-<i>In this tutorial we will step through a workflow to produce a Polar Dendrogram.</i></p>
+<p align="justify">
+<i>In this tutorial we will step through a workflow to produce a Polar Dendrogram.</i>
+</p>
 
 Launch tutorial 3 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial3.ipynb)
 
@@ -118,8 +120,9 @@ Launch tutorial 3 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 <a id="four"></a>
 ## Tutorial 4: Spring-embedded network
-<p align="justify"><i>
-<i>In this tutorial we will step through a workflow to produce a Spring-embedded network.</i></p>
+<p align="justify">
+<i>In this tutorial we will step through a workflow to produce a Spring-embedded network.</i>
+</p>
 
 Launch tutorial 4 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial4.ipynb)
 
@@ -127,7 +130,8 @@ Launch tutorial 4 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 <a id="five"></a>
 ## Tutorial 5: Spring-embedded network
-<p align="justify"><i>
-<i>In this tutorial we will step through a workflow to produce a Hierarchical Edge Bundle.</i></p>
+<p align="justify">
+<i>In this tutorial we will step through a workflow to produce a Hierarchical Edge Bundle.</i>
+</p>
 
 Launch tutorial 5 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial5.ipynb)
