@@ -113,3 +113,19 @@ Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 <i>In this tutorial we will step through a workflow to produce a Polar Dendrogram.</i>
 
 Launch tutorial 3 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial3.ipynb)
+
+<br />
+
+<a id="four"></a>
+## Tutorial 4: Spring-embedded network
+<i>In this tutorial we will step through a workflow to produce a Spring-embedded network.</i>
+
+Launch tutorial 4 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial4.ipynb)
+
+<br />
+
+<a id="five"></a>
+## Tutorial 5: Spring-embedded network
+<i>In this tutorial we will step through a workflow to produce a Hierarchical Edge Bundle.</i>
+
+Launch tutorial 5 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial5.ipynb)
