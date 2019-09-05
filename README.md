@@ -88,12 +88,11 @@ rm -rf multivis_tutorials
 
 <br />
 
-<p align="justify">
-
 <a id="one"></a>
 ## Tutorial 1: Principal Component Analysis (PCA) with biplot
-
+<p align="justify">
 <i>In this tutorial we will step through a workflow to produce a PCA with bitplot.</i>
+</p>
 
 Launch tutorial 1 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial1.ipynb)
 
@@ -101,31 +100,6 @@ Launch tutorial 1 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 <a id="two"></a>
 ## Tutorial 2: Hierarchical Clustered Heatmap
-
+<p align="justify">
 <i>In this tutorial we will step through a workflow to produce a Hierarchical Clustered Heatmap.</i>
-
-Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial2.ipynb)
-
-<br />
-
-<a id="three"></a>
-## Tutorial 3: Polar Dendrogram
-<i>In this tutorial we will step through a workflow to produce a Polar Dendrogram.</i>
-
-Launch tutorial 3 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial3.ipynb)
-
-<br />
-
-<a id="four"></a>
-## Tutorial 4: Spring-embedded network
-<i>In this tutorial we will step through a workflow to produce a Spring-embedded network.</i>
-
-Launch tutorial 4 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial4.ipynb)
-
-<br />
-
-<a id="five"></a>
-## Tutorial 5: Spring-embedded network
-<i>In this tutorial we will step through a workflow to produce a Hierarchical Edge Bundle.</i>
-
-Launch tutorial 5 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial5.ipynb)
+</p>
