@@ -105,3 +105,11 @@ Launch tutorial 1 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 </p>
 
 Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial2.ipynb)
+
+<br />
+
+<a id="three"></a>
+## Tutorial 3: Polar Dendrogram
+<i>In this tutorial we will step through a workflow to produce a Polar Dendrogram.</i>
+
+Launch tutorial 3 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial3.ipynb)
