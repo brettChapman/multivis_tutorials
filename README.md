@@ -19,6 +19,7 @@ This repository contains the tutorials for the Metabolomics review paper "Multiv
 #### Tutorial 3:
 - [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial3.ipynb)
 
+
 #### Tutorial 4:
 - [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial4.ipynb)
 
@@ -32,8 +33,8 @@ This repository contains the tutorials for the Metabolomics review paper "Multiv
 1.	[Principal Component Analysis (PCA) with biplot](#one)
 2.	[Hierarchical Clustered Heatmap](#two)
 3.	[Polar Dendrogram](#three)
-4.	[Hierarchical Edge Bundle](#four)
-5.	[Spring-embedded network](#five)
+4.      [Spring-embedded network](#four)
+5.	[Hierarchical Edge Bundle](#five)
 
 <br />
 
