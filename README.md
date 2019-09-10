@@ -33,7 +33,7 @@ This repository contains the tutorials for the Metabolomics review paper "Multiv
 1.	[Principal Component Analysis (PCA) with biplot](#one)
 2.	[Hierarchical Clustered Heatmap](#two)
 3.	[Polar Dendrogram](#three)
-4.      [Spring-embedded network](#four)
+4.	[Spring-embedded network](#four)
 5.	[Hierarchical Edge Bundle](#five)
 
 <br />
