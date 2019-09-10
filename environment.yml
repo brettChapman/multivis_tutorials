@@ -9,5 +9,5 @@ dependencies:
 - numpy=1.16.2
 - pandas=0.24.2
 - openpyxl=2.6.1
-- multivis
+- multivis=0.1.7
 - tornado=5.1.1
