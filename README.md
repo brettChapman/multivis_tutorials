@@ -1,7 +1,7 @@
 # README.md - `Chapman_et_al_2019`
 
 <p align="justify">
-This repository contains the tutorials for the Metabolomics review paper "Multivariate visualisation strategies in metabolomics: A review". There are five different tutorials explaining visualisations from PCA, Hierarchical Clustered Heatmaps (HCH), Polar Dendrograms, Spring-embedded network plots, and Hierarchical Edge Bundle plots, all demonstrated using a dataset from (<a href="https://physoc.onlinelibrary.wiley.com/doi/full/10.1113/EP087159">Lawler et al. (2018)</a>) published in <i>Experimental Physiolgy</i>. The tutorials stress the importance of multivariate analysis and provides multiple options for multivariate visualisation. Each tutorial can be downloaded and run locally through Jupyter Notebook or run on the cloud through Binder.
+This repository contains the tutorials for the Metabolomics review paper "Multivariate visualisation strategies in metabolomics: A review". There are six different tutorials explaining visualisations from PCA, PCoA, Hierarchical Clustered Heatmaps (HCH), Polar Dendrograms, Spring-embedded network plots, and Hierarchical Edge Bundle plots, all demonstrated using a dataset from (<a href="https://physoc.onlinelibrary.wiley.com/doi/full/10.1113/EP087159">Lawler et al. (2018)</a>) published in <i>Experimental Physiolgy</i>. The tutorials stress the importance of multivariate analysis and provides multiple options for multivariate visualisation. Each tutorial can be downloaded and run locally through Jupyter Notebook or run on the cloud through Binder.
 </p>
 
 <br />
@@ -19,22 +19,25 @@ This repository contains the tutorials for the Metabolomics review paper "Multiv
 #### Tutorial 3:
 - [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial3.ipynb)
 
-
 #### Tutorial 4:
 - [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial4.ipynb)
 
 #### Tutorial 5:
 - [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial5.ipynb)
 
+#### Tutorial 6:
+- [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial6.ipynb)
+
 <br />
 
 ## Tutorials
 
 1.	[Principal Component Analysis (PCA) with biplot](#one)
-2.	[Hierarchical Clustered Heatmap](#two)
-3.	[Polar Dendrogram](#three)
-4.	[Spring-embedded network](#four)
-5.	[Hierarchical Edge Bundle](#five)
+2.	[Principal Coordinate Analysis (PCoA)
+3.	[Hierarchical Clustered Heatmap](#two)
+4.	[Polar Dendrogram](#three)
+5.	[Spring-embedded network](#four)
+6.	[Hierarchical Edge Bundle](#five)
 
 <br />
 
@@ -49,36 +52,45 @@ Launch tutorial 1 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 <br />
 
 <a id="two"></a>
-## Tutorial 2: Hierarchical Clustered Heatmap
+## Tutorial 1: Principal Coordinate Analysis (PCoA)
 <p align="justify">
-<i>In this tutorial we will step through a workflow to produce a Hierarchical Clustered Heatmap (HCH). HCH is an exploratory data analysis technique which implements a two-way Hierarchical cluster analysis (HCA) (e.g. clustering samples and metabolites), and provides dendrograms and heatmaps to visualise the clustered data. HCA is a method by which the distance or correlation between individuals is measured, and then grouped together based on the similarities or dissimilarities between the distances or correlations of the individuals. The clustering itself is based on linkage clustering and determines the overall structure of the clusters. HCH is interpreted through visually identify the different clusters in the heatmap as groups of different colour representations of the clustering score, with the highest score representing one colour choice, and the lowest score representing the other colour choice, and everything between being lighter or darker shade variants. The different clustered colours in the heatmap are also represented in the dendrograms for each axis as clustered branches.</i>
+<i>In this tutorial we will step through a workflow to produce a Principal Coordinate Analysis (PCoA) plot. PCoA, also known as Classical Multidimensional Scaling (CMDS), is another multivariate data analysis or ordination method similar to PCA, however it takes a similarity matrix and instead of computing the maximal variance like with PCA, it computes the maximal linear correlation between similarities in the similarity matrix by way of PCA, and projects them to a lower dimensional space.</I>
 </p>
 
 Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial2.ipynb)
 
-<br />
 
 <a id="three"></a>
-## Tutorial 3: Polar Dendrogram
-<i>In this tutorial we will step through a workflow to produce a Polar dendrogram. Polar dendrograms are simply a circular form of a dendrogram based on the hierarchical structure of the similarity or dissimilarities from HCA. Polar dendrograms are interpreted by visually identifying the different clustered branches containing closely associated metabolites, the same way with dendrograms in HCH, however now following a circular format.</i>
+## Tutorial 3: Hierarchical Clustered Heatmap
+<p align="justify">
+<i>In this tutorial we will step through a workflow to produce a Hierarchical Clustered Heatmap (HCH). HCH is an exploratory data analysis technique which implements a two-way Hierarchical cluster analysis (HCA) (e.g. clustering samples and metabolites), and provides dendrograms and heatmaps to visualise the clustered data. HCA is a method by which the distance or correlation between individuals is measured, and then grouped together based on the similarities or dissimilarities between the distances or correlations of the individuals. The clustering itself is based on linkage clustering and determines the overall structure of the clusters. HCH is interpreted through visually identify the different clusters in the heatmap as groups of different colour representations of the clustering score, with the highest score representing one colour choice, and the lowest score representing the other colour choice, and everything between being lighter or darker shade variants. The different clustered colours in the heatmap are also represented in the dendrograms for each axis as clustered branches.</i>
+</p>
 
-Launch tutorial 3 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial3.ipynb)
+Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial3.ipynb)
 
 <br />
 
 <a id="four"></a>
-## Tutorial 4: Spring-embedded network
-<i>In this tutorial we will step through a workflow to produce a Spring-embedded network (SEN) plot. SEN plots provide a means to represent correlations in an undirected graph where each node represents a metabolite and the spring constant of each edge between nodes represents the correlation coefficient. When the tension on the graph is allowed to relax and put in a low energy configuration, the springs push the nodes to their furthest allowed distance from each other in the graph layout. Where there are edges with higher correlation coefficients the spring tightens bringing nodes closer together and where there are lower correlation coefficients the spring loosens and stretches. SEN plots form a type of multivariate cluster analysis, where nodes clustered together are more positively correlated and nodes further apart are considered more negatively correlated.Additionally, univariate statistical analysis is also included in the form of p-values and other univariate statistics, such as p-values used for the size of nodes (made to be inversely proportional with larger nodes being more significant), or VIP scores, D-ratio etc. The colours of the nodes can also be associated with other variables such as correlation to drug concentrations, positive/negative fold change, classes of metabolites or other data types, and the colours of the edges can also be used to represent the positive/negative value of the correlations. SEN plots can also be made to be interactive, allowing for further exploratory data analysis.</i>
+## Tutorial 4: Polar Dendrogram
+<i>In this tutorial we will step through a workflow to produce a Polar dendrogram. Polar dendrograms are simply a circular form of a dendrogram based on the hierarchical structure of the similarity or dissimilarities from HCA. Polar dendrograms are interpreted by visually identifying the different clustered branches containing closely associated metabolites, the same way with dendrograms in HCH, however now following a circular format.</i>
 
 Launch tutorial 4 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial4.ipynb)
 
 <br />
 
 <a id="five"></a>
-## Tutorial 5: Hierarchical Edge Bundle
-<i>In this tutorial we will step through a workflow to produce a Hierarchical edge bundle (HEB) plot. HEB plots are another means to visualise correlations in a circular hierarchical tree structure, with nodes on the outside and edges passing through the circle following a bundled curve until they connect to other nodes. The edges represent correlation coefficients and can be coloured accordingly based on the sign of the correlation and different classes or groups within the data can also be reflected in the HEB plot to illustrate how the different groups are correlated and to what degree. HEB plots are also interactive, allowing for further exploratory data analysis.</i>
+## Tutorial 5: Spring-embedded network
+<i>In this tutorial we will step through a workflow to produce a Spring-embedded network (SEN) plot. SEN plots provide a means to represent correlations in an undirected graph where each node represents a metabolite and the spring constant of each edge between nodes represents the correlation coefficient. When the tension on the graph is allowed to relax and put in a low energy configuration, the springs push the nodes to their furthest allowed distance from each other in the graph layout. Where there are edges with higher correlation coefficients the spring tightens bringing nodes closer together and where there are lower correlation coefficients the spring loosens and stretches. SEN plots form a type of multivariate cluster analysis, where nodes clustered together are more positively correlated and nodes further apart are considered more negatively correlated.Additionally, univariate statistical analysis is also included in the form of p-values and other univariate statistics, such as p-values used for the size of nodes (made to be inversely proportional with larger nodes being more significant), or VIP scores, D-ratio etc. The colours of the nodes can also be associated with other variables such as correlation to drug concentrations, positive/negative fold change, classes of metabolites or other data types, and the colours of the edges can also be used to represent the positive/negative value of the correlations. SEN plots can also be made to be interactive, allowing for further exploratory data analysis.</i>
 
 Launch tutorial 5 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial5.ipynb)
+
+<br />
+
+<a id="six"></a>
+## Tutorial 6: Hierarchical Edge Bundle
+<i>In this tutorial we will step through a workflow to produce a Hierarchical edge bundle (HEB) plot. HEB plots are another means to visualise correlations in a circular hierarchical tree structure, with nodes on the outside and edges passing through the circle following a bundled curve until they connect to other nodes. The edges represent correlation coefficients and can be coloured accordingly based on the sign of the correlation and different classes or groups within the data can also be reflected in the HEB plot to illustrate how the different groups are correlated and to what degree. HEB plots are also interactive, allowing for further exploratory data analysis.</i>
+
+Launch tutorial 6 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial6.ipynb)
 
 <br/>
 
