@@ -7,7 +7,7 @@
             <style> 
         .node {
             font: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 1vw;
+            font-size: 1vmin;            
         }
         
         body {background-color: white;}
@@ -76,6 +76,8 @@
        
         #wrapper {
             position: relative;
+            width: 100%;
+            height: 100%;
             margin: 0 auto;
             margin-top: auto;
             margin-bottom: auto;
@@ -210,11 +212,16 @@
         var edgeBundle = d3.select(canvas).append("svg").attr("id", "edgeBundle");
         
         function redraw(){
-                    
-            var diameter = canvas.clientWidth;
-                  
-            //var diagonal = Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2))
-                                    
+            
+            var width = canvas.clientWidth;
+            var height = canvas.clientHeight;
+            
+            if (height < width) {
+                diameter = height;
+            } else {
+                diameter = width;            
+            }
+                                                
             var radius = diameter / 2;
             var innerRadius = radius - 120;        
         
@@ -243,10 +250,16 @@
                     
                         svgNodes = d3.select('svg#edgeBundle').selectAll(".node")
                                                 
-                        var currentFontSize = svgNodes.style('font-size');
+                        var currentFontSize = parseFloat(svgNodes.style('font-size'));
+                        
+                        var scaled_font_size = currentFontSize/scaleFactor
+                        
+                        var scaled_font_size = scaled_font_size.toString();
+                        
+                        var scaled_font_size = scaled_font_size.concat("", "px");
                         
                         //Scale down the font size prior to saving
-                        svgNodes.style('font-size', currentFontSize/scaleFactor);
+                        svgNodes.style('font-size', scaled_font_size);
                         
                         var options = {
                                 canvg: window.canvg,
@@ -261,6 +274,10 @@
                         }
 		    
                         saveSvgAsPng(d3.select('svg#edgeBundle').node(), "edgeBundle.png", options);
+                        
+                        var currentFontSize = currentFontSize.toString();
+                        
+                        var currentFontSize = currentFontSize.concat("", "px");
                         
                         //Scale font size back to original after saving
                         svgNodes.style('font-size', currentFontSize);
