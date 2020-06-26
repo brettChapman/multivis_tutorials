@@ -4,13 +4,7 @@
 This repository contains the tutorials for the Metabolomics review paper "Multivariate visualisation strategies in metabolomics: A review". There are six different tutorials explaining visualisations from PCA, PCoA, Hierarchical Clustered Heatmaps (HCH), Polar Dendrograms, Spring-embedded network plots, and Hierarchical Edge Bundle plots, all demonstrated using a dataset from (<a href="https://physoc.onlinelibrary.wiley.com/doi/full/10.1113/EP087159">Lawler et al. (2018)</a>) published in <i>Experimental Physiology</i>. The tutorials stress the importance of multivariate analysis and provides multiple options for multivariate visualisation. Each tutorial can be downloaded and run locally through Jupyter Notebook or run on the cloud through Binder.
 </p>
 
-<br />
-
-## Demo example plots
-
-![HCH](clusterMap.png)
-
-    
+<br />   
 ## Quick Start
 
 #### *To launch the tutorial in the cloud:* [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master)
@@ -54,6 +48,8 @@ This repository contains the tutorials for the Metabolomics review paper "Multiv
 
 Launch tutorial 1 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial1.ipynb)
 
+![PCA](PCA_biplot.png)
+
 <br />
 
 <a id="two"></a>
@@ -64,6 +60,9 @@ Launch tutorial 1 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial2.ipynb)
 
+![PCoA](PCOA.png)
+
+<br />
 
 <a id="three"></a>
 ## Tutorial 3: Hierarchical Clustered Heatmap
@@ -73,6 +72,8 @@ Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial3.ipynb)
 
+![HCH](clusterMap.png)
+
 <br />
 
 <a id="four"></a>
@@ -80,6 +81,8 @@ Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 <i>In this tutorial we will step through a workflow to produce a Polar dendrogram. Polar dendrograms are simply a circular form of a dendrogram based on the hierarchical structure of the similarity or dissimilarities from HCA. Polar dendrograms are interpreted by visually identifying the different clustered branches containing closely associated metabolites, the same way with dendrograms in HCH, however now following a circular format.</i>
 
 Launch tutorial 4 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial4.ipynb)
+
+![Polar Dendrogram](polarDendrogram.png)
 
 <br />
 
@@ -89,6 +92,8 @@ Launch tutorial 4 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 Launch tutorial 5 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial5.ipynb)
 
+<iframe src"springNetwork.html" style="width: 800px; height: 800px:"></iframe>
+
 <br />
 
 <a id="six"></a>
@@ -96,6 +101,8 @@ Launch tutorial 5 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 <i>In this tutorial we will step through a workflow to produce a Hierarchical edge bundle (HEB) plot. HEB plots are another means to visualise correlations in a circular hierarchical tree structure, with nodes on the outside and edges passing through the circle following a bundled curve until they connect to other nodes. The edges represent correlation coefficients and can be coloured accordingly based on the sign of the correlation and different classes or groups within the data can also be reflected in the HEB plot to illustrate how the different groups are correlated and to what degree. HEB plots are also interactive, allowing for further exploratory data analysis.</i>
 
 Launch tutorial 6 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial6.ipynb)
+
+<iframe src"hEdgeBundle.html" style="width: 800px; height: 800px:"></iframe>
 
 <br/>
 
