@@ -1,8 +1,16 @@
 
-        <body>
-        
-            <style> 
-        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <head>
+	        <meta charset="utf-8">
+	        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" type="text/css" href="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.css">
+        </head>
+
+        <style> 
         body {
             background-color: white;            
         }
@@ -36,46 +44,27 @@
             pointer-events: none;
         }
         
-        #nodeSizeDropdown {
-            position: relative;
-            top: 25px;
-            
-        }
-        
-        #nodeColorDropdown {
-            position: relative;
-            top: 30px;
-        }
-        
-        #sliderText {
-            position: absolute;
-            top: 18px;
-            left: 0px;
-            color: 'black';
-        }
-        
         #slider {
-            position: absolute;
-            top: 20px;
-            left: 125px;
+            position: relative;
+            top: 2px;
         }
         
-        #sliderValue {
-            position: absolute;
-            top: 38px;
-            left: 350px;
-            color: 'black';
+        #nodeSizeDropdown, #nodeColorDropdown {  
+            position: relative;
+            margin-bottom: 10px;
+            left: 0px;
+            color: black;
         }
         
         #save {
             position: relative;
-            top: 35px;
-            left: 0px;                 
-        }  
+            left: 0px;
+            color: black;
+        }
         
-        #springWrapper {
-            position: relative;
-            height: 100%;                        
+        #springPanel {
+            position: relative;            
+            height: 800px;
             margin: 0 auto;
             margin-top: auto;
             margin-bottom: auto;
@@ -83,57 +72,161 @@
             margin-right: auto;
         }
         
-        #sliderValue, text {
-                    
+        .row {
+            padding-left: 15px;
+        }  
+        
+        text {
+                        
             font-family: sans-serif;
-                -webkit-touch-callout: none; /* iOS Safari */
-                -webkit-user-select: none; /* Safari */
-                -khtml-user-select: none; /* Konqueror HTML */
-                -moz-user-select: none; /* Firefox */
-                -ms-user-select: none; /* Internet Explorer/Edge */
-                user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
         }
         
-         </style>
-            
-            <div id="springWrapper">
-            
-                <form id="search"></form>
-            
-                <h3 id="sliderText"></h3>
-                <div id="slider"></div>
-                <h3><span style="white-space: nowrap;" id="sliderValue"></span></h3>
-            
-                <div id="nodeSizeDropdown"></div>
-                
-                <div id="nodeColorDropdown"></div>
-            
-                <button id='save'>Save</button>            
-            
-            </div>
-            
-            <script src="https://d3js.org/d3.v5.min.js"></script>
-            <script src="https://unpkg.com/d3-simple-slider@1.5.4/dist/d3-simple-slider.min.js"></script>
-            <script src="https://github.com/canvg/canvg/blob/master/src/canvg.js"></script>
-            <script src="https://exupero.org/saveSvgAsPng/src/saveSvgAsPng.js"></script>
-             
-            <script> 
-                
-        var params = JSON.parse(JSON.stringify({'link_type': 'score', 'link_width': 0.5, 'node_text_size': 15, 'displayLabel': 'true', 'node_data': ['Name', 'Label', 'Mode', 'mz', 'rt', 'F', 'pvalue', 'pFDR', 'RSD', 'Dratio'], 'node_size_scale': {'pvalue': {'scale': 'reverse_linear', 'range': [5, 30]}, 'pFDR': {'scale': 'reverse_linear', 'range': [10, 30]}, 'F': {'scale': 'log', 'range': [10, 50]}, 'RSD': {'scale': 'reverse_log', 'range': [5, 20]}, 'Dratio': {'scale': 'log', 'range': [5, 20]}}, 'chargeStrength': -120, 'fix_nodes': 'true'}));
-            
-        var networkData = "{\"nodes\": [{\"id\": 0, \"Idx\": \"1\", \"Name\": \"M1\", \"Label\": \"Ocatanedioic acid\", \"Mode\": \"Negative\", \"mz\": \"173.0814936\", \"rt\": \"528.593\", \"F\": \"1.20580499949928\", \"pvalue\": \"0.316809429654668\", \"pFDR\": \"0.290528592310766\", \"RSD\": \"10.4712294328065\", \"Dratio\": \"2.8872207484304\", \"color\": \"#4daf4a\"}, {\"id\": 2, \"Idx\": \"3\", \"Name\": \"M3\", \"Label\": \"Dodecanedioc acid\", \"Mode\": \"Negative\", \"mz\": \"229.143848\", \"rt\": \"966.471\", \"F\": \"3.65988782518355\", \"pvalue\": \"0.0790391935278154\", \"pFDR\": \"0.191245625859604\", \"RSD\": \"19.8564515336576\", \"Dratio\": \"3.21674171536072\", \"color\": \"#e41a1c\"}, {\"id\": 7, \"Idx\": \"8\", \"Name\": \"M8\", \"Label\": \"Glycocholic acid\", \"Mode\": \"Negative\", \"mz\": \"464.2996324\", \"rt\": \"979.16\", \"F\": \"7.62627977928109\", \"pvalue\": \"0.0055561816777377\", \"pFDR\": \"0.0760327539927116\", \"RSD\": \"11.9023111972631\", \"Dratio\": \"7.4631773966264\", \"color\": \"#e41a1c\"}, {\"id\": 8, \"Idx\": \"9\", \"Name\": \"M9\", \"Label\": \"L-Tryptophan\", \"Mode\": \"Negative\", \"mz\": \"203.0821552\", \"rt\": \"337.889\", \"F\": \"1.33582291749258\", \"pvalue\": \"0.287394237048956\", \"pFDR\": \"0.284527643984525\", \"RSD\": \"4.28942262139224\", \"Dratio\": \"3.48064971062249\", \"color\": \"#4daf4a\"}, {\"id\": 9, \"Idx\": \"10\", \"Name\": \"M10\", \"Label\": \"Hexadecanedioic acid\", \"Mode\": \"Negative\", \"mz\": \"285.2057299\", \"rt\": \"1344.61\", \"F\": \"0.554781791967447\", \"pvalue\": \"0.543472507847197\", \"pFDR\": \"0.328266939980167\", \"RSD\": \"9.53718839791506\", \"Dratio\": \"4.94217218241756\", \"color\": \"#ffff33\"}, {\"id\": 10, \"Idx\": \"11\", \"Name\": \"M11\", \"Label\": \"Pseudouridine\", \"Mode\": \"Negative\", \"mz\": \"243.0612565\", \"rt\": \"85.364\", \"F\": \"1.6435444299445\", \"pvalue\": \"0.221582868255957\", \"pFDR\": \"0.264951112801882\", \"RSD\": \"3.20575216891402\", \"Dratio\": \"5.19485252302597\", \"color\": \"#4daf4a\"}, {\"id\": 24, \"Idx\": \"25\", \"Name\": \"M25\", \"Label\": \"Phenylalanine\", \"Mode\": \"Positive\", \"mz\": \"166.0867342\", \"rt\": \"282.6595\", \"F\": \"2.25529291656826\", \"pvalue\": \"0.13912098916702\", \"pFDR\": \"0.234071408622749\", \"RSD\": \"5.50620215040509\", \"Dratio\": \"4.749588166799\", \"color\": \"#377eb8\"}, {\"id\": 1, \"Idx\": \"2\", \"Name\": \"M2\", \"Label\": \"Glycoursodeoxycholic acid\", \"Mode\": \"Negative\", \"mz\": \"448.3048795\", \"rt\": \"1158.75\", \"F\": \"6.6741169557049\", \"pvalue\": \"0.00738194291064731\", \"pFDR\": \"0.0797503547732716\", \"RSD\": \"4.70683906005692\", \"Dratio\": \"24.3148629492232\", \"color\": \"#e41a1c\"}, {\"id\": 5, \"Idx\": \"6\", \"Name\": \"M6\", \"Label\": \"Lactic Acid\", \"Mode\": \"Negative\", \"mz\": \"89.02512203\", \"rt\": \"84.363\", \"F\": \"4.92863410270874\", \"pvalue\": \"0.020552209789679\", \"pFDR\": \"0.111017251280658\", \"RSD\": \"10.3418071336858\", \"Dratio\": \"2.33253381281317\", \"color\": \"#e41a1c\"}, {\"id\": 12, \"Idx\": \"13\", \"Name\": \"M13\", \"Label\": \"L-Tyrosine\", \"Mode\": \"Negative\", \"mz\": \"180.0662313\", \"rt\": \"147.197\", \"F\": \"5.99178957598754\", \"pvalue\": \"0.0166447400985999\", \"pFDR\": \"0.107327359243358\", \"RSD\": \"9.40973021335313\", \"Dratio\": \"3.26851257085017\", \"color\": \"#e41a1c\"}, {\"id\": 25, \"Idx\": \"26\", \"Name\": \"M26\", \"Label\": \"Adenosine\", \"Mode\": \"Positive\", \"mz\": \"268.1044997\", \"rt\": \"234.219\", \"F\": \"8.87246686536154\", \"pvalue\": \"0.00218763259640172\", \"pFDR\": \"0.0549851100616676\", \"RSD\": \"8.1534965929558\", \"Dratio\": \"9.30871395831041\", \"color\": \"#e41a1c\"}, {\"id\": 19, \"Idx\": \"20\", \"Name\": \"M20\", \"Label\": \"L-Proline\", \"Mode\": \"Positive\", \"mz\": \"116.0716384\", \"rt\": \"56.656\", \"F\": \"6.9497544268455\", \"pvalue\": \"0.0113572429929878\", \"pFDR\": \"0.0896633812508486\", \"RSD\": \"5.94164179117505\", \"Dratio\": \"6.73931526213702\", \"color\": \"#e41a1c\"}, {\"id\": 30, \"Idx\": \"31\", \"Name\": \"M31\", \"Label\": \"Tetradecanedioc acid\", \"Mode\": \"Positive\", \"mz\": \"520.3400103\", \"rt\": \"1436.77\", \"F\": \"2.28272289102931\", \"pvalue\": \"0.157126086204619\", \"pFDR\": \"0.239202968102066\", \"RSD\": \"16.4525760572793\", \"Dratio\": \"2.1451117209936\", \"color\": \"#377eb8\"}, {\"id\": 3, \"Idx\": \"4\", \"Name\": \"M4\", \"Label\": \"Succinic Acid\", \"Mode\": \"Negative\", \"mz\": \"117.0193225\", \"rt\": \"133.4985\", \"F\": \"0.415028135103856\", \"pvalue\": \"0.626102281483585\", \"pFDR\": \"0.341497981950194\", \"RSD\": \"5.57758173557696\", \"Dratio\": \"4.02560182591193\", \"color\": \"#ffff33\"}, {\"id\": 4, \"Idx\": \"5\", \"Name\": \"M5\", \"Label\": \"Citric Acid\", \"Mode\": \"Negative\", \"mz\": \"191.019367\", \"rt\": \"109.544\", \"F\": \"0.741641380659948\", \"pvalue\": \"0.43526594776887\", \"pFDR\": \"0.311668591419043\", \"RSD\": \"9.17087428507904\", \"Dratio\": \"2.41711519436577\", \"color\": \"#ff7f00\"}, {\"id\": 22, \"Idx\": \"23\", \"Name\": \"M23\", \"Label\": \"Tiglylcarnitine\", \"Mode\": \"Positive\", \"mz\": \"244.1547025\", \"rt\": \"377.654\", \"F\": \"5.59387431237903\", \"pvalue\": \"0.0147709507601346\", \"pFDR\": \"0.102201022523215\", \"RSD\": \"11.3892447497005\", \"Dratio\": \"3.26334888333282\", \"color\": \"#e41a1c\"}, {\"id\": 26, \"Idx\": \"27\", \"Name\": \"M27\", \"Label\": \"2-Octenoylcarnitine\", \"Mode\": \"Positive\", \"mz\": \"286.2015687\", \"rt\": \"733.323\", \"F\": \"3.25899622958699\", \"pvalue\": \"0.0691691202928987\", \"pFDR\": \"0.181637787173238\", \"RSD\": \"5.09172697780684\", \"Dratio\": \"12.793497260172\", \"color\": \"#e41a1c\"}, {\"id\": 17, \"Idx\": \"18\", \"Name\": \"M18\", \"Label\": \"N-Phenylacetylglutamine\", \"Mode\": \"Positive\", \"mz\": \"265.1185383\", \"rt\": \"431.609\", \"F\": \"1.7535246837068\", \"pvalue\": \"0.2105977111565\", \"pFDR\": \"0.26252066462609\", \"RSD\": \"11.5769623523093\", \"Dratio\": \"4.59639777382069\", \"color\": \"#377eb8\"}, {\"id\": 6, \"Idx\": \"7\", \"Name\": \"M7\", \"Label\": \"5-Hydroxytryptophan\", \"Mode\": \"Negative\", \"mz\": \"219.0768091\", \"rt\": \"217.493\", \"F\": \"1.25429929524897\", \"pvalue\": \"0.303982625217717\", \"pFDR\": \"0.286883151078054\", \"RSD\": \"16.8767206661306\", \"Dratio\": \"1.56437420232442\", \"color\": \"#4daf4a\"}, {\"id\": 14, \"Idx\": \"15\", \"Name\": \"M15\", \"Label\": \"L-kynurenine\", \"Mode\": \"Positive\", \"mz\": \"209.0927368\", \"rt\": \"276.984\", \"F\": \"0.319247535317545\", \"pvalue\": \"0.692310492334444\", \"pFDR\": \"0.350593722698766\", \"RSD\": \"5.17865186714287\", \"Dratio\": \"5.65052021106375\", \"color\": \"#a65628\"}, {\"id\": 15, \"Idx\": \"16\", \"Name\": \"M16\", \"Label\": \"5-methoxyindole acetic acid\", \"Mode\": \"Positive\", \"mz\": \"206.081515\", \"rt\": \"571.1215\", \"F\": \"0.709517138467766\", \"pvalue\": \"0.48625231217395\", \"pFDR\": \"0.317531477283698\", \"RSD\": \"9.41871509843643\", \"Dratio\": \"3.11389510574256\", \"color\": \"#ff7f00\"}, {\"id\": 20, \"Idx\": \"21\", \"Name\": \"M21\", \"Label\": \"Indole-3-acetic acid\", \"Mode\": \"Positive\", \"mz\": \"176.0711015\", \"rt\": \"645.97\", \"F\": \"0.0122606069327192\", \"pvalue\": \"0.975768069413858\", \"pFDR\": \"0.405038073655443\", \"RSD\": \"7.19041618128093\", \"Dratio\": \"4.63330305499193\", \"color\": \"#999999\"}, {\"id\": 28, \"Idx\": \"29\", \"Name\": \"M29\", \"Label\": \"Cortisol \", \"Mode\": \"Positive\", \"mz\": \"363.217288\", \"rt\": \"779.069\", \"F\": \"3.83166105052219\", \"pvalue\": \"0.0478722499051548\", \"pFDR\": \"0.167497360787185\", \"RSD\": \"4.94256748210212\", \"Dratio\": \"10.4163145783544\", \"color\": \"#e41a1c\"}, {\"id\": 18, \"Idx\": \"19\", \"Name\": \"M19\", \"Label\": \"L-Methionine\", \"Mode\": \"Positive\", \"mz\": \"150.0587442\", \"rt\": \"91.824\", \"F\": \"3.53514377309872\", \"pvalue\": \"0.0626089680675837\", \"pFDR\": \"0.178492343562938\", \"RSD\": \"8.64583168129658\", \"Dratio\": \"3.89815801526016\", \"color\": \"#e41a1c\"}, {\"id\": 11, \"Idx\": \"12\", \"Name\": \"M12\", \"Label\": \"Uric acid\", \"Mode\": \"Negative\", \"mz\": \"335.0480195\", \"rt\": \"94.622\", \"F\": \"1.81229025915499\", \"pvalue\": \"0.19267708311762\", \"pFDR\": \"0.254613216625571\", \"RSD\": \"4.05003744537164\", \"Dratio\": \"3.41003186997637\", \"color\": \"#377eb8\"}, {\"id\": 21, \"Idx\": \"22\", \"Name\": \"M22\", \"Label\": \"N-Acetyl-L-Carnosine\", \"Mode\": \"Positive\", \"mz\": \"269.1244755\", \"rt\": \"86.4285\", \"F\": \"1.38601671741523\", \"pvalue\": \"0.275898715204706\", \"pFDR\": \"0.279896703904986\", \"RSD\": \"16.1867420693445\", \"Dratio\": \"2.74485776155857\", \"color\": \"#4daf4a\"}, {\"id\": 16, \"Idx\": \"17\", \"Name\": \"M17\", \"Label\": \"Linoleic acida\", \"Mode\": \"Positive\", \"mz\": \"281.2480499\", \"rt\": \"1874.25\", \"F\": \"2.4896267766394\", \"pvalue\": \"0.112329435663305\", \"pFDR\": \"0.217522033318334\", \"RSD\": \"14.1852213838824\", \"Dratio\": \"3.77599733726548\", \"color\": \"#377eb8\"}, {\"id\": 31, \"Idx\": \"32\", \"Name\": \"M32\", \"Label\": \"Bilirubin\", \"Mode\": \"Positive\", \"mz\": \"585.2705643\", \"rt\": \"2059.93\", \"F\": \"10.7952965941857\", \"pvalue\": \"0.00197127360314567\", \"pFDR\": \"0.053951209522482\", \"RSD\": \"12.0698594478432\", \"Dratio\": \"4.47565519524638\", \"color\": \"#e41a1c\"}, {\"id\": 13, \"Idx\": \"14\", \"Name\": \"M14\", \"Label\": \"Hypoxanthine\", \"Mode\": \"Positive\", \"mz\": \"137.0463946\", \"rt\": \"100.593\", \"F\": \"3.31714245291838\", \"pvalue\": \"0.0618275109477684\", \"pFDR\": \"0.177911813619459\", \"RSD\": \"4.13574593254638\", \"Dratio\": \"7.85418774439855\", \"color\": \"#e41a1c\"}, {\"id\": 23, \"Idx\": \"24\", \"Name\": \"M24\", \"Label\": \"cis-Aconitic acid\", \"Mode\": \"Positive\", \"mz\": \"175.0241655\", \"rt\": \"108.0405\", \"F\": \"0.597833901234562\", \"pvalue\": \"0.499568785381846\", \"pFDR\": \"0.320784580564316\", \"RSD\": \"19.0264380635713\", \"Dratio\": \"1.73876227280005\", \"color\": \"#ff7f00\"}], \"links\": [{\"source\": 0, \"target\": 2, \"weight\": 0.4547697002026427, \"color\": \"red\"}, {\"source\": 0, \"target\": 7, \"weight\": 0.4235313258316822, \"color\": \"red\"}, {\"source\": 0, \"target\": 8, \"weight\": 0.4434955315557379, \"color\": \"red\"}, {\"source\": 0, \"target\": 9, \"weight\": 0.42419323920509455, \"color\": \"red\"}, {\"source\": 0, \"target\": 10, \"weight\": 0.40350481850693465, \"color\": \"red\"}, {\"source\": 0, \"target\": 24, \"weight\": 0.42686240365623795, \"color\": \"red\"}, {\"source\": 2, \"target\": 5, \"weight\": 0.4004522251911742, \"color\": \"red\"}, {\"source\": 2, \"target\": 7, \"weight\": 0.4844641572289073, \"color\": \"red\"}, {\"source\": 2, \"target\": 9, \"weight\": 0.5011960761652083, \"color\": \"red\"}, {\"source\": 2, \"target\": 19, \"weight\": 0.5025890733996604, \"color\": \"red\"}, {\"source\": 2, \"target\": 30, \"weight\": 0.44546249946491373, \"color\": \"red\"}, {\"source\": 7, \"target\": 5, \"weight\": 0.44966091576957695, \"color\": \"red\"}, {\"source\": 7, \"target\": 8, \"weight\": 0.5522804561236638, \"color\": \"red\"}, {\"source\": 7, \"target\": 9, \"weight\": 0.37095937942009927, \"color\": \"red\"}, {\"source\": 7, \"target\": 12, \"weight\": 0.6731023566843768, \"color\": \"red\"}, {\"source\": 7, \"target\": 18, \"weight\": 0.7460030363167851, \"color\": \"red\"}, {\"source\": 7, \"target\": 19, \"weight\": 0.7097283501217914, \"color\": \"red\"}, {\"source\": 7, \"target\": 24, \"weight\": 0.5118494073341066, \"color\": \"red\"}, {\"source\": 7, \"target\": 25, \"weight\": 0.4115540959200865, \"color\": \"red\"}, {\"source\": 7, \"target\": 30, \"weight\": 0.40074659764667964, \"color\": \"red\"}, {\"source\": 8, \"target\": 10, \"weight\": 0.40246807986109856, \"color\": \"red\"}, {\"source\": 8, \"target\": 12, \"weight\": 0.7775873336501062, \"color\": \"red\"}, {\"source\": 8, \"target\": 18, \"weight\": 0.5846687758683451, \"color\": \"red\"}, {\"source\": 8, \"target\": 24, \"weight\": 0.5841535531341525, \"color\": \"red\"}, {\"source\": 9, \"target\": 10, \"weight\": 0.48581436038909925, \"color\": \"red\"}, {\"source\": 9, \"target\": 11, \"weight\": 0.3434068387242718, \"color\": \"red\"}, {\"source\": 9, \"target\": 14, \"weight\": 0.33444702777288016, \"color\": \"red\"}, {\"source\": 9, \"target\": 15, \"weight\": 0.3412666757084098, \"color\": \"red\"}, {\"source\": 9, \"target\": 19, \"weight\": 0.408384070930546, \"color\": \"red\"}, {\"source\": 9, \"target\": 21, \"weight\": 0.3475876631972028, \"color\": \"red\"}, {\"source\": 10, \"target\": 3, \"weight\": 0.38240386705184826, \"color\": \"red\"}, {\"source\": 10, \"target\": 4, \"weight\": 0.35632616337210815, \"color\": \"red\"}, {\"source\": 10, \"target\": 16, \"weight\": 0.3369848187409419, \"color\": \"red\"}, {\"source\": 10, \"target\": 24, \"weight\": 0.35563707106340586, \"color\": \"red\"}, {\"source\": 24, \"target\": 1, \"weight\": 0.3178771023277117, \"color\": \"red\"}, {\"source\": 24, \"target\": 12, \"weight\": 0.5007293873922372, \"color\": \"red\"}, {\"source\": 24, \"target\": 18, \"weight\": 0.4481244060423967, \"color\": \"red\"}, {\"source\": 24, \"target\": 19, \"weight\": 0.34738316355877474, \"color\": \"red\"}, {\"source\": 1, \"target\": 5, \"weight\": 0.40990437326781093, \"color\": \"red\"}, {\"source\": 1, \"target\": 12, \"weight\": 0.31878620785475803, \"color\": \"red\"}, {\"source\": 1, \"target\": 25, \"weight\": 0.3740907406749846, \"color\": \"red\"}, {\"source\": 5, \"target\": 19, \"weight\": 0.44668311928473703, \"color\": \"red\"}, {\"source\": 5, \"target\": 25, \"weight\": 0.4483867913163057, \"color\": \"red\"}, {\"source\": 5, \"target\": 30, \"weight\": 0.3126120956104148, \"color\": \"red\"}, {\"source\": 12, \"target\": 18, \"weight\": 0.7635537711364857, \"color\": \"red\"}, {\"source\": 12, \"target\": 19, \"weight\": 0.5123988131056694, \"color\": \"red\"}, {\"source\": 12, \"target\": 25, \"weight\": 0.31288425365666284, \"color\": \"red\"}, {\"source\": 12, \"target\": 30, \"weight\": 0.34367788062517207, \"color\": \"red\"}, {\"source\": 19, \"target\": 14, \"weight\": 0.3627230153583134, \"color\": \"red\"}, {\"source\": 19, \"target\": 18, \"weight\": 0.5925609131198953, \"color\": \"red\"}, {\"source\": 19, \"target\": 21, \"weight\": 0.5069514971279656, \"color\": \"red\"}, {\"source\": 19, \"target\": 30, \"weight\": 0.6313914849805888, \"color\": \"red\"}, {\"source\": 30, \"target\": 21, \"weight\": 0.43776815487022946, \"color\": \"red\"}, {\"source\": 30, \"target\": 23, \"weight\": 0.3160133483961805, \"color\": \"red\"}, {\"source\": 3, \"target\": 4, \"weight\": 0.37586115947373133, \"color\": \"red\"}, {\"source\": 3, \"target\": 22, \"weight\": 0.4319658241625961, \"color\": \"red\"}, {\"source\": 3, \"target\": 26, \"weight\": 0.4319741374971302, \"color\": \"red\"}, {\"source\": 4, \"target\": 17, \"weight\": 0.4324354874558965, \"color\": \"red\"}, {\"source\": 22, \"target\": 11, \"weight\": 0.5037010307246242, \"color\": \"red\"}, {\"source\": 22, \"target\": 14, \"weight\": 0.3283530572299838, \"color\": \"red\"}, {\"source\": 22, \"target\": 15, \"weight\": 0.571753662952238, \"color\": \"red\"}, {\"source\": 22, \"target\": 17, \"weight\": 0.4102762372353547, \"color\": \"red\"}, {\"source\": 22, \"target\": 26, \"weight\": 0.5300819528805065, \"color\": \"red\"}, {\"source\": 22, \"target\": 28, \"weight\": 0.6256012559834364, \"color\": \"red\"}, {\"source\": 26, \"target\": 16, \"weight\": 0.5813054743897101, \"color\": \"red\"}, {\"source\": 26, \"target\": 17, \"weight\": 0.5463646224376507, \"color\": \"red\"}, {\"source\": 26, \"target\": 28, \"weight\": 0.48534288021584326, \"color\": \"red\"}, {\"source\": 17, \"target\": 20, \"weight\": 0.5047208256566542, \"color\": \"red\"}, {\"source\": 17, \"target\": 28, \"weight\": 0.6551557826074689, \"color\": \"red\"}, {\"source\": 6, \"target\": 14, \"weight\": 0.5056415820297622, \"color\": \"red\"}, {\"source\": 6, \"target\": 15, \"weight\": 0.46228685355151217, \"color\": \"red\"}, {\"source\": 6, \"target\": 20, \"weight\": 0.4225659695114665, \"color\": \"red\"}, {\"source\": 6, \"target\": 28, \"weight\": 0.36601780086358604, \"color\": \"red\"}, {\"source\": 14, \"target\": 13, \"weight\": 0.31353862201792404, \"color\": \"red\"}, {\"source\": 14, \"target\": 15, \"weight\": 0.5514863476047512, \"color\": \"red\"}, {\"source\": 14, \"target\": 18, \"weight\": 0.3257725051123931, \"color\": \"red\"}, {\"source\": 14, \"target\": 21, \"weight\": 0.5166947211245551, \"color\": \"red\"}, {\"source\": 15, \"target\": 11, \"weight\": 0.578625436655811, \"color\": \"red\"}, {\"source\": 15, \"target\": 21, \"weight\": 0.39577579053489714, \"color\": \"red\"}, {\"source\": 20, \"target\": 28, \"weight\": 0.5452977767028065, \"color\": \"red\"}, {\"source\": 11, \"target\": 21, \"weight\": 0.4606125864723005, \"color\": \"red\"}, {\"source\": 11, \"target\": 31, \"weight\": 0.33560635986919357, \"color\": \"red\"}, {\"source\": 21, \"target\": 23, \"weight\": 0.38703990088106976, \"color\": \"red\"}]}"
+        td:nth-child(odd) {
+            background-color: #eee;
+            font-weight: bold;
+        }
+               
+        .slider.rzslider .rz-bar {
+            background: #D3D3D3;
+            height: 2px;
+        }
         
-        var canvas = document.getElementById("springWrapper");
+        .slider.rzslider .rz-pointer {
+            width: 8px;
+            height: 20px;
+            top: auto; /* to remove the default positioning */
+            bottom: 0;
+            background-color: #333;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+        }
+        
+        .slider.rzslider .rz-pointer:after {
+            display: none;
+        }
+        
+        form.searchBar {
+            padding-top: 4px;
+        }
+        
+        /* Style the search field */
+        form.searchBar input[type=text] {
+            padding: 3px;
+            font-size: 17px;
+            border: 1px solid grey;
+            float: left;
+            top: 30px;
+            width: 80%;
+            height: 30px;
+            background: #f1f1f1;
+        }
+        
+        /* Style the submit button */
+        form.searchBar button {
+            float: left;
+            width: 20%;
+            height: 30px;
+            padding: 3px;
+            background: #2196F3;
+            color: white;
+            font-size: 17px;
+            border: 1px solid grey;
+            border-left: none; /* Prevent double borders */
+            cursor: pointer;
+        }
+        
+        form.searchBar button:hover {
+            background: #0b7dda;
+        }
+        
+        /* Clear floats */
+        form.searchBar::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+         </style>
+
+        <body ng-app="rzSliderDemo">
+		        <div class="row" ng-controller="MainCtrl">
+			        <div class="col-4">
+				        <div class="row">
+                            <form class="searchBar">
+                                <input id="searchTerm" type="text" placeholder="Search.." name="search">
+                                <button type="submit" data-ng-click="searchNodes()"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                        
+                        <rzslider id="slider" class="slider" rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
+                        
+                        <div id="nodeSizeDropdown" class="row">Size nodes by 
+                            <select ng-options="o for o in node_size_options" data-ng-model="selectedNodeSizeOption" ng-change="updateNodeSize()"></select>
+                        </div>
+                       
+                        <div id="nodeColorDropdown" class="row">Colour nodes by 
+                            <select ng-options="o for o in node_coloring_options" data-ng-model="selectedNodeColorOption" ng-change="updateNodeColor()"></select> using
+                            <select ng-options="o for o in color_options" data-ng-model="selectedColorOption" ng-change="updateNodeColor()"></select> colour palette
+                        </div>
+              
+                        <div id="save" class="row">
+                            <button class="mb-4" data-ng-click="savebutton()">Save</button>
+                        </div>
+					</div>		
+			    </div>
+			    
+                <div id="springPanel"></div>
+        </body>
+	    
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+	    
+	    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>        		
+	    <script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
+	    
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        
+        <script>
+            (function(){var g=typeof exports!="undefined"&&exports||this;var b='<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';function e(h){return h&&h.lastIndexOf("http",0)==0&&h.lastIndexOf(window.location.host)==-1}function a(k,m){var h=k.querySelectorAll("image");var l=h.length;if(l==0){m()}for(var j=0;j<h.length;j++){(function(q){var o=q.getAttributeNS("http://www.w3.org/1999/xlink","href");if(o){if(e(o.value)){console.warn("Cannot render embedded images linking to external hosts: "+o.value);return}}var p=document.createElement("canvas");var i=p.getContext("2d");var n=new Image();o=o||q.getAttribute("href");n.src=o;n.onload=function(){p.width=n.width;p.height=n.height;i.drawImage(n,0,0);q.setAttributeNS("http://www.w3.org/1999/xlink","href",p.toDataURL("image/png"));l--;if(l==0){m()}};n.onerror=function(){console.log("Could not load "+o);l--;if(l==0){m()}}})(h[j])}}function f(h,k){var r="";var q=document.styleSheets;for(var o=0;o<q.length;o++){try{var u=q[o].cssRules}catch(s){console.warn("Stylesheet could not be loaded: "+q[o].href);continue}if(u!=null){for(var n=0;n<u.length;n++){var t=u[n];if(typeof(t.style)!="undefined"){var p=null;try{p=h.querySelector(t.selectorText)}catch(m){console.warn('Invalid CSS selector "'+t.selectorText+'"',m)}if(p){var l=k?k(t.selectorText):t.selectorText;r+=l+" { "+t.style.cssText+" }\n"}else{if(t.cssText.match(/^@font-face/)){r+=t.cssText+"\n"}}}}}}return r}function d(i,k,j){var h=(i.viewBox.baseVal&&i.viewBox.baseVal[j])||(k.getAttribute(j)!==null&&!k.getAttribute(j).match(/%$/)&&parseInt(k.getAttribute(j)))||i.getBoundingClientRect()[j]||parseInt(k.style[j])||parseInt(window.getComputedStyle(i).getPropertyValue(j));return(typeof h==="undefined"||h===null||isNaN(parseFloat(h)))?0:h}function c(h){h=encodeURIComponent(h);h=h.replace(/%([0-9A-F]{2})/g,function(i,j){var k=String.fromCharCode("0x"+j);return k==="%"?"%25":k});return decodeURIComponent(h)}g.svgAsDataUri=function(j,i,h){i=i||{};i.scale=i.scale||1;var k="http://www.w3.org/2000/xmlns/";a(j,function(){var u=document.createElement("div");var r=j.cloneNode(true);var l,t;if(j.tagName=="svg"){l=i.width||d(j,r,"width");t=i.height||d(j,r,"height")}else{if(j.getBBox){var o=j.getBBox();l=o.x+o.width;t=o.y+o.height;r.setAttribute("transform",r.getAttribute("transform").replace(/translate\(.*?\)/,""));var p=document.createElementNS("http://www.w3.org/2000/svg","svg");p.appendChild(r);r=p}else{console.error("Attempted to render non-SVG element",j);return}}r.setAttribute("version","1.1");r.setAttributeNS(k,"xmlns","http://www.w3.org/2000/svg");r.setAttributeNS(k,"xmlns:xlink","http://www.w3.org/1999/xlink");r.setAttribute("width",l*i.scale);r.setAttribute("height",t*i.scale);r.setAttribute("viewBox",[i.left||0,i.top||0,l,t].join(" "));u.appendChild(r);var q=f(j,i.selectorRemap);var v=document.createElement("style");v.setAttribute("type","text/css");v.innerHTML="<![CDATA[\n"+q+"\n]]>";var n=document.createElement("defs");n.appendChild(v);r.insertBefore(n,r.firstChild);var p=b+u.innerHTML;var m="data:image/svg+xml;base64,"+window.btoa(c(p));if(h){h(m)}})};g.svgAsPngUri=function(j,i,h){g.svgAsDataUri(j,i,function(k){var l=new Image();l.onload=function(){var n=document.createElement("canvas");n.width=l.width;n.height=l.height;var o=n.getContext("2d");if(i&&i.backgroundColor){o.fillStyle=i.backgroundColor;o.fillRect(0,0,n.width,n.height)}o.drawImage(l,0,0);var m=document.createElement("a");h(n.toDataURL("image/png"))};l.src=k})};g.saveSvgAsPng=function(j,i,h){h=h||{};g.svgAsPngUri(j,h,function(l){var k=document.createElement("a");k.download=i;k.href=l;document.body.appendChild(k);k.addEventListener("click",function(m){k.parentNode.removeChild(k)});k.click()})}})();
+        </script>
+
+        <script> 
+        var networkData = "{\"nodes\": [{\"id\": 0, \"Idx\": \"1\", \"Name\": \"M1\", \"Label\": \"Ocatanedioic acid\", \"Mode\": \"Negative\", \"mz\": \"173.0814936\", \"rt\": \"528.593\", \"F\": \"1.20580499949928\", \"pvalue\": \"0.316809429654668\", \"pFDR\": \"0.290528592310766\", \"RSD\": \"10.4712294328065\", \"Dratio\": \"2.8872207484304\"}, {\"id\": 2, \"Idx\": \"3\", \"Name\": \"M3\", \"Label\": \"Dodecanedioc acid\", \"Mode\": \"Negative\", \"mz\": \"229.143848\", \"rt\": \"966.471\", \"F\": \"3.65988782518355\", \"pvalue\": \"0.0790391935278154\", \"pFDR\": \"0.191245625859604\", \"RSD\": \"19.8564515336576\", \"Dratio\": \"3.21674171536072\"}, {\"id\": 7, \"Idx\": \"8\", \"Name\": \"M8\", \"Label\": \"Glycocholic acid\", \"Mode\": \"Negative\", \"mz\": \"464.2996324\", \"rt\": \"979.16\", \"F\": \"7.62627977928109\", \"pvalue\": \"0.0055561816777377\", \"pFDR\": \"0.0760327539927116\", \"RSD\": \"11.9023111972631\", \"Dratio\": \"7.4631773966264\"}, {\"id\": 8, \"Idx\": \"9\", \"Name\": \"M9\", \"Label\": \"L-Tryptophan\", \"Mode\": \"Negative\", \"mz\": \"203.0821552\", \"rt\": \"337.889\", \"F\": \"1.33582291749258\", \"pvalue\": \"0.287394237048956\", \"pFDR\": \"0.284527643984525\", \"RSD\": \"4.28942262139224\", \"Dratio\": \"3.48064971062249\"}, {\"id\": 9, \"Idx\": \"10\", \"Name\": \"M10\", \"Label\": \"Hexadecanedioic acid\", \"Mode\": \"Negative\", \"mz\": \"285.2057299\", \"rt\": \"1344.61\", \"F\": \"0.554781791967447\", \"pvalue\": \"0.543472507847197\", \"pFDR\": \"0.328266939980167\", \"RSD\": \"9.53718839791506\", \"Dratio\": \"4.94217218241756\"}, {\"id\": 10, \"Idx\": \"11\", \"Name\": \"M11\", \"Label\": \"Pseudouridine\", \"Mode\": \"Negative\", \"mz\": \"243.0612565\", \"rt\": \"85.364\", \"F\": \"1.6435444299445\", \"pvalue\": \"0.221582868255957\", \"pFDR\": \"0.264951112801882\", \"RSD\": \"3.20575216891402\", \"Dratio\": \"5.19485252302597\"}, {\"id\": 24, \"Idx\": \"25\", \"Name\": \"M25\", \"Label\": \"Phenylalanine\", \"Mode\": \"Positive\", \"mz\": \"166.0867342\", \"rt\": \"282.6595\", \"F\": \"2.25529291656826\", \"pvalue\": \"0.13912098916702\", \"pFDR\": \"0.234071408622749\", \"RSD\": \"5.50620215040509\", \"Dratio\": \"4.749588166799\"}, {\"id\": 1, \"Idx\": \"2\", \"Name\": \"M2\", \"Label\": \"Glycoursodeoxycholic acid\", \"Mode\": \"Negative\", \"mz\": \"448.3048795\", \"rt\": \"1158.75\", \"F\": \"6.6741169557049\", \"pvalue\": \"0.00738194291064731\", \"pFDR\": \"0.0797503547732716\", \"RSD\": \"4.70683906005692\", \"Dratio\": \"24.3148629492232\"}, {\"id\": 5, \"Idx\": \"6\", \"Name\": \"M6\", \"Label\": \"Lactic Acid\", \"Mode\": \"Negative\", \"mz\": \"89.02512203\", \"rt\": \"84.363\", \"F\": \"4.92863410270874\", \"pvalue\": \"0.020552209789679\", \"pFDR\": \"0.111017251280658\", \"RSD\": \"10.3418071336858\", \"Dratio\": \"2.33253381281317\"}, {\"id\": 12, \"Idx\": \"13\", \"Name\": \"M13\", \"Label\": \"L-Tyrosine\", \"Mode\": \"Negative\", \"mz\": \"180.0662313\", \"rt\": \"147.197\", \"F\": \"5.99178957598754\", \"pvalue\": \"0.0166447400985999\", \"pFDR\": \"0.107327359243358\", \"RSD\": \"9.40973021335313\", \"Dratio\": \"3.26851257085017\"}, {\"id\": 25, \"Idx\": \"26\", \"Name\": \"M26\", \"Label\": \"Adenosine\", \"Mode\": \"Positive\", \"mz\": \"268.1044997\", \"rt\": \"234.219\", \"F\": \"8.87246686536154\", \"pvalue\": \"0.00218763259640172\", \"pFDR\": \"0.0549851100616676\", \"RSD\": \"8.1534965929558\", \"Dratio\": \"9.30871395831041\"}, {\"id\": 19, \"Idx\": \"20\", \"Name\": \"M20\", \"Label\": \"L-Proline\", \"Mode\": \"Positive\", \"mz\": \"116.0716384\", \"rt\": \"56.656\", \"F\": \"6.9497544268455\", \"pvalue\": \"0.0113572429929878\", \"pFDR\": \"0.0896633812508486\", \"RSD\": \"5.94164179117505\", \"Dratio\": \"6.73931526213702\"}, {\"id\": 30, \"Idx\": \"31\", \"Name\": \"M31\", \"Label\": \"Tetradecanedioc acid\", \"Mode\": \"Positive\", \"mz\": \"520.3400103\", \"rt\": \"1436.77\", \"F\": \"2.28272289102931\", \"pvalue\": \"0.157126086204619\", \"pFDR\": \"0.239202968102066\", \"RSD\": \"16.4525760572793\", \"Dratio\": \"2.1451117209936\"}, {\"id\": 3, \"Idx\": \"4\", \"Name\": \"M4\", \"Label\": \"Succinic Acid\", \"Mode\": \"Negative\", \"mz\": \"117.0193225\", \"rt\": \"133.4985\", \"F\": \"0.415028135103856\", \"pvalue\": \"0.626102281483585\", \"pFDR\": \"0.341497981950194\", \"RSD\": \"5.57758173557696\", \"Dratio\": \"4.02560182591193\"}, {\"id\": 4, \"Idx\": \"5\", \"Name\": \"M5\", \"Label\": \"Citric Acid\", \"Mode\": \"Negative\", \"mz\": \"191.019367\", \"rt\": \"109.544\", \"F\": \"0.741641380659948\", \"pvalue\": \"0.43526594776887\", \"pFDR\": \"0.311668591419043\", \"RSD\": \"9.17087428507904\", \"Dratio\": \"2.41711519436577\"}, {\"id\": 22, \"Idx\": \"23\", \"Name\": \"M23\", \"Label\": \"Tiglylcarnitine\", \"Mode\": \"Positive\", \"mz\": \"244.1547025\", \"rt\": \"377.654\", \"F\": \"5.59387431237903\", \"pvalue\": \"0.0147709507601346\", \"pFDR\": \"0.102201022523215\", \"RSD\": \"11.3892447497005\", \"Dratio\": \"3.26334888333282\"}, {\"id\": 26, \"Idx\": \"27\", \"Name\": \"M27\", \"Label\": \"2-Octenoylcarnitine\", \"Mode\": \"Positive\", \"mz\": \"286.2015687\", \"rt\": \"733.323\", \"F\": \"3.25899622958699\", \"pvalue\": \"0.0691691202928987\", \"pFDR\": \"0.181637787173238\", \"RSD\": \"5.09172697780684\", \"Dratio\": \"12.793497260172\"}, {\"id\": 17, \"Idx\": \"18\", \"Name\": \"M18\", \"Label\": \"N-Phenylacetylglutamine\", \"Mode\": \"Positive\", \"mz\": \"265.1185383\", \"rt\": \"431.609\", \"F\": \"1.7535246837068\", \"pvalue\": \"0.2105977111565\", \"pFDR\": \"0.26252066462609\", \"RSD\": \"11.5769623523093\", \"Dratio\": \"4.59639777382069\"}, {\"id\": 6, \"Idx\": \"7\", \"Name\": \"M7\", \"Label\": \"5-Hydroxytryptophan\", \"Mode\": \"Negative\", \"mz\": \"219.0768091\", \"rt\": \"217.493\", \"F\": \"1.25429929524897\", \"pvalue\": \"0.303982625217717\", \"pFDR\": \"0.286883151078054\", \"RSD\": \"16.8767206661306\", \"Dratio\": \"1.56437420232442\"}, {\"id\": 14, \"Idx\": \"15\", \"Name\": \"M15\", \"Label\": \"L-kynurenine\", \"Mode\": \"Positive\", \"mz\": \"209.0927368\", \"rt\": \"276.984\", \"F\": \"0.319247535317545\", \"pvalue\": \"0.692310492334444\", \"pFDR\": \"0.350593722698766\", \"RSD\": \"5.17865186714287\", \"Dratio\": \"5.65052021106375\"}, {\"id\": 15, \"Idx\": \"16\", \"Name\": \"M16\", \"Label\": \"5-methoxyindole acetic acid\", \"Mode\": \"Positive\", \"mz\": \"206.081515\", \"rt\": \"571.1215\", \"F\": \"0.709517138467766\", \"pvalue\": \"0.48625231217395\", \"pFDR\": \"0.317531477283698\", \"RSD\": \"9.41871509843643\", \"Dratio\": \"3.11389510574256\"}, {\"id\": 20, \"Idx\": \"21\", \"Name\": \"M21\", \"Label\": \"Indole-3-acetic acid\", \"Mode\": \"Positive\", \"mz\": \"176.0711015\", \"rt\": \"645.97\", \"F\": \"0.0122606069327192\", \"pvalue\": \"0.975768069413858\", \"pFDR\": \"0.405038073655443\", \"RSD\": \"7.19041618128093\", \"Dratio\": \"4.63330305499193\"}, {\"id\": 28, \"Idx\": \"29\", \"Name\": \"M29\", \"Label\": \"Cortisol \", \"Mode\": \"Positive\", \"mz\": \"363.217288\", \"rt\": \"779.069\", \"F\": \"3.83166105052219\", \"pvalue\": \"0.0478722499051548\", \"pFDR\": \"0.167497360787185\", \"RSD\": \"4.94256748210212\", \"Dratio\": \"10.4163145783544\"}, {\"id\": 18, \"Idx\": \"19\", \"Name\": \"M19\", \"Label\": \"L-Methionine\", \"Mode\": \"Positive\", \"mz\": \"150.0587442\", \"rt\": \"91.824\", \"F\": \"3.53514377309872\", \"pvalue\": \"0.0626089680675837\", \"pFDR\": \"0.178492343562938\", \"RSD\": \"8.64583168129658\", \"Dratio\": \"3.89815801526016\"}, {\"id\": 11, \"Idx\": \"12\", \"Name\": \"M12\", \"Label\": \"Uric acid\", \"Mode\": \"Negative\", \"mz\": \"335.0480195\", \"rt\": \"94.622\", \"F\": \"1.81229025915499\", \"pvalue\": \"0.19267708311762\", \"pFDR\": \"0.254613216625571\", \"RSD\": \"4.05003744537164\", \"Dratio\": \"3.41003186997637\"}, {\"id\": 21, \"Idx\": \"22\", \"Name\": \"M22\", \"Label\": \"N-Acetyl-L-Carnosine\", \"Mode\": \"Positive\", \"mz\": \"269.1244755\", \"rt\": \"86.4285\", \"F\": \"1.38601671741523\", \"pvalue\": \"0.275898715204706\", \"pFDR\": \"0.279896703904986\", \"RSD\": \"16.1867420693445\", \"Dratio\": \"2.74485776155857\"}, {\"id\": 16, \"Idx\": \"17\", \"Name\": \"M17\", \"Label\": \"Linoleic acida\", \"Mode\": \"Positive\", \"mz\": \"281.2480499\", \"rt\": \"1874.25\", \"F\": \"2.4896267766394\", \"pvalue\": \"0.112329435663305\", \"pFDR\": \"0.217522033318334\", \"RSD\": \"14.1852213838824\", \"Dratio\": \"3.77599733726548\"}, {\"id\": 31, \"Idx\": \"32\", \"Name\": \"M32\", \"Label\": \"Bilirubin\", \"Mode\": \"Positive\", \"mz\": \"585.2705643\", \"rt\": \"2059.93\", \"F\": \"10.7952965941857\", \"pvalue\": \"0.00197127360314567\", \"pFDR\": \"0.053951209522482\", \"RSD\": \"12.0698594478432\", \"Dratio\": \"4.47565519524638\"}, {\"id\": 13, \"Idx\": \"14\", \"Name\": \"M14\", \"Label\": \"Hypoxanthine\", \"Mode\": \"Positive\", \"mz\": \"137.0463946\", \"rt\": \"100.593\", \"F\": \"3.31714245291838\", \"pvalue\": \"0.0618275109477684\", \"pFDR\": \"0.177911813619459\", \"RSD\": \"4.13574593254638\", \"Dratio\": \"7.85418774439855\"}, {\"id\": 23, \"Idx\": \"24\", \"Name\": \"M24\", \"Label\": \"cis-Aconitic acid\", \"Mode\": \"Positive\", \"mz\": \"175.0241655\", \"rt\": \"108.0405\", \"F\": \"0.597833901234562\", \"pvalue\": \"0.499568785381846\", \"pFDR\": \"0.320784580564316\", \"RSD\": \"19.0264380635713\", \"Dratio\": \"1.73876227280005\"}], \"links\": [{\"source\": 0, \"target\": 2, \"weight\": 0.4547697002026427, \"color\": \"red\"}, {\"source\": 0, \"target\": 7, \"weight\": 0.4235313258316822, \"color\": \"red\"}, {\"source\": 0, \"target\": 8, \"weight\": 0.4434955315557379, \"color\": \"red\"}, {\"source\": 0, \"target\": 9, \"weight\": 0.42419323920509455, \"color\": \"red\"}, {\"source\": 0, \"target\": 10, \"weight\": 0.40350481850693465, \"color\": \"red\"}, {\"source\": 0, \"target\": 24, \"weight\": 0.42686240365623795, \"color\": \"red\"}, {\"source\": 2, \"target\": 5, \"weight\": 0.4004522251911742, \"color\": \"red\"}, {\"source\": 2, \"target\": 7, \"weight\": 0.4844641572289073, \"color\": \"red\"}, {\"source\": 2, \"target\": 9, \"weight\": 0.5011960761652083, \"color\": \"red\"}, {\"source\": 2, \"target\": 19, \"weight\": 0.5025890733996604, \"color\": \"red\"}, {\"source\": 2, \"target\": 30, \"weight\": 0.44546249946491373, \"color\": \"red\"}, {\"source\": 7, \"target\": 5, \"weight\": 0.44966091576957695, \"color\": \"red\"}, {\"source\": 7, \"target\": 8, \"weight\": 0.5522804561236638, \"color\": \"red\"}, {\"source\": 7, \"target\": 9, \"weight\": 0.37095937942009927, \"color\": \"red\"}, {\"source\": 7, \"target\": 12, \"weight\": 0.6731023566843768, \"color\": \"red\"}, {\"source\": 7, \"target\": 18, \"weight\": 0.7460030363167851, \"color\": \"red\"}, {\"source\": 7, \"target\": 19, \"weight\": 0.7097283501217914, \"color\": \"red\"}, {\"source\": 7, \"target\": 24, \"weight\": 0.5118494073341066, \"color\": \"red\"}, {\"source\": 7, \"target\": 25, \"weight\": 0.4115540959200865, \"color\": \"red\"}, {\"source\": 7, \"target\": 30, \"weight\": 0.40074659764667964, \"color\": \"red\"}, {\"source\": 8, \"target\": 10, \"weight\": 0.40246807986109856, \"color\": \"red\"}, {\"source\": 8, \"target\": 12, \"weight\": 0.7775873336501062, \"color\": \"red\"}, {\"source\": 8, \"target\": 18, \"weight\": 0.5846687758683451, \"color\": \"red\"}, {\"source\": 8, \"target\": 24, \"weight\": 0.5841535531341525, \"color\": \"red\"}, {\"source\": 9, \"target\": 10, \"weight\": 0.48581436038909925, \"color\": \"red\"}, {\"source\": 9, \"target\": 11, \"weight\": 0.3434068387242718, \"color\": \"red\"}, {\"source\": 9, \"target\": 14, \"weight\": 0.33444702777288016, \"color\": \"red\"}, {\"source\": 9, \"target\": 15, \"weight\": 0.3412666757084098, \"color\": \"red\"}, {\"source\": 9, \"target\": 19, \"weight\": 0.408384070930546, \"color\": \"red\"}, {\"source\": 9, \"target\": 21, \"weight\": 0.3475876631972028, \"color\": \"red\"}, {\"source\": 10, \"target\": 3, \"weight\": 0.38240386705184826, \"color\": \"red\"}, {\"source\": 10, \"target\": 4, \"weight\": 0.35632616337210815, \"color\": \"red\"}, {\"source\": 10, \"target\": 16, \"weight\": 0.3369848187409419, \"color\": \"red\"}, {\"source\": 10, \"target\": 24, \"weight\": 0.35563707106340586, \"color\": \"red\"}, {\"source\": 24, \"target\": 1, \"weight\": 0.3178771023277117, \"color\": \"red\"}, {\"source\": 24, \"target\": 12, \"weight\": 0.5007293873922372, \"color\": \"red\"}, {\"source\": 24, \"target\": 18, \"weight\": 0.4481244060423967, \"color\": \"red\"}, {\"source\": 24, \"target\": 19, \"weight\": 0.34738316355877474, \"color\": \"red\"}, {\"source\": 1, \"target\": 5, \"weight\": 0.40990437326781093, \"color\": \"red\"}, {\"source\": 1, \"target\": 12, \"weight\": 0.31878620785475803, \"color\": \"red\"}, {\"source\": 1, \"target\": 25, \"weight\": 0.3740907406749846, \"color\": \"red\"}, {\"source\": 5, \"target\": 19, \"weight\": 0.44668311928473703, \"color\": \"red\"}, {\"source\": 5, \"target\": 25, \"weight\": 0.4483867913163057, \"color\": \"red\"}, {\"source\": 5, \"target\": 30, \"weight\": 0.3126120956104148, \"color\": \"red\"}, {\"source\": 12, \"target\": 18, \"weight\": 0.7635537711364857, \"color\": \"red\"}, {\"source\": 12, \"target\": 19, \"weight\": 0.5123988131056694, \"color\": \"red\"}, {\"source\": 12, \"target\": 25, \"weight\": 0.31288425365666284, \"color\": \"red\"}, {\"source\": 12, \"target\": 30, \"weight\": 0.34367788062517207, \"color\": \"red\"}, {\"source\": 19, \"target\": 14, \"weight\": 0.3627230153583134, \"color\": \"red\"}, {\"source\": 19, \"target\": 18, \"weight\": 0.5925609131198953, \"color\": \"red\"}, {\"source\": 19, \"target\": 21, \"weight\": 0.5069514971279656, \"color\": \"red\"}, {\"source\": 19, \"target\": 30, \"weight\": 0.6313914849805888, \"color\": \"red\"}, {\"source\": 30, \"target\": 21, \"weight\": 0.43776815487022946, \"color\": \"red\"}, {\"source\": 30, \"target\": 23, \"weight\": 0.3160133483961805, \"color\": \"red\"}, {\"source\": 3, \"target\": 4, \"weight\": 0.37586115947373133, \"color\": \"red\"}, {\"source\": 3, \"target\": 22, \"weight\": 0.4319658241625961, \"color\": \"red\"}, {\"source\": 3, \"target\": 26, \"weight\": 0.4319741374971302, \"color\": \"red\"}, {\"source\": 4, \"target\": 17, \"weight\": 0.4324354874558965, \"color\": \"red\"}, {\"source\": 22, \"target\": 11, \"weight\": 0.5037010307246242, \"color\": \"red\"}, {\"source\": 22, \"target\": 14, \"weight\": 0.3283530572299838, \"color\": \"red\"}, {\"source\": 22, \"target\": 15, \"weight\": 0.571753662952238, \"color\": \"red\"}, {\"source\": 22, \"target\": 17, \"weight\": 0.4102762372353547, \"color\": \"red\"}, {\"source\": 22, \"target\": 26, \"weight\": 0.5300819528805065, \"color\": \"red\"}, {\"source\": 22, \"target\": 28, \"weight\": 0.6256012559834364, \"color\": \"red\"}, {\"source\": 26, \"target\": 16, \"weight\": 0.5813054743897101, \"color\": \"red\"}, {\"source\": 26, \"target\": 17, \"weight\": 0.5463646224376507, \"color\": \"red\"}, {\"source\": 26, \"target\": 28, \"weight\": 0.48534288021584326, \"color\": \"red\"}, {\"source\": 17, \"target\": 20, \"weight\": 0.5047208256566542, \"color\": \"red\"}, {\"source\": 17, \"target\": 28, \"weight\": 0.6551557826074689, \"color\": \"red\"}, {\"source\": 6, \"target\": 14, \"weight\": 0.5056415820297622, \"color\": \"red\"}, {\"source\": 6, \"target\": 15, \"weight\": 0.46228685355151217, \"color\": \"red\"}, {\"source\": 6, \"target\": 20, \"weight\": 0.4225659695114665, \"color\": \"red\"}, {\"source\": 6, \"target\": 28, \"weight\": 0.36601780086358604, \"color\": \"red\"}, {\"source\": 14, \"target\": 13, \"weight\": 0.31353862201792404, \"color\": \"red\"}, {\"source\": 14, \"target\": 15, \"weight\": 0.5514863476047512, \"color\": \"red\"}, {\"source\": 14, \"target\": 18, \"weight\": 0.3257725051123931, \"color\": \"red\"}, {\"source\": 14, \"target\": 21, \"weight\": 0.5166947211245551, \"color\": \"red\"}, {\"source\": 15, \"target\": 11, \"weight\": 0.578625436655811, \"color\": \"red\"}, {\"source\": 15, \"target\": 21, \"weight\": 0.39577579053489714, \"color\": \"red\"}, {\"source\": 20, \"target\": 28, \"weight\": 0.5452977767028065, \"color\": \"red\"}, {\"source\": 11, \"target\": 21, \"weight\": 0.4606125864723005, \"color\": \"red\"}, {\"source\": 11, \"target\": 31, \"weight\": 0.33560635986919357, \"color\": \"red\"}, {\"source\": 21, \"target\": 23, \"weight\": 0.38703990088106976, \"color\": \"red\"}]}"
+                
+        var params = JSON.parse(JSON.stringify({'link_type': 'score', 'link_width': 0.5, 'node_text_size': 15, 'node_size_scale': {'Mode': {'scale': 'ordinal', 'range': [10, 25]}, 'mz': {'scale': 'linear', 'range': [5, 30]}, 'rt': {'scale': 'log', 'range': [10, 50]}, 'pvalue': {'scale': 'reverse_linear', 'range': [5, 30]}, 'pFDR': {'scale': 'reverse_linear', 'range': [10, 30]}, 'F': {'scale': 'log', 'range': [10, 50]}, 'RSD': {'scale': 'reverse_log', 'range': [5, 20]}, 'Dratio': {'scale': 'log', 'range': [5, 20]}}, 'node_color_scale': {'Mode': {'scale': 'ordinal'}, 'mz': {'scale': 'linear'}, 'rt': {'scale': 'log'}, 'pvalue': {'scale': 'linear'}, 'pFDR': {'scale': 'linear'}, 'F': {'scale': 'log'}, 'RSD': {'scale': 'log'}, 'Dratio': {'scale': 'log'}}, 'displayLabel': 'true', 'node_data': ['Name', 'Label', 'Mode', 'mz', 'rt', 'F', 'pvalue', 'pFDR', 'RSD', 'Dratio'], 'chargeStrength': -120, 'fix_nodes': 'true'}));
+            
+        var canvas = document.getElementById("springPanel");
         var springNetwork = d3.select(canvas).append("svg").attr("id", "springNetwork");
+        
+        var redrawCount = 0;
+        var prevRedrawCount = 0;
         
         function redraw(){
         
-            d3.select('#springWrapper').select("#search").selectAll("*").remove();            
-            d3.select('#springWrapper').select("#nodeSizeDropdown").selectAll("*").remove();
-            d3.select('#springWrapper').select("#nodeColorDropdown").selectAll("*").remove();
-            d3.select('#springWrapper').select("#save").selectAll("*").remove();
+            if (redrawCount !== prevRedrawCount) {
+                setTimeout(function(){
+                    window.location.reload();
+                });
+                window.location.reload(); 
+            }
+            
+            prevRedrawCount = redrawCount;
+
+			redrawCount = redrawCount+1;
+			
+			var scheme_list = ['Category10','Accent','Dark2','Paired','Pastel1','Pastel2','Set1','Set2','Set3', 'Tableau10']
+            var interpolate_list = ['BrBG', 'PRGn', 'PiYG', 'PuOr', 'RdBu', 'RdGy', 'RdYlBu', 'RdYlGn', 'Spectral', 'Blues', 'Greens', 'Greys', 'Oranges', 'Purples', 'Reds', 'Turbo', 'Viridis', 'Inferno', 'Magma', 'Plasma', 'Cividis', 'Warm', 'Cool', 'CubehelixDefault', 'BuGn', 'BuPu', 'GnBu', 'OrRd', 'PuBuGn', 'PuBu', 'PuRd', 'RdPu', 'YlGnBu', 'YlGn', 'YlOrBr', 'YlOrRd', 'Rainbow', 'Sinebow'];
+            var color_options = scheme_list.concat(interpolate_list)
                         
-            var colorBy = [];
+            var colorDomain = [];
                     
             var width = canvas.clientWidth;
             var height = canvas.clientHeight;
@@ -148,22 +241,10 @@
                 .on("dblclick.zoom", null);
         
             var simulation = d3.forceSimulation()
-                .force("link", d3.forceLink().id(d => d.id))            
-                .force("center", d3.forceCenter(width / 2, height / 2));        
+                    .force("link", d3.forceLink().id(d => d.id))            
+                    .force("center", d3.forceCenter(width / 2, height / 2));        
         
             var container = svg.append('g');
-        
-            var search = d3.select("#search").attr('onsubmit', 'return false;');
-        
-            var box = search.append('input')
-                .attr('type', 'text')
-                .attr('id', 'searchTerm')
-                .attr('placeholder', 'Type to search...');
-        
-            var button = search.append('input')
-                .attr('type', 'button')
-                .attr('value', 'Search')
-                .on('click', function () { searchNodes(); });
         
             var toggle = 0;
         
@@ -174,13 +255,13 @@
         
             var graph = JSON.parse(networkData);
             
+            var graphRec = JSON.parse(JSON.stringify(graph));
+            
             if (params.link_type == "score") {            
                 var link_type_text = "Score";
             } else if (params.link_type == "pvalue") {
                 var link_type_text = "Pvalue";
             }
-            
-            var graphRec = JSON.parse(JSON.stringify(graph));
             
             var link = container.append("g")
                 .attr("class", "links")
@@ -200,36 +281,47 @@
             });
             
             if (Object.keys(params.node_size_scale).length === 0) {
-            
-                graph.nodes.forEach( function (d) { d.size = 10; });
-            
+                graph.nodes.forEach( function (d) { d.size = 10; });                
             } else {
-                
-                updateNodeSize(Object.keys(params.node_size_scale)[0])
+                updateNodeSize(Object.keys(params.node_size_scale)[0])                
+            }
+            
+            if (Object.keys(params.node_color_scale).length === 0) {
+                graph.nodes.forEach( function (d) { d.color = "#808080"; }); 
+            } else {
+                updateNodeColor(Object.keys(params.node_color_scale)[0], color_options[0])
             }
             
             function updateNodeSize(centrality) {
-                    
+                
                 var scaleType = params.node_size_scale[centrality].scale
                 var range = params.node_size_scale[centrality].range
                 
-                var centrality_values = []        
-                graph.nodes.forEach( function (d) { if (isNaN(d[centrality])) { centrality_values.push(parseFloat(0)); } else { centrality_values.push(parseFloat(d[centrality])); }});
+                var centrality_values = []
+                graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { centrality_values.push(parseFloat(0)); } else { centrality_values.push(d[centrality]); }});
                 
-                initScale = d3.scaleLinear()
-                    .domain(d3.extent(centrality_values))
-                    .range([1,10]);
-                        
                 scaledValues = []
-                centrality_values.forEach( function (d) { scaledValues.push(initScale(parseFloat(d))); });
-                                   
+                if (scaleType != "ordinal") {
+                    centrality_values = centrality_values.map(function (x) {
+                            return parseFloat(x);
+                    });
+                    
+                    initScale = d3.scaleLinear()
+                                    .domain(d3.extent(centrality_values))
+                                    .range([1,10]);
+                    
+                    centrality_values.forEach( function (d) { scaledValues.push(initScale(parseFloat(d))); });
+                } else {                
+                    centrality_values.forEach( function (d) { scaledValues.push(d); });
+                }
+                                  
                 if (scaleType == "linear") {
                     
                     linearScale = d3.scaleLinear()
                          .domain(d3.extent(scaledValues))
                          .range(range);
                      
-                    graph.nodes.forEach( function (d) { if (isNaN(d[centrality])) { d.size = linearScale(initScale(parseFloat(0))); } else { d.size = linearScale(initScale(parseFloat(d[centrality]))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = linearScale(initScale(parseFloat(0))); } else { d.size = linearScale(initScale(parseFloat(d[centrality]))); }});
                   
                 } else if (scaleType == "reverse_linear") {
                     
@@ -241,7 +333,7 @@
                         .domain(d3.extent(reversed_linear_values))
                         .range(range);
                     
-                    graph.nodes.forEach( function (d) { if (isNaN(d[centrality])) { d.size = reversedLinearScale(1 / initScale(parseFloat(0))); } else { d.size = reversedLinearScale(1 / initScale(parseFloat(d[centrality]))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = reversedLinearScale(1 / initScale(parseFloat(0))); } else { d.size = reversedLinearScale(1 / initScale(parseFloat(d[centrality]))); }});
                      
                 } else if (scaleType == "log") {
                    
@@ -249,7 +341,7 @@
                         .domain(d3.extent(scaledValues))
                         .range(range);  	        
                              
-                    graph.nodes.forEach( function (d) { if (isNaN(d[centrality])) { d.size = logScale(initScale(parseFloat(0))); } else { d.size = logScale(initScale(parseFloat(d[centrality]))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = logScale(initScale(parseFloat(0))); } else { d.size = logScale(initScale(parseFloat(d[centrality]))); }});
                   
                 } else if (scaleType == "reverse_log") {
                     
@@ -261,7 +353,7 @@
                         .domain(d3.extent(reversed_log_values))
                         .range(range);
                      
-                    graph.nodes.forEach( function (d) { if (isNaN(d[centrality])) { d.size = reversedLogScale(1 / initScale(parseFloat(0))); } else { d.size = reversedLogScale(1 / initScale(parseFloat(d[centrality]))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = reversedLogScale(1 / initScale(parseFloat(0))); } else { d.size = reversedLogScale(1 / initScale(parseFloat(d[centrality]))); }});
                      
                 } else if (scaleType == "square") {
                    
@@ -270,7 +362,7 @@
                         .exponent(2)
                         .range(range);
                     
-                    graph.nodes.forEach( function (d) { if (isNaN(d[centrality])) { d.size = squareScale(initScale(parseFloat(0))); } else { d.size = squareScale(initScale(parseFloat(d[centrality]))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = squareScale(initScale(parseFloat(0))); } else { d.size = squareScale(initScale(parseFloat(d[centrality]))); }});
                   
                 } else if (scaleType == "reverse_square") {
                    
@@ -283,7 +375,7 @@
                         .exponent(2)
                         .range(range);
                     
-                    graph.nodes.forEach( function (d) { if (isNaN(d[centrality])) { d.size = reversedSquareScale(1 / initScale(parseFloat(0))); } else { d.size = reversedSquareScale(1 / initScale(parseFloat(d[centrality]))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = reversedSquareScale(1 / initScale(parseFloat(0))); } else { d.size = reversedSquareScale(1 / initScale(parseFloat(d[centrality]))); }});
                   
                 } else if (scaleType == "area") {
                     
@@ -295,7 +387,7 @@
                         .domain(d3.extent(area_values))
                         .range(range);
                      
-                    graph.nodes.forEach( function (d) { if (isNaN(d[centrality])) { d.size = areaScale(Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0)))); } else { d.size = areaScale(Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = areaScale(Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0)))); } else { d.size = areaScale(Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])))); }});
                      
                 } else if (scaleType == "reverse_area") {
                     
@@ -307,7 +399,7 @@
                         .domain(d3.extent(reversed_area_values))
                         .range(range);
                      
-                    graph.nodes.forEach( function (d) { if (isNaN(d[centrality])) { d.size = reversedAreaScale(Math.PI * (1 / initScale(parseFloat(0))) * (1 / initScale(parseFloat(0)))); } else { d.size = reversedAreaScale(Math.PI * (1 / initScale(parseFloat(d[centrality]))) * (1 / initScale(parseFloat(d[centrality])))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = reversedAreaScale(Math.PI * (1 / initScale(parseFloat(0))) * (1 / initScale(parseFloat(0)))); } else { d.size = reversedAreaScale(Math.PI * (1 / initScale(parseFloat(d[centrality]))) * (1 / initScale(parseFloat(d[centrality])))); }});
                      
                 } else if (scaleType == "volume") {
                     
@@ -319,7 +411,7 @@
                         .domain(d3.extent(volume_values))
                         .range(range);
                      
-                    graph.nodes.forEach( function (d) { if (isNaN(d[centrality])) { d.size = volumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0)) * initScale(parseFloat(0))))); } else { d.size = volumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality]))))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = volumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0)) * initScale(parseFloat(0))))); } else { d.size = volumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality]))))); }});
                   
                 } else if (scaleType == "reverse_volume") {
                  
@@ -331,29 +423,188 @@
                         .domain(d3.extent(reversed_volume_values))
                         .range(range);
                     
-                    graph.nodes.forEach( function (d) { if (isNaN(d[centrality])) { d.size = reversedVolumeScale(4 / 3 * (Math.PI * ((1 / initScale(parseFloat(0))) * (1 / initScale(parseFloat(0))) * (1 / initScale(parseFloat(0)))))); } else { d.size = reversedVolumeScale(4 / 3 * (Math.PI * ((1 / initScale(parseFloat(d[centrality]))) * (1 / initScale(parseFloat(d[centrality]))) * (1 / initScale(parseFloat(d[centrality])))))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = reversedVolumeScale(4 / 3 * (Math.PI * ((1 / initScale(parseFloat(0))) * (1 / initScale(parseFloat(0))) * (1 / initScale(parseFloat(0)))))); } else { d.size = reversedVolumeScale(4 / 3 * (Math.PI * ((1 / initScale(parseFloat(d[centrality]))) * (1 / initScale(parseFloat(d[centrality]))) * (1 / initScale(parseFloat(d[centrality])))))); }});
                        
-                }    
+                } else if (scaleType == "ordinal") {
+                
+                    ordinalScale = d3.scaleOrdinal()
+                         .domain(scaledValues)
+                         .range(range);                  
+                                        
+                    graph.nodes.forEach( function (d) { d.size = ordinalScale(d[centrality]); });
+                }
             }
+            
+            function updateNodeColor(centrality, colorOption) {
+                var scaleType = params.node_color_scale[centrality].scale
+                var range = [0,1]
+                  
+                var centrality_values = []
+                graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { centrality_values.push(parseFloat(0)); } else { centrality_values.push(d[centrality]); }});
                 
-            var scaleLinksLinear = d3.scaleLinear()
-                .domain([d3.min(graph.links, function(d) {return d.weight; }),d3.max(graph.links, function(d) {return d.weight; })])
-                .range([1,1000])
-                .clamp(true);
+                scaledValues = []
+                if (scaleType != "ordinal") {
+                    centrality_values = centrality_values.map(function (x) {
+                            return parseFloat(x);
+                    });
+                    
+                    initScale = d3.scaleLinear()
+                                    .domain(d3.extent(centrality_values))
+                                    .range([1,10]);
+                    
+                    centrality_values.forEach( function (d) { scaledValues.push(initScale(parseFloat(d))); });
+                } else {                
+                    centrality_values.forEach( function (d) { scaledValues.push(d); });
+                }        
                 
-            var scaleLinksLog = d3.scaleLog()
-                .domain([Math.log(d3.min(graph.links, function(d) {return d.weight; })),Math.log(d3.max(graph.links, function(d) {return d.weight; }))])          	    
-                .range([1,1000])
-                .clamp(true);       
+                colorDomain = []                
+                if (scaleType == "linear") {
+                    
+                    linearScale = d3.scaleLinear()
+                         .domain(d3.extent(scaledValues))
+                         .range(range);
+                     
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = linearScale(initScale(parseFloat(0))); } else { d.color = linearScale(initScale(parseFloat(d[centrality]))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(linearScale(initScale(parseFloat(0)))); } else { colorDomain.push(linearScale(initScale(parseFloat(d[centrality])))); }});
+                  
+                } else if (scaleType == "reverse_linear") {
+                    
+                    reversed_linear_values = []
+                     
+                    scaledValues.forEach( function (d) { reversed_linear_values.push(parseFloat(1/d)); });
+                     
+                    reversedLinearScale = d3.scaleLinear()
+                        .domain(d3.extent(reversed_linear_values))
+                        .range(range);
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = reversedLinearScale(1 / initScale(parseFloat(0))); } else { d.color = reversedLinearScale(1 / initScale(parseFloat(d[centrality]))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(reversedLinearScale(1 / initScale(parseFloat(0)))); } else { colorDomain.push(reversedLinearScale(1 / initScale(parseFloat(d[centrality])))); }});
+                     
+                } else if (scaleType == "log") {
+                   
+                    logScale = d3.scaleLog()
+                        .domain(d3.extent(scaledValues))
+                        .range(range);  	        
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = logScale(initScale(parseFloat(0))); } else { d.color = logScale(initScale(parseFloat(d[centrality]))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(logScale(initScale(parseFloat(0)))); } else { colorDomain.push(logScale(initScale(parseFloat(d[centrality])))); }});
+                  
+                } else if (scaleType == "reverse_log") {
+                    
+                    reversed_log_values = []
+                     
+                    scaledValues.forEach( function (d) { reversed_log_values.push(parseFloat(1/d)); });
+                     
+                    reversedLogScale = d3.scaleLog()
+                        .domain(d3.extent(reversed_log_values))
+                        .range(range);
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = reversedLogScale(1 / initScale(parseFloat(0))); } else { d.color = reversedLogScale(1 / initScale(parseFloat(d[centrality]))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(reversedLogScale(1 / initScale(parseFloat(0)))); } else { colorDomain.push(reversedLogScale(1 / initScale(parseFloat(d[centrality])))); }});
+                     
+                } else if (scaleType == "square") {
+                   
+                    squareScale = d3.scalePow()
+                        .domain(d3.extent(scaledValues))
+                        .exponent(2)
+                        .range(range);
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = squareScale(initScale(parseFloat(0))); } else { d.color = squareScale(initScale(parseFloat(d[centrality]))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(squareScale(initScale(parseFloat(0)))); } else { colorDomain.push(squareScale(initScale(parseFloat(d[centrality])))); }});
+                  
+                } else if (scaleType == "reverse_square") {
+                   
+                    reversed_squared_values = []
+                     
+                    scaledValues.forEach( function (d) { reversed_squared_values.push(parseFloat(1/d)); });
+                     
+                    reversedSquareScale = d3.scalePow()
+                        .domain(d3.extent(reversed_squared_values))
+                        .exponent(2)
+                        .range(range);
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = reversedSquareScale(1 / initScale(parseFloat(0))); } else { d.color = reversedSquareScale(1 / initScale(parseFloat(d[centrality]))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(reversedSquareScale(1 / initScale(parseFloat(0)))); } else { colorDomain.push(reversedSquareScale(1 / initScale(parseFloat(d[centrality])))); }});
+                  
+                } else if (scaleType == "area") {
+                    
+                    area_values = []
+                     
+                    scaledValues.forEach( function (d) { area_values.push(parseFloat(Math.PI * (d * d))); });
+                     
+                    areaScale = d3.scaleLinear()
+                        .domain(d3.extent(area_values))
+                        .range(range);
+                                        
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = areaScale(Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0)))); } else { d.color = areaScale(Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(areaScale(Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0))))); } else { colorDomain.push(areaScale(Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality]))))); }});
+                     
+                } else if (scaleType == "reverse_area") {
+                    
+                    reversed_area_values = []
+                     
+                    scaledValues.forEach( function (d) { reversed_area_values.push(parseFloat(Math.PI * (parseFloat(1/d) * parseFloat(1/d)))); });
+                     
+                    reversedAreaScale = d3.scaleLinear()
+                        .domain(d3.extent(reversed_area_values))
+                        .range(range);
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = reversedAreaScale(Math.PI * (1 / initScale(parseFloat(0))) * (1 / initScale(parseFloat(0)))); } else { d.color = reversedAreaScale(Math.PI * (1 / initScale(parseFloat(d[centrality]))) * (1 / initScale(parseFloat(d[centrality])))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(reversedAreaScale(Math.PI * (1 / initScale(parseFloat(0))) * (1 / initScale(parseFloat(0))))); } else { colorDomain.push(reversedAreaScale(Math.PI * (1 / initScale(parseFloat(d[centrality]))) * (1 / initScale(parseFloat(d[centrality]))))); }});
+                     
+                } else if (scaleType == "volume") {
+                    
+                    volume_values = []
+                     
+                    scaledValues.forEach( function (d) { volume_values.push(parseFloat(4 / 3 * (Math.PI * (d * d * d)))); });
+                     
+                    volumeScale = d3.scaleLinear()
+                        .domain(d3.extent(volume_values))
+                        .range(range);
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = volumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0)) * initScale(parseFloat(0))))); } else { d.color = volumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality]))))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(volumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0)) * initScale(parseFloat(0)))))); } else { colorDomain.push(volumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])))))); }});
+                  
+                } else if (scaleType == "reverse_volume") {
+                 
+                    reversed_volume_values = []             
+                    
+                    scaledValues.forEach( function (d) { reversed_volume_values.push(parseFloat(4 / 3 * (Math.PI * (parseFloat(1/d) * parseFloat(1/d) * parseFloat(1/d))))); });
+                     
+                    reversedVolumeScale = d3.scaleLinear()
+                        .domain(d3.extent(reversed_volume_values))
+                        .range(range);
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = reversedVolumeScale(4 / 3 * (Math.PI * ((1 / initScale(parseFloat(0))) * (1 / initScale(parseFloat(0))) * (1 / initScale(parseFloat(0)))))); } else { d.color = reversedVolumeScale(4 / 3 * (Math.PI * ((1 / initScale(parseFloat(d[centrality]))) * (1 / initScale(parseFloat(d[centrality]))) * (1 / initScale(parseFloat(d[centrality])))))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(reversedVolumeScale(4 / 3 * (Math.PI * ((1 / initScale(parseFloat(0))) * (1 / initScale(parseFloat(0))) * (1 / initScale(parseFloat(0))))))); } else { colorDomain.push(reversedVolumeScale(4 / 3 * (Math.PI * ((1 / initScale(parseFloat(d[centrality]))) * (1 / initScale(parseFloat(d[centrality]))) * (1 / initScale(parseFloat(d[centrality]))))))); }});
+                       
+                } else if (scaleType == "ordinal") {
+                
+                    ordinalScale = d3.scaleOrdinal()
+                        .domain(scaledValues)
+                        .range(range);
+                                        
+                    graph.nodes.forEach( function (d) { d.color = ordinalScale(d[centrality]); });
+                    graph.nodes.forEach( function (d) { colorDomain.push(ordinalScale(d[centrality])); });
+                }
+                
+                if (scheme_list.includes(colorOption)) {
+                    var color_palette = d3.scaleQuantize()
+                                            .domain(d3.extent(colorDomain))
+                                            .range(d3["scheme" + colorOption]);
+                } else if (interpolate_list.includes(colorOption)) {
+                    var color_palette = d3.scaleSequential()
+                                            .interpolator(d3["interpolate" + colorOption])
+                                            .domain(colorDomain);
+                }                
+                
+                node.attr("fill", function(d) { if (typeof d[centrality] === 'undefined') { return "#808080"; } else { return color_palette(d.color); }});
+            }
             
             simulation
                 .force("charge", d3.forceManyBody().strength(params.chargeStrength).distanceMax(500))            
                 .force("collide", d3.forceCollide().radius( function (d) { return d.size; }));
         
-            graph.nodes.forEach(function(d) { if (typeof d.color !== 'undefined') { colorBy.push(d.color); } else { colorBy.push(1); } });
-            
-            var colorBy = Array.from(new Set(colorBy)) 
-           
             update();
         
             function update() {
@@ -490,7 +741,7 @@
         
                 //Remove all old links, leaving only the new links
                 link.exit().remove();
-                        
+                
                 var newLink = link.enter().append("line")
                             .attr("class", "link")
                             .attr("stroke-width", params.link_width)
@@ -552,169 +803,216 @@
                 
             }
             
+            Number.prototype.countDecimals = function () {
+                if(Math.floor(this.valueOf()) === this.valueOf()) return 0;
+        
+                var value = 0;
+                var check = this.toString().includes("e-");
+                
+                if (check) {
+                    
+    	            var value = this.toString().split("-")[1];
+                     
+                } else {
+    	            
+                    var value1 = this.toString().split(".")[1];
+                    var value2 = value1.trimLeft("0");
+                     
+                    var value = value1.length - value2.length + 1;
+                }        
+                
+                return value
+            }
+            
             var sliderInitValue = '';
             var sliderMin = '';
             var sliderMax = '';
             var sliderValue = '';
             
             if (params.link_type == "score") {
-                sliderInitValue =  d3.min(graph.links, function(d) {return d.weight; }).toPrecision(5)
-                sliderMin = scaleLinksLinear(d3.min(graph.links, function(d) {return d.weight; }))
-                sliderMax = scaleLinksLinear(d3.max(graph.links, function(d) {return d.weight; }))
-                sliderValue = scaleLinksLinear(d3.min(graph.links, function(d) {return d.weight; }))
+                sliderInitValue =  Number(d3.min(graph.links, function(d) {return d.weight; }).toFixed(4))
+                sliderMin = Number(d3.min(graph.links, function(d) {return d.weight; }).toFixed(4))
+                sliderMax = Number(d3.max(graph.links, function(d) {return d.weight; }).toFixed(4))
+                sliderStep = 0.01;
+                sliderPrecision = 4;
             } else if (params.link_type == "pvalue") {
-                sliderInitValue =  d3.max(graph.links, function(d) {return d.weight; }).toPrecision(5)
-                sliderMin = scaleLinksLog(Math.log(d3.min(graph.links, function(d) {return d.weight; })))
-                sliderMax = scaleLinksLog(Math.log(d3.max(graph.links, function(d) {return d.weight; })))
-                sliderValue = scaleLinksLog(Math.log(d3.max(graph.links, function(d) {return d.weight; })))
+                sliderInitValue = Number(d3.max(graph.links, function(d) {return d.weight; }).toFixed(Number(d3.min(graph.links, function(d) {return d.weight; }).countDecimals())))
+                sliderMin = Number(d3.min(graph.links, function(d) {return d.weight; }).toFixed(Number(d3.min(graph.links, function(d) {return d.weight; }).countDecimals())))
+                sliderMax = Number(d3.max(graph.links, function(d) {return d.weight; }).toFixed(Number(d3.min(graph.links, function(d) {return d.weight; }).countDecimals())))
+                sliderStep = Number(d3.min(graph.links, function(d) {return d.weight; }).toFixed(Number(d3.min(graph.links, function(d) {return d.weight; }).countDecimals())))
+                sliderPrecision = Number(d3.min(graph.links, function(d) {return d.weight; }).countDecimals())
             }
             
-            d3.select('#sliderText').text(link_type_text + ' threshold: ');
+            var app = angular.module('rzSliderDemo', ['rzSlider']);
             
-            d3.select('#sliderValue').text(sliderInitValue);
-        
-            var sliderWidth = 225;
-            var sliderOffSet = 45;
-        
-            var Slider = d3.sliderHorizontal()
-    	    					    .min(sliderMin)
-    							    .max(sliderMax)
-                                    .default(sliderInitValue)
-                                    .ticks(0)
-                                    .handle(d3.symbol().type(d3.symbolCircle).size(150)())
-    							    .step(0.0001)                        
-                                    .fill('#2196f3')
-    							    .width(sliderWidth - sliderOffSet)
-    							    .displayValue(false)
-    							    .on('onchange', value => {
-      							    	
-      							    	if (params.link_type == "score") {
-                                            var threshold = scaleLinksLinear.invert(value);
-                                        } else if (params.link_type == "pvalue")  {
-                                            var threshold = Math.exp(scaleLinksLog.invert(value));
-                                        }
-                                        
-                					    d3.select('#sliderValue').text(threshold.toPrecision(5));
-                						                						
-                                        graph.links.splice(0, graph.links.length);
-                                        graphRec.links.forEach( function (d) { if (d.weight >= threshold) { graph.links.push(d); }});
-                                        
-                                        //Update link dictionary
-                                        linkedByIndex = {} 
-                                        graphRec.links.forEach( function (d) {
-                                            if (d.weight >= threshold) {
-                                                                  
-                                                var source = JSON.stringify(d.source.id);
-                                                var target = JSON.stringify(d.target.id);
-                                                   
-                                                if (typeof source == 'undefined') {
-                                                    source = JSON.stringify(d.source);
-                                                }
-                                                
-                                                if (typeof target == 'undefined') {
-                                                    target = JSON.stringify(d.target);
-                                                }
-                                                                                        
-                                                linkedByIndex[source + ',' + target] = 1;
-                                                linkedByIndex[target + ',' + source] = 1;	  						         
-                                            }
-                                        });         
+            app.controller('MainCtrl', function ($scope) {
                 
-                                        update(); 
-          						    });
-        
-            d3.select('#slider').selectAll("*").remove();
-        
-            d3.select('#slider')
-                    .append('svg')
-                    .attr('width', sliderWidth)    
-                    .append('g')    
-                    .attr('transform', 'translate(30,30)')
-                    .call(Slider);
-            
-            if (Object.keys(params.node_size_scale).length != 0) {
-            
-                var nodeSizeDropdown = d3.select('#nodeSizeDropdown')   
-                    .append('select')
-                    .attr("class","nodeSizeDropdown")
-                    .on('change', function() { 
-                        var centrality = this.value;
+                $scope.node_size_options = Object.keys(params.node_size_scale);
+  				$scope.selectedNodeSizeOption = $scope.node_size_options[0];    
+                
+                $scope.updateNodeSize = function() {
+                
+                    var centrality = $scope.selectedNodeSizeOption;
                     
+                    if (typeof centrality != 'undefined') {
                         updateNodeSize(centrality)
-                        
-                        node.attr('r', function(d) { return d.size; } );  
-                    
-                        simulation.force("collide", d3.forceCollide().radius( function (d) { return d.size; }));
-                        simulation.alphaTarget(0.1).restart();
-                    });
-                                    
-                nodeSizeDropdown.selectAll('option')
-                    .data(Object.keys(params.node_size_scale))
-                    .enter().append('option')		
-                    .text(function(d) { return d; });
-            } else {
-            
-                var nodeSizeDropdown = d3.select('#nodeSizeDropdown')
-                    .append('select')
-                    .attr("class","nodeSizeDropdown");
-                
-                nodeSizeDropdown.selectAll('option')
-                    .data(['none'])
-                    .enter().append('option')		
-                    .text(function(d) { return d; });        
-            }
-            
-            var colorDropDownValues = ['default','schemeCategory10','schemeAccent','schemeDark2','schemePaired','schemePastel1','schemePastel2','schemeSet1','schemeSet2','schemeSet3'];
-            var schemeLenCount = [];
-            
-            //Get lengths of all color schemes used
-            colorDropDownValues.forEach( function(value) { if (value !== 'default') { schemeLenCount.push(d3[value].length); }});
-                        
-            var nodeColorDropdown = d3.select('#nodeColorDropdown')
-                .append('select')
-                .attr("class","nodeColorDropdown")
-                .on('change', function() { 
-                    var colorScheme = this.value;
-                    
-                    if (colorScheme == 'default') {
-                        node.attr("fill", function(d) { return d.color; })
-                    } else {
-                    
-                        //Slice color schemes to the minimum length across all color schemes for consistancy when switching color schemes
-                        colorSchemeSliced = d3[colorScheme].slice(0, d3.min(schemeLenCount));
-                    
-                        var color_palette = d3.scaleOrdinal()
-                                                   .domain(colorBy)
-                                                   .range(colorSchemeSliced);                                                        
-                                       
-                        node.attr("fill", function(d) { if (typeof d.color !== 'undefined') { return color_palette(d.color); } else { return color_palette(1); } });                        
                     }
-        
-                    simulation.alphaTarget(0.1).restart();
-                });
-        
-            nodeColorDropdown.selectAll('option')
-                .data(colorDropDownValues)
-                .enter().append('option')		
-                .text(function(d) { return d; });
-            
-            d3.select("#save")
-                    .on('click', function(){
+                        
+                    node.attr('r', function(d) { return d.size; } );  
                     
-                        var options = {
+                    simulation.force("collide", d3.forceCollide().radius( function (d) { return d.size; }));
+                    simulation.alphaTarget(0.1).restart();    										
+  				}
+  				
+  				var centrality = $scope.selectedNodeSizeOption;
+  				
+  				if (typeof centrality != 'undefined') {
+                    updateNodeSize(centrality)                  
+                }
+  				
+  				node.attr('r', function(d) { return d.size; } );  
+                    
+                simulation.force("collide", d3.forceCollide().radius( function (d) { return d.size; }));
+                simulation.alphaTarget(0.1).restart();
+                
+                $scope.node_coloring_options = Object.keys(params.node_color_scale);
+  				$scope.selectedNodeColorOption = $scope.node_coloring_options[0];
+  				
+  				$scope.scheme_list = scheme_list;
+                   
+                $scope.interpolate_list = interpolate_list;
+                    
+                $scope.color_options = color_options;
+                              
+                $scope.selectedColorOption = $scope.color_options[0]; 				
+  				
+                $scope.updateNodeColor = function() {
+                
+                    var nodeColorOption = $scope.selectedNodeColorOption
+                
+                    if (typeof nodeColorOption != 'undefined') {                        
+                        var colorOption = $scope.selectedColorOption             
+                        var scaleType = params.node_color_scale[nodeColorOption].scale                    
+                    
+                        if (scaleType == "ordinal") {
+                            $scope.color_options = scheme_list;
+                        } else {
+                            $scope.color_options = color_options;
+                        }
+                    
+                        updateNodeColor(nodeColorOption, colorOption)
+                    } else {
+                        $scope.node_coloring_options = ['None']
+                        $scope.selectedNodeColorOption = 'None'
+                        $scope.color_options = ['Grey']
+                        $scope.selectedColorOption = 'Grey'
+                        
+                        node.attr("fill", function(d) { return d.color; })           
+                    }
+                    
+                    simulation.alphaTarget(0.1).restart();
+                }
+                
+                var nodeColorOption = $scope.selectedNodeColorOption         
+                    
+                if (typeof nodeColorOption != 'undefined') {
+                    var colorOption = $scope.selectedColorOption             
+                    var scaleType = params.node_color_scale[nodeColorOption].scale
+                    
+                    if (scaleType == "ordinal") {
+                        $scope.color_options = scheme_list;
+                    } else {
+                        $scope.color_options = color_options;
+                    }
+                    
+                    updateNodeColor(nodeColorOption, colorOption)
+                } else {
+                    $scope.node_coloring_options = ['None']
+                    $scope.selectedNodeColorOption = 'None'
+                    $scope.color_options = ['Grey']
+                    $scope.selectedColorOption = 'Grey'
+                        
+                    node.attr("fill", function(d) { return d.color; })           
+                }
+                
+                simulation.alphaTarget(0.1).restart();
+                                
+                $scope.savebutton = function () {
+                	
+                      var options = {
                                 canvg: window.canvg,
                                 backgroundColor: 'white',
                                 height: height+100,
                                 width: width+100,
                                 left: -50,
+                                top: -50,
                                 scale: 5/window.devicePixelRatio,
                                 encoderOptions: 1,
                                 ignoreMouse : true,
                                 ignoreAnimation : true,
                         }
 		                		                
-                        saveSvgAsPng(d3.select('svg#springNetwork').node(), "networkPlot.png", options);
-                    })
+                        saveSvgAsPng(d3.select('svg#springNetwork').node(), "networkPlot.png", options);           					
+        		}
+        		
+        		$scope.searchNodes = function () {
+                		var term = document.getElementById('searchTerm').value;
+                		var selected = container.selectAll('.node').filter(function (d, i) {
+                    			return d.Label.toLowerCase().search(term.toLowerCase()) == -1;
+                		});
+                		selected.style('opacity', '0');
+						var link = container.selectAll('.link');
+                		link.style('stroke-opacity', '0');
+                		d3.selectAll('.node').transition()
+                        		.duration(1000)
+                        		.style('opacity', '1');
+                		d3.selectAll('.link').transition().duration(5000).style('stroke-opacity', '0.6');
+            	}
+            	
+            	$scope.slider = {       
+        				value: sliderInitValue,                        
+                        options: {
+        					showSelectionBar: true,                    
+            				floor: sliderMin,
+                         	ceil: sliderMax,                          		
+                          	step: sliderStep,
+            				precision: sliderPrecision,                          	
+            				getSelectionBarColor: function() { return '#2AE02A'; },
+            				getPointerColor: function() { return '#D3D3D3'; },
+            				pointerSize: 1,
+            				onChange: function () {
+              
+                                var threshold = $scope.slider.value
+                                
+                                graph.links.splice(0, graph.links.length);
+                                graphRec.links.forEach( function (d) { if (d.weight >= threshold) { graph.links.push(d); }});
+                                
+                                //Update link dictionary
+                                linkedByIndex = {} 
+                                graphRec.links.forEach( function (d) {
+                                    if (d.weight >= threshold) {
+                                                                  
+                                        var source = JSON.stringify(d.source.id);
+                                        var target = JSON.stringify(d.target.id);
+                                                   
+                                        if (typeof source == 'undefined') {
+                                            source = JSON.stringify(d.source);
+                                        }
+                                                
+                                        if (typeof target == 'undefined') {
+                                        	target = JSON.stringify(d.target);
+                                        }
+                                                                                        
+                                        linkedByIndex[source + ',' + target] = 1;
+                                        linkedByIndex[target + ',' + source] = 1;	  						         
+                                    }
+                                });
+                                  
+                                update(); 
+            				}
+        				}
+    			};
+			});
         
             function dragstarted(d) {
             
@@ -813,6 +1111,4 @@
         
         window.addEventListener("resize", redraw); 
          </script>
-                
-        </body>
         

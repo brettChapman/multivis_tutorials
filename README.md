@@ -5,6 +5,11 @@ This repository contains the tutorials for the Metabolomics review paper "Multiv
 </p>
 
 <br />
+
+## Demo example plots
+
+![HCH](clusterMap.png)
+
     
 ## Quick Start
 
@@ -44,7 +49,7 @@ This repository contains the tutorials for the Metabolomics review paper "Multiv
 <a id="one"></a>
 ## Tutorial 1: Principal Component Analysis (PCA) with biplot
 <p align="justify">
-<i>In this tutorial we will step through a workflow to produce a Principal Component Analysis (PCA) with biplot. PCA is an exploratory multivariate data analysis technique which given a set of transformed and scaled observable variables can explain the degree of variance across a group of samples through their principal components. PCA is interpreted through the identification of any groups of samples which may cluster within any of the given axes along the principal components, indicating correlation within the groups, but does not indicate to which degree they are correlated. The overlay of loadings biplots indicate which metabolites contribute variance to which group of samples, and depending on the axes to which the biplot vectors project towards, indicate the relative direction of metabolite regulation.</i>
+<i>In this tutorial we will step through a workflow to produce a Principal Component Analysis (PCA) with a biplot. PCA is an exploratory multivariate data analysis technique which given a set of transformed and scaled observable variables can explain the degree of variance across a group of samples through their principal components. PCA is interpreted through the identification of any groups of samples which may cluster within any of the given axes along the principal components, indicating correlation within the groups, but does not indicate to which degree they are correlated. The overlay of loadings biplots indicate which metabolites contribute variance to which group of samples, and depending on the axes to which the biplot vectors project towards, indicate the relative direction of metabolite regulation.</i>
 </p>
 
 Launch tutorial 1 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial1.ipynb)
@@ -63,7 +68,7 @@ Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 <a id="three"></a>
 ## Tutorial 3: Hierarchical Clustered Heatmap
 <p align="justify">
-<i>In this tutorial we will step through a workflow to produce a Hierarchical Clustered Heatmap (HCH). HCH is an exploratory data analysis technique which implements a two-way Hierarchical cluster analysis (HCA) (e.g. clustering samples and metabolites), and provides dendrograms and heatmaps to visualise the clustered data. HCA is a method by which the distance or correlation between individuals is measured, and then grouped together based on the similarities or dissimilarities between the distances or correlations of the individuals. The clustering itself is based on linkage clustering and determines the overall structure of the clusters. HCH is interpreted through visually identify the different clusters in the heatmap as groups of different colour representations of the clustering score, with the highest score representing one colour choice, and the lowest score representing the other colour choice, and everything between being lighter or darker shade variants. The different clustered colours in the heatmap are also represented in the dendrograms for each axis as clustered branches.</i>
+<i>In this tutorial we will step through a workflow to produce a Hierarchical Clustered Heatmap (HCH). HCH is an exploratory data analysis technique which implements a two-way Hierarchical cluster analysis (HCA) (e.g. clustering samples and features (metabolites)), and provides dendrograms and heatmaps to visualise the clustered data. HCA is a method by which the distance or correlation between individuals is measured, and then grouped together based on the similarities or dissimilarities between the distances or correlations of the individuals. The clustering itself is based on linkage clustering and determines the overall structure of the clusters. HCH is interpreted through visually identify the different clusters in the heatmap as groups of different colour representations of the clustering score, with the highest score representing one colour choice, and the lowest score representing the other colour choice, and everything in between being lighter or darker shade variants. The different clustered colours in the heatmap are also represented in the dendrograms for each axis as clustered branches.</i>
 </p>
 
 Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial3.ipynb)
@@ -80,7 +85,7 @@ Launch tutorial 4 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 <a id="five"></a>
 ## Tutorial 5: Spring-embedded network
-<i>In this tutorial we will step through a workflow to produce a Spring-embedded network (SEN) plot. SEN plots provide a means to represent correlations in an undirected graph where each node represents a metabolite and the spring constant of each edge between nodes represents the correlation coefficient. When the tension on the graph is allowed to relax and put in a low energy configuration, the springs push the nodes to their furthest allowed distance from each other in the graph layout. Where there are edges with higher correlation coefficients the spring tightens bringing nodes closer together and where there are lower correlation coefficients the spring loosens and stretches. SEN plots form a type of multivariate cluster analysis, where nodes clustered together are more positively correlated and nodes further apart are considered more negatively correlated.Additionally, univariate statistical analysis is also included in the form of p-values and other univariate statistics, such as p-values used for the size of nodes (made to be inversely proportional with larger nodes being more significant), or VIP scores, D-ratio etc. The colours of the nodes can also be associated with other variables such as correlation to drug concentrations, positive/negative fold change, classes of metabolites or other data types, and the colours of the edges can also be used to represent the positive/negative value of the correlations. SEN plots can also be made to be interactive, allowing for further exploratory data analysis.</i>
+<i>In this tutorial we will step through a workflow to produce a Spring-embedded network (SEN) plot. SEN plots provide a means to represent correlations in an undirected graph where each node represents a metabolite and the spring constant of each edge between nodes represents the correlation coefficient. When the tension on the graph is allowed to relax and put in a low energy configuration, the springs push the nodes to their furthest allowed distance from each other in the graph layout. Where there are edges with higher correlation coefficients the spring tightens bringing nodes closer together and where there are lower correlation coefficients the spring loosens and stretches. SEN plots form a type of multivariate cluster analysis, where nodes clustered together are more positively correlated and nodes further apart are considered more negatively correlated. Additionally, univariate statistical analysis is also included in the form of p-values and other univariate statistics, such as p-values used for the size of nodes (which can be made to be inversely proportional with larger nodes being more significant), or VIP scores, D-ratio etc. The colours of the nodes can also be associated with other variables such as correlation to drug concentrations, positive/negative fold change, classes of metabolites or other data types, and the colours of the edges can also be used to represent the positive/negative value of the correlations. SEN plots can also be made to be interactive, allowing for further exploratory data analysis.</i>
 
 Launch tutorial 5 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial5.ipynb)
 
@@ -125,7 +130,7 @@ To download the notebook (as changes to the notebook are lost when the Binder se
 9. Return to the 'Home' tab
 10. Change 'Application on... base(root)' to 'Application on... multivis_tutorials' (at the top)
 11. Press the 'Launch' button under the 'Jupyter Notebook' box
-12. Using the Notebook Dashboard, locate the downloaded folder in step 2/3 and open (double-click) on the 'Tutorial.ipynb'.
+12. Using the Notebook Dashboard, locate the downloaded folder in step 2/3 and open (double-click) on the 'Tutorial*.ipynb'.
 <br /><br />
 
 #### Step 2. Create a local copy using Terminal / Command Prompt **(Alternative)**
