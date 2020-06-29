@@ -2,3 +2,5 @@ theme: jekyll-theme-cayman
 title: Chapman et al. (2019)
 description: Multivariate Visualisation Tutorials
 show_downloads: true
+sass:
+  style: compact
