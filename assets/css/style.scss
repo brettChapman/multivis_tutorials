@@ -3,7 +3,6 @@
 
 @import "{{ site.theme }}";
 
-body {
-	width: 45rem;
-	margin: 15 auto;
+body.inner {
+	wmax-width: 75%;
 }
