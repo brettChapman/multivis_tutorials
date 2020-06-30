@@ -162,7 +162,7 @@ To download the notebook (as changes to the notebook are lost when the Binder se
 9. Return to the 'Home' tab
 10. Change 'Application on... base(root)' to 'Application on... multivis_tutorials' (at the top)
 11. Press the 'Launch' button under the 'Jupyter Notebook' box
-12. Using the Notebook Dashboard, locate the downloaded folder in step 2/3 and open (double-click) on the 'Tutorial*.ipynb'.
+12. Using the Notebook Dashboard, locate the downloaded folder in step 2/3 and open (double-click) on the 'Tutorial.ipynb'.
 <br /><br />
 
 #### Step 2. Create a local copy using Terminal / Command Prompt **(Alternative)**
