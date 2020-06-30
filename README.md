@@ -95,7 +95,7 @@ Launch tutorial 4 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 ### Example plot of mean peak areas of clusters from polar dendrogram in tutorial 4:
 
-![Polar Dendrogram](clusterPlots.png)
+![Cluster plot](clusterPlots.png | height=100)
 
 <br />
 
@@ -111,8 +111,7 @@ Launch tutorial 5 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 ### Example plot with a dashboard from tutorial 5:
 
-<iframe width="100%" height="1200" src="springNetwork_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
-
+<iframe width="100%" height="1500" src="springNetwork_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <br />
 
@@ -128,8 +127,8 @@ Launch tutorial 6 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 ### Example plot with a dashboard from tutorial 6:
 
-<iframe width="100%" height="1200" src="hEdgeBundle_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
-S
+<iframe width="100%" height="1500" src="hEdgeBundle_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
 <br/>
 
 ## Download the notebook from Binder
