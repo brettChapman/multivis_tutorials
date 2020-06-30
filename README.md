@@ -51,7 +51,7 @@ Launch tutorial 1 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 ### Example plot from tutorial 1:
 
-![PCA](PCA_biplot.png)
+<img src="PCA_biplot.png" alt="PCA" width="75%" height="75%"/>
 
 <br />
 
@@ -65,7 +65,7 @@ Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 ### Example plot from tutorial 2:
 
-![PCoA](PCOA.png)
+<img src="PCOA.png" alt="PCoA" width="75%" height="75%"/>
 
 <br />
 
@@ -91,11 +91,11 @@ Launch tutorial 4 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 ### Example plot from tutorial 4:
 
-![Polar Dendrogram](polarDendrogram.png)
+<img src="polarDendrogram.png" alt="Polar Dendrogram" width="75%" height="75%"/>
 
 ### Example plot of mean peak areas of clusters from polar dendrogram in tutorial 4:
 
-![Cluster plot](clusterPlots.png)
+<img src="clusterPlots.png" alt="Cluster plot" width="75%" height="75%"/>
 
 <br />
 
