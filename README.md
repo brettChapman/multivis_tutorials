@@ -123,11 +123,11 @@ Launch tutorial 6 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 ### Example plot from tutorial 6:
 
-<iframe width="100%" height="1300" src="hEdgeBundle.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="100%" height="1400" src="hEdgeBundle.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 ### Example plot with a dashboard from tutorial 6:
 
-<iframe width="100%" height="800" src="hEdgeBundle_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="100%" height="900" src="hEdgeBundle_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <br/>
 
