@@ -93,7 +93,7 @@ Launch tutorial 4 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 Launch tutorial 5 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial5.ipynb)
 
-<iframe width="1000" height="1200" src="springNetwork.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="1100" height="1200" src="springNetwork.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 
 <br />
@@ -104,7 +104,7 @@ Launch tutorial 5 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 Launch tutorial 6 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial6.ipynb)
 
-<iframe width="1000" height="1200" src="hEdgeBundle.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="1100" height="1200" src="hEdgeBundle.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <br/>
 
