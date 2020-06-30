@@ -49,6 +49,8 @@ This repository contains the tutorials for the Metabolomics review paper "Multiv
 
 Launch tutorial 1 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial1.ipynb)
 
+### Example plot from tutorial 1:
+
 ![PCA](PCA_biplot.png)
 
 <br />
@@ -60,6 +62,8 @@ Launch tutorial 1 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 </p>
 
 Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial2.ipynb)
+
+### Example plot from tutorial 2:
 
 ![PCoA](PCOA.png)
 
@@ -73,6 +77,8 @@ Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial3.ipynb)
 
+### Example plot from tutorial 3:
+
 ![HCH](clusterMap.png)
 
 <br />
@@ -83,7 +89,13 @@ Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 Launch tutorial 4 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial4.ipynb)
 
+### Example plot from tutorial 4:
+
 ![Polar Dendrogram](polarDendrogram.png)
+
+### Example plot of mean peak areas of clusters from polar dendrogram in tutorial 4:
+
+![Polar Dendrogram](clusterPlots.png)
 
 <br />
 
@@ -93,7 +105,13 @@ Launch tutorial 4 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 Launch tutorial 5 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial5.ipynb)
 
+### Example plot from tutorial 5:
+
 <iframe width="100%" height="1200" src="springNetwork.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+### Example plot with a dashboard from tutorial 5:
+
+<iframe width="100%" height="1200" src="springNetwork_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 
 <br />
@@ -104,8 +122,14 @@ Launch tutorial 5 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 Launch tutorial 6 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial6.ipynb)
 
+### Example plot from tutorial 6:
+
 <iframe width="100%" height="1200" src="hEdgeBundle.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
+### Example plot with a dashboard from tutorial 6:
+
+<iframe width="100%" height="1200" src="hEdgeBundle_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+S
 <br/>
 
 ## Download the notebook from Binder
