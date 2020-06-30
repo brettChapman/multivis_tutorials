@@ -79,7 +79,7 @@ Launch tutorial 2 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 ### Example plot from tutorial 3:
 
-<img src="clusterMap.png" alt="HCH" width="50%" height="50%"/>
+<img src="clusterMap.png" alt="HCH" width="75%" height="75%"/>
 
 <br />
 
