@@ -95,7 +95,7 @@ Launch tutorial 4 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 ### Example plot of mean peak areas of clusters from polar dendrogram in tutorial 4:
 
-<img src="clusterPlots.png" height="100">
+<img src="clusterPlots.png" width="1000" height="1000">
 
 <br />
 
