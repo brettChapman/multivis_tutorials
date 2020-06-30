@@ -111,7 +111,7 @@ Launch tutorial 5 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 ### Example plot with a dashboard from tutorial 5:
 
-<iframe width="100%" height="1500" src="springNetwork_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="100%" height="1200" src="springNetwork_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <br />
 
@@ -127,7 +127,7 @@ Launch tutorial 6 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 ### Example plot with a dashboard from tutorial 6:
 
-<iframe width="100%" height="1500" src="hEdgeBundle_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="100%" height="1200" src="hEdgeBundle_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <br/>
 
