@@ -311,8 +311,8 @@
                                     .range([1,10]);
                     
                     centrality_values.forEach( function (d) { scaledValues.push(initScale(parseFloat(d))); });
-                } else {                
-                    centrality_values.forEach( function (d) { scaledValues.push(d); });
+                } else {
+                    scaledValues = centrality_values.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
                 }
                                   
                 if (scaleType == "linear") {
@@ -427,9 +427,18 @@
                        
                 } else if (scaleType == "ordinal") {
                 
+                    var ordinal_range = [...Array(scaledValues.length).keys()];
+                    
+                    initScale = d3.scaleLinear()
+                                    .domain(d3.extent(ordinal_range))
+                                    .range(range);
+                    
+                    scaled_range = []
+                    ordinal_range.forEach( function (d) { scaled_range.push(initScale(d)); });
+                
                     ordinalScale = d3.scaleOrdinal()
                          .domain(scaledValues)
-                         .range(range);                  
+                         .range(scaled_range);
                                         
                     graph.nodes.forEach( function (d) { d.size = ordinalScale(d[centrality]); });
                 }
@@ -438,7 +447,7 @@
             function updateNodeColor(centrality, colorOption) {
                 var scaleType = params.node_color_scale[centrality].scale
                 var range = [0,1]
-                  
+                
                 var centrality_values = []
                 graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { centrality_values.push(parseFloat(0)); } else { centrality_values.push(d[centrality]); }});
                 
@@ -453,8 +462,8 @@
                                     .range([1,10]);
                     
                     centrality_values.forEach( function (d) { scaledValues.push(initScale(parseFloat(d))); });
-                } else {                
-                    centrality_values.forEach( function (d) { scaledValues.push(d); });
+                } else {
+                    scaledValues = centrality_values.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
                 }        
                 
                 colorDomain = []                
@@ -580,14 +589,23 @@
                        
                 } else if (scaleType == "ordinal") {
                 
+                    var ordinal_range = [...Array(scaledValues.length).keys()];
+                    
+                    initScale = d3.scaleLinear()
+                                    .domain(d3.extent(ordinal_range))
+                                    .range(range);
+                                                    
+                    scaled_range = []
+                    ordinal_range.forEach( function (d) { scaled_range.push(initScale(d)); });
+                    
                     ordinalScale = d3.scaleOrdinal()
                         .domain(scaledValues)
-                        .range(range);
+                        .range(scaled_range);
                                         
                     graph.nodes.forEach( function (d) { d.color = ordinalScale(d[centrality]); });
                     graph.nodes.forEach( function (d) { colorDomain.push(ordinalScale(d[centrality])); });
                 }
-                
+                        
                 if (scheme_list.includes(colorOption)) {
                     var color_palette = d3.scaleQuantize()
                                             .domain(d3.extent(colorDomain))

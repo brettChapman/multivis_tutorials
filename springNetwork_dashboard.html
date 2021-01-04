@@ -313,7 +313,7 @@
                     
                     centrality_values.forEach( function (d) { scaledValues.push(initScale(parseFloat(d))); });
                 } else {                
-                    centrality_values.forEach( function (d) { scaledValues.push(d); });
+                    scaledValues = centrality_values.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
                 }
                                   
                 if (scaleType == "linear") {
@@ -428,9 +428,18 @@
                        
                 } else if (scaleType == "ordinal") {
                 
+                    var ordinal_range = [...Array(scaledValues.length).keys()];
+                    
+                    initScale = d3.scaleLinear()
+                                    .domain(d3.extent(ordinal_range))
+                                    .range(range);
+                    
+                    scaled_range = []
+                    ordinal_range.forEach( function (d) { scaled_range.push(initScale(d)); });
+                
                     ordinalScale = d3.scaleOrdinal()
                          .domain(scaledValues)
-                         .range(range);                  
+                         .range(scaled_range);                
                                         
                     graph.nodes.forEach( function (d) { d.size = ordinalScale(d[centrality]); });
                 }
@@ -455,7 +464,7 @@
                     
                     centrality_values.forEach( function (d) { scaledValues.push(initScale(parseFloat(d))); });
                 } else {                
-                    centrality_values.forEach( function (d) { scaledValues.push(d); });
+                    scaledValues = centrality_values.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
                 }        
                 
                 colorDomain = []                
@@ -581,9 +590,18 @@
                        
                 } else if (scaleType == "ordinal") {
                 
+                    var ordinal_range = [...Array(scaledValues.length).keys()];
+                    
+                    initScale = d3.scaleLinear()
+                                    .domain(d3.extent(ordinal_range))
+                                    .range(range);
+                                                    
+                    scaled_range = []
+                    ordinal_range.forEach( function (d) { scaled_range.push(initScale(d)); });
+                    
                     ordinalScale = d3.scaleOrdinal()
                         .domain(scaledValues)
-                        .range(range);
+                        .range(scaled_range);
                                         
                     graph.nodes.forEach( function (d) { d.color = ordinalScale(d[centrality]); });
                     graph.nodes.forEach( function (d) { colorDomain.push(ordinalScale(d[centrality])); });
