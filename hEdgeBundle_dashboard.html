@@ -234,16 +234,16 @@
                                         </div>
               
                                         <div ng-show="abs_visible" class="row">
-                                            <rzslider id="abs_slider" class="abs_slider" rz-slider-model="abs_slider.value" rz-slider-options="abs_slider.options"></rzslider>
+                                            <rzslider id="abs_slider" class="abs_slider" rz-slider-model="abs_slider.minValue" rz-slider-high="abs_slider.maxValue" rz-slider-options="abs_slider.options"></rzslider>
                                         </div>
                                         <div ng-show="pos_visible" class="row">
-                                            <rzslider id="pos_slider" class="pos_slider" rz-slider-model="pos_slider.value" rz-slider-options="pos_slider.options"></rzslider>
+                                            <rzslider id="pos_slider" class="pos_slider" rz-slider-model="pos_slider.minValue" rz-slider-high="pos_slider.maxValue" rz-slider-options="pos_slider.options"></rzslider>
                                         </div>
                                         <div ng-show="neg_visible" class="row">
-                                            <rzslider id="neg_slider" class="neg_slider" rz-slider-model="neg_slider.value" rz-slider-options="neg_slider.options"></rzslider>
+                                            <rzslider id="neg_slider" class="neg_slider" rz-slider-model="neg_slider.minValue" rz-slider-high="neg_slider.maxValue" rz-slider-options="neg_slider.options"></rzslider>
                                         </div>
                                         <div ng-show="pvalue_visible" class="row">
-                                            <rzslider id="pvalue_slider" class="pvalue_slider" rz-slider-model="pvalue_slider.value" rz-slider-options="pvalue_slider.options"></rzslider>
+                                            <rzslider id="pvalue_slider" class="pvalue_slider" rz-slider-model="pvalue_slider.minValue" rz-slider-high="pvalue_slider.maxValue" rz-slider-options="pvalue_slider.options"></rzslider>
                                         </div>
                                         
                                         <div class="row">
@@ -341,15 +341,22 @@
 	        var linkLine = updateBundle(flareData); //Initial generation of bundle to populate arrays
 	        
 	        if ("true" == "true") {
-                var currValues = {'abs_score': 0               
-                        , 'p_score': 0                
-                        , 'n_score': 0                
-                        , 'pvalue': 1                
+                var currValues = {'max_abs_score': Number(d3.max(abs_scores))               
+                        , 'min_abs_score': 0
+                        , 'min_p_score': 0
+                        , 'max_p_score': Number(d3.max(p_scores)) 
+                        , 'min_n_score': Number(d3.min(n_scores)) 
+                        , 'max_n_score': 0               
+                        , 'min_pvalue': 0
+                        , 'max_pvalue': 1               
                         , 'tension': 0.85};
             } else {
-                var currValues = {'abs_score': 0               
-                        , 'p_score': 0                
-                        , 'n_score': 0
+                var currValues = {'max_abs_score': Number(d3.max(abs_scores))               
+                        , 'min_abs_score': 0
+                        , 'min_p_score': 0
+                        , 'max_p_score': Number(d3.max(p_scores)) 
+                        , 'min_n_score': Number(d3.min(n_scores)) 
+                        , 'max_n_score': 0
                         , 'tension': 0.85};
             }
             
@@ -475,8 +482,9 @@
                 
                 var sliderScoreDecimalPlaces = 5;
                 
-                $scope.abs_slider = {       
-                        value: Number(d3.min(abs_scores).toFixed(sliderScoreDecimalPlaces)),                        
+                $scope.abs_slider = {
+                        minValue: Number(d3.min(abs_scores).toFixed(sliderScoreDecimalPlaces)),
+                        maxValue: Number(d3.max(abs_scores).toFixed(sliderScoreDecimalPlaces)),                        
                         options: {
                                 showSelectionBar: true,                    
                                 floor: Number(d3.min(abs_scores).toFixed(sliderScoreDecimalPlaces)),
@@ -488,13 +496,15 @@
                                 pointerSize: 1,
                                 onChange: function () {
                 
-                                            var absScoreValue = $scope.abs_slider.value
+                                            var absScoreMinValue = $scope.abs_slider.minValue
+                                            var absScoreMaxValue = $scope.abs_slider.maxValue
                                             
                                             var tension = currValues.tension;
-                                            currValues['abs_score'] = absScoreValue;
+                                            currValues['min_abs_score'] = absScoreMinValue;
+                                            currValues['max_abs_score'] = absScoreMaxValue;
                                             
                                             //Filter all links out and update links
-                                            var FlareData = filterData(99999999999, 'score_abs');
+                                            var FlareData = filterData(99999999999, 99999999999, 'score_abs');
                                                         
                                             var linkLine = updateBundle(FlareData);
           
@@ -505,7 +515,7 @@
                                             link.attr('d', d => line(d.source.path(d.target)));
                                             
                                             //Apply new filter and update links
-                                            var FlareData = filterData(absScoreValue, 'score_abs');
+                                            var FlareData = filterData(absScoreMinValue, absScoreMaxValue, 'score_abs');
                                                         
                                             var linkLine = updateBundle(FlareData);
           
@@ -520,8 +530,9 @@
                 
                 if (p_scores.length != 0) {
                 
-                    $scope.pos_slider = {       
-                            value: Number(d3.min(p_scores).toFixed(sliderScoreDecimalPlaces)),                        
+                    $scope.pos_slider = {
+                            minValue: Number(d3.min(p_scores).toFixed(sliderScoreDecimalPlaces)),
+                            maxValue: Number(d3.max(p_scores).toFixed(sliderScoreDecimalPlaces)),                        
                             options: {
                                     showSelectionBar: true,                    
                                     floor: Number(d3.min(p_scores).toFixed(sliderScoreDecimalPlaces)),
@@ -533,13 +544,15 @@
                                     pointerSize: 1,
                                     onChange: function () {
                 
-                                            var pScoreValue = $scope.pos_slider.value
+                                            var pScoreMinValue = $scope.pos_slider.minValue
+                                            var pScoreMaxValue = $scope.pos_slider.maxValue
                                             
                                             var tension = currValues.tension;
-                                            currValues['p_score'] = pScoreValue;
+                                            currValues['min_p_score'] = pScoreMinValue;
+                                            currValues['max_p_score'] = pScoreMaxValue;
                                             
                                             //Filter all links out and update links
-                                            var FlareData = filterData(99999999999, 'score_pos');
+                                            var FlareData = filterData(99999999999, 99999999999, 'score_pos');
                                                                 
                                             var linkLine = updateBundle(FlareData);
           
@@ -550,7 +563,7 @@
                                             link.attr('d', d => line(d.source.path(d.target)));
                                             
                                             //Apply new filter and update links
-                                            var FlareData = filterData(pScoreValue, 'score_pos');
+                                            var FlareData = filterData(pScoreMinValue, pScoreMaxValue, 'score_pos');
                                                                 
                                             var linkLine = updateBundle(FlareData);
           
@@ -566,8 +579,9 @@
                 
                 if (n_scores.length != 0) {               
                         
-                    $scope.neg_slider = {       
-                            value: Number(d3.max(n_scores).toFixed(sliderScoreDecimalPlaces)),                        
+                    $scope.neg_slider = {
+                            minValue: Number(d3.min(n_scores).toFixed(sliderScoreDecimalPlaces)),
+                            maxValue: Number(d3.max(n_scores).toFixed(sliderScoreDecimalPlaces)),
                             options: {
                                     showSelectionBar: true,                    
                                     floor: Number(d3.min(n_scores).toFixed(sliderScoreDecimalPlaces)),
@@ -579,13 +593,15 @@
                                     pointerSize: 1,
                                     onChange: function () {
                 
-                                            var nScoreValue = $scope.neg_slider.value
+                                            var nScoreMinValue = $scope.neg_slider.minValue
+                                            var nScoreMaxValue = $scope.neg_slider.maxValue
                                             
                                             var tension = currValues.tension;
-                                            currValues['n_score'] = nScoreValue;
+                                            currValues['min_n_score'] = nScoreMinValue;
+                                            currValues['max_n_score'] = nScoreMaxValue;
                                             
                                             //Filter all links out and update links
-                                            var FlareData = filterData(-99999999999, 'score_neg');
+                                            var FlareData = filterData(-99999999999, -99999999999, 'score_neg');
                                                                 
                                             var linkLine = updateBundle(FlareData);
           
@@ -596,7 +612,7 @@
                                             link.attr('d', d => line(d.source.path(d.target)));
                                             
                                             //Apply new filter and update links
-                                            var FlareData = filterData(nScoreValue, 'score_neg');
+                                            var FlareData = filterData(nScoreMinValue, nScoreMaxValue, 'score_neg');
                                                                 
                                             var linkLine = updateBundle(FlareData);
           
@@ -614,7 +630,8 @@
                     if (pvalues.length != 0) {
                                                     
                         $scope.pvalue_slider = {       
-                                        value: Number(d3.max(pvalues).toFixed(Number(d3.min(pvalues).countDecimals()))),                       
+                                        minValue: Number(d3.min(pvalues).toFixed(Number(d3.min(pvalues).countDecimals()))),
+                                        maxValue: Number(d3.max(pvalues).toFixed(Number(d3.min(pvalues).countDecimals()))),
                                         options: {
                                                 showSelectionBar: true,     
                                                 floor: Number(d3.min(pvalues).toFixed(Number(d3.min(pvalues).countDecimals()))),
@@ -627,12 +644,15 @@
                                                 pointerSize: 1,
                                                 onChange: function () {
                                           
-                                                            var pvalueValue = $scope.pvalue_slider.value;
+                                                            var pvalueMinValue = $scope.pvalue_slider.minValue;
+                                                            var pvalueMaxValue = $scope.pvalue_slider.maxValue;                                                            
+                                                            
                                                             var tension = currValues.tension;
-                                                            currValues['pvalue'] = pvalueValue;
+                                                            currValues['min_pvalue'] = pvalueMinValue;
+                                                            currValues['max_pvalue'] = pvalueMaxValue;
                                            
                                                             //Filter all links out and update links
-                                                            var FlareData = filterData(Number(d3.min(pvalues))/10, 'pvalue');
+                                                            var FlareData = filterData(Number(d3.min(pvalues))/10, Number(d3.min(pvalues))/10, 'pvalue');
                                                         
                                                             var linkLine = updateBundle(FlareData);
                                                         
@@ -643,7 +663,7 @@
                                                             link.attr("d", d => line(d.source.path(d.target)));
                                                             
                                                             //Apply new filter and update links
-                                                            var FlareData = filterData(pvalueValue, 'pvalue');
+                                                            var FlareData = filterData(pvalueMinValue, pvalueMaxValue, 'pvalue');
                                                         
                                                             var linkLine = updateBundle(FlareData);
                                                         
@@ -696,20 +716,24 @@
                                                         }
                                                                     
                                                         if (score_form_val == "PosScoreRadio") {
-                                                            var p_scoreValue = currValues.p_score;
-                                                            var FlareData = filterData(p_scoreValue, 'score_pos');
+                                                            var min_p_scoreValue = currValues.min_p_score;
+                                                            var max_p_scoreValue = currValues.max_p_score;
+                                                            var FlareData = filterData(min_p_scoreValue, max_p_scoreValue, 'score_pos');
                                                         } else if (score_form_val == "NegScoreRadio") {
-                                                            var n_scoreValue = currValues.n_score;
-                                                            var FlareData = filterData(n_scoreValue, 'score_neg');
+                                                            var min_n_scoreValue = currValues.min_n_score;
+                                                            var max_n_scoreValue = currValues.max_n_score;
+                                                            var FlareData = filterData(min_n_scoreValue, max_n_scoreValue, 'score_neg');
                                                         } else if (score_form_val == "AbsScoreRadio") {
-                                                            var abs_scoreValue = currValues.abs_score;
-                                                            var FlareData = filterData(abs_scoreValue, 'score_abs');
+                                                            var min_abs_scoreValue = currValues.min_abs_score;
+                                                            var max_abs_scoreValue = currValues.max_abs_score;
+                                                            var FlareData = filterData(min_abs_scoreValue, max_abs_scoreValue, 'score_abs');
                                                         }
                                                     } else {
                                                         if ("true" == "true") {
                                                             if (form_val == "pvalueRadio") {
-                                                                var pvalueValue = currValues.pvalue;
-                                                                var FlareData = filterData(pvalueValue, 'pvalue');
+                                                                var pvalueMinValue = currValues.min_pvalue;
+                                                                var pvalueMaxValue = currValues.max_pvalue;
+                                                                var FlareData = filterData(pvalueMinValue, pvalueMaxValue, 'pvalue');
                                                             }
                                                         }
                                                     }
@@ -768,28 +792,27 @@
                         }
                     }
           
-                    if (form_val_score == "PosScoreRadio") {
-                        
+                    if (form_val_score == "PosScoreRadio") {                        
                         //Filter out all links prior to updating with the score threshold
-                        var FlareData = filterData(99999999999, 'score_pos');
+                        var FlareData = filterData(99999999999, 99999999999, 'score_pos');
                         var linkLine = updateBundle(FlareData);
                 
-                        var FlareData = filterData(currValues.p_score, 'score_pos');        
+                        var FlareData = filterData(currValues.min_p_score, currValues.max_p_score, 'score_pos');        
                         var linkLine = updateBundle(FlareData);
                     } else if (form_val_score == "NegScoreRadio") {
-                        
-                        var FlareData = filterData(-99999999999, 'score_neg');    
-                        var linkLine = updateBundle(FlareData);
-                
-                        var FlareData = filterData(currValues.n_score, 'score_neg');  
-                        var linkLine = updateBundle(FlareData);       
-                    } else if (form_val_score == "AbsScoreRadio") {
-                        
                         //Filter out all links prior to updating with the score threshold
-                        var FlareData = filterData(99999999999, 'score_abs');
+                        var FlareData = filterData(-99999999999, -99999999999, 'score_neg');   
                         var linkLine = updateBundle(FlareData);
                         
-                        var FlareData = filterData(currValues.abs_score, 'score_abs');
+                        //Filter with the new score threshold
+                        var FlareData = filterData(currValues.min_n_score, currValues.max_n_score, 'score_neg'); 
+                        var linkLine = updateBundle(FlareData);       
+                    } else if (form_val_score == "AbsScoreRadio") {                        
+                        //Filter out all links prior to updating with the score threshold
+                        var FlareData = filterData(99999999999, 99999999999, 'score_abs');
+                        var linkLine = updateBundle(FlareData);
+                        
+                        var FlareData = filterData(currValues.min_abs_score, currValues.max_abs_score, 'score_abs');
                         var linkLine = updateBundle(FlareData);
                     }
                 } else {
@@ -798,10 +821,10 @@
                             d3.select('#scoreSelect').style("display", 'none');
                             
                             //Filter out all links prior to updating with the pvalue threshold
-                            var FlareData = filterData(-99999999999, 'pvalue');
+                            var FlareData = filterData(-99999999999, -99999999999, 'pvalue');
                             var linkLine = updateBundle(FlareData);
                             
-                            var FlareData = filterData(currValues.pvalue, 'pvalue');
+                            var FlareData = filterData(currValues.min_pvalue, currValues.max_pvalue, 'pvalue');
                             var linkLine = updateBundle(FlareData);
                         }
                     } else {
@@ -829,30 +852,26 @@
                     }
                 }
                 
-                if (form_val == "PosScoreRadio") { 
-                    
+                if (form_val == "PosScoreRadio") {
                     //Filter out all links prior to updating with the score threshold
-                    var FlareData = filterData(99999999999, 'score_pos');
+                    var FlareData = filterData(99999999999, 99999999999, 'score_pos');
                     var linkLine = updateBundle(FlareData);
                     
-                    var FlareData = filterData(currValues.p_score, 'score_pos');        
-                    var linkLine = updateBundle(FlareData);      
-                    
+                    var FlareData = filterData(currValues.min_p_score, currValues.max_p_score, 'score_pos');    
+                    var linkLine = updateBundle(FlareData);
                 } else if (form_val == "NegScoreRadio") {
-                    
                     //Filter out all links prior to updating with the score threshold
-                    var FlareData = filterData(-99999999999, 'score_neg');    
+                    var FlareData = filterData(-99999999999, -99999999999, 'score_neg'); 
                     var linkLine = updateBundle(FlareData);
                     
-                    var FlareData = filterData(currValues.n_score, 'score_neg');  
+                    var FlareData = filterData(currValues.min_n_score, currValues.max_n_score, 'score_neg');
                     var linkLine = updateBundle(FlareData);        
                 } else if (form_val == "AbsScoreRadio") {
-                    
                     //Filter out all links prior to updating with the score threshold
-                    var FlareData = filterData(99999999999, 'score_abs');
+                    var FlareData = filterData(99999999999, 99999999999, 'score_abs');
                     var linkLine = updateBundle(FlareData);
                     
-                    var FlareData = filterData(currValues.abs_score, 'score_abs');
+                    var FlareData = filterData(currValues.min_abs_score, currValues.max_abs_score, 'score_abs');
                     var linkLine = updateBundle(FlareData);
                 }
                            
@@ -895,10 +914,11 @@
                 
                 node.exit().remove();
                 
-                var fontBase = 1000;
-                var fontSize = 10;
-                
                 function getFont() {
+                
+                    var fontBase = 1000;
+                    var fontSize = 10;
+                
                     var ratio = fontSize / fontBase;
                     var width = canvas.clientWidth;                    
                     var size = width * ratio;
@@ -906,12 +926,104 @@
                     return (size|0) + 'px';  
                 }
                 
+                function getArcRadiusOffset() {
+                    
+                    var arcBase = 1157;                    
+                    
+                    var arcRatio = 20 / arcBase;
+                    var arcWidth = canvas.clientWidth;                    
+                    var arcRadOffset = arcWidth * arcRatio;                        
+                                                            
+                    return (arcRadOffset|0);
+                }
+                
+                //Test to see if there are multiple blocks in the data. If none then set addArcs to false
+                var blocks = []
+                nodes.forEach(function(n) { if (n.data.Block !== undefined) { blocks.push(n.data.Block) }});                
+                
+                if ("true" == "true") {
+                    var addArcs = true;
+                    
+                    if (blocks.length == 0) {
+                        addArcs = false;
+                    }
+                } else {
+                    var addArcs = false;
+                }
+                
+                if (addArcs == true) {
+                
+                    var groupDict = {}
+                    
+                    var adjArcRadiusOffset = getArcRadiusOffset();
+                    
+                    var arcTextPositionOffset = 0.75 * adjArcRadiusOffset;
+                    
+                    var arcRadius = innerRadius + adjArcRadiusOffset;   
+                    
+                    var arcGap = adjArcRadiusOffset + 5;                 
+                    
+                    nodes.forEach(function(n) {
+                        if (n.data.Block !== undefined) {
+                            if (groupDict[n.data.Block] === undefined) {
+                                groupDict[n.data.Block] = []
+                                groupDict[n.data.Block].push(n)
+                            } else {
+                                groupDict[n.data.Block].push(n)
+                            }
+                        }
+                    })
+                    
+                    var groups = []
+                    for (var [key, value] of Object.entries(groupDict)) {
+                        groups.push(value[0])
+                    }
+                    
+                    edgeBundle.selectAll("g.group").remove();
+                    var groupData = edgeBundle.selectAll("g.group")
+                        .data(groups)
+                        .enter().append("group")
+    	                .attr("class", "group");
+                                       
+                    var groupArc = d3.arc()
+                        .innerRadius(innerRadius)
+                        .outerRadius(arcRadius)
+                        .startAngle(function(d) { return (findStartAngle(d.__data__.parent.children)-4) * Math.PI / 180;})
+                        .endAngle(function(d) { return (findEndAngle(d.__data__.parent.children)+4) * Math.PI / 180});
+                    
+                    edgeBundle.selectAll("g.arc").remove();
+                    edgeBundle.selectAll("g.arc")
+                        .data(groupData._groups[0])
+                        .enter()
+                        .append("svg:path")
+                        .attr("d", groupArc)
+                        .attr("class", "groupArc")
+                        .attr("fill", function(d) { return d.__data__.data.block_color; })
+                        .style("fill-opacity", 1.0)
+                        .attr("id", function(d,i) { return "arc_"+i; });
+                    
+                    edgeBundle.selectAll(".arcText").remove();
+                    edgeBundle.selectAll(".arcText")
+                        .data(groupData._groups[0])
+                        .enter()
+                        .append("text")
+                        .attr("class", "arcText")
+                        .attr("x", 5) //Move text from the start angle of the arc
+                        .attr("dy", arcTextPositionOffset) //Move the text down
+                        .append("textPath")
+                        .attr("xlink:href",function(d,i){return "#arc_"+i;})
+                        .style("font-size", getFont())
+                        .text(function(d){return d.__data__.data.Block;});
+                } else {
+                    var arcGap = 5;
+                }            
+                
                 if ("true" == "true") {
                 
                     var newNode = node.enter().append("text")
                                         .attr("class", "node")
                                         .attr("dy", ".31em")
-                                        .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+                                        .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + arcGap) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
                                         .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
                                         .text(function(d) { return d.data.Label; })
                                         .style("font-size", getFont())
@@ -923,7 +1035,7 @@
                     var newNode = node.enter().append("text")
                                         .attr("class", "node")
                                         .attr("dy", ".31em")
-                                        .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+                                        .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + arcGap) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
                                         .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
                                         .text(function(d) { return d.data.Label; })
                                         .style("font-size", getFont())
@@ -980,6 +1092,26 @@
                 link = link.merge(newLink);
                 
                 var linkLine = {"line": line, "link": link}
+                
+                function findStartAngle(children) {
+                    var min = children[0].x;
+                    children.forEach(function(d) {
+                        if (d.x < min) {
+                            min = d.x;
+                        }
+                    });
+                    return min;
+                }
+                
+                function findEndAngle(children) {
+                    var max = children[0].x;
+                    children.forEach(function(d) {
+                        if (d.x > max) {
+                            max = d.x;
+                        }
+                    });
+                    return max;
+                }               
                 
                 function mouseovered_node(d) {
       
@@ -1107,7 +1239,7 @@
                 return linkLine;
             }
             
-            function filterData(threshold, filtType) {
+            function filterData(minThreshold, maxThreshold, filtType) {
             
                 const data = flareData.map(a => ({...a}));
                  
@@ -1131,7 +1263,7 @@
                         
                         if (filtType == 'score_abs') {
                             
-                            if (Math.abs(link_score) >= threshold) {
+                            if ((Math.abs(link_score) >= minThreshold) && (Math.abs(link_score) <= maxThreshold)) {
                                 if ("true" == "true") {                                
                                     newLinks[key] = {"link_score": link_score
                                                     , "link_pvalue": link_pvalue
@@ -1144,7 +1276,7 @@
                                   
                         } else if (filtType == 'score_neg') {
                         
-                            if (link_score <= threshold) {
+                            if ((link_score <= maxThreshold) && (link_score >= minThreshold)) {
                                 if ("true" == "true") {
                                     newLinks[key] = {"link_score": link_score
                                                 , "link_pvalue": link_pvalue
@@ -1157,7 +1289,7 @@
                                                         
                         } else if (filtType == 'score_pos') {
                             
-                            if (link_score >= threshold) {
+                            if ((link_score >= minThreshold) && (link_score <= maxThreshold)) {
                                 if ("true" == "true") {
                                     newLinks[key] = {"link_score": link_score
                                                    , "link_pvalue": link_pvalue
@@ -1171,7 +1303,7 @@
                         } else {
                             if ("true" == "true") {
                                 if (filtType == 'pvalue') {
-                                    if (link_pvalue <= threshold) {
+                                    if ((link_pvalue >= minThreshold) && (link_pvalue <= maxThreshold)) {
                                         newLinks[key] = {"link_score": link_score
                                                         , "link_pvalue": link_pvalue
                                                         , "link_color": link_color};
