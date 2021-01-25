@@ -4,9 +4,9 @@ channels:
 - conda-forge
 - brett.chapman
 dependencies:
-- python=3.6.7
-- numpy=1.16.2
-- pandas=0.24.2
+- python>=3.5
+- numpy>=1.12
+- pandas=0.25.1
 - openpyxl=2.6.1
 - jupyter
 - multivis
