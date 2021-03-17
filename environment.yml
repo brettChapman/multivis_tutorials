@@ -10,4 +10,3 @@ dependencies:
 - openpyxl=2.6.1
 - jupyter
 - multivis
-- tornado=5.1.1
