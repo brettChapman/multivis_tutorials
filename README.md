@@ -1,7 +1,7 @@
 # README.md
 
 <p align="justify">
-This repository contains six different tutorials explaining visualisations from PCA, PCoA, Hierarchical Clustered Heatmaps (HCH), Polar Dendrograms, Spring-embedded network plots, and Hierarchical Edge Bundle plots, all demonstrated using a dataset from (<a href="https://physoc.onlinelibrary.wiley.com/doi/full/10.1113/EP087159">Lawler et al. (2018)</a>) published in <i>Experimental Physiology</i>. The tutorials stress the importance of multivariate analysis and provides multiple options for multivariate visualisation. Each tutorial can be downloaded and run locally through Jupyter Notebook or run on the cloud through Binder.
+This repository contains six different tutorials explaining visualisations, from PCA, PCA loadings lollipop plots, PCoA, Hierarchical Clustered Heatmaps (HCH), Polar Dendrograms, Peak area plots, Spring-embedded network plots, and Hierarchical Edge Bundle plots (some included with statistical analysis), all demonstrated using a dataset from (<a href="https://physoc.onlinelibrary.wiley.com/doi/full/10.1113/EP087159">Lawler et al. (2018)</a>) published in <i>Experimental Physiology</i>. The tutorials stress the importance of multivariate analysis and provides multiple options for multivariate visualisation. Each tutorial can be downloaded and run locally through Jupyter Notebook or run on the cloud through Binder.
 </p>
 
 <br />
@@ -32,19 +32,19 @@ This repository contains six different tutorials explaining visualisations from 
 
 ## Tutorials
 
-1.	[Principal Component Analysis (PCA) with biplot](#one)
+1.	[Principal Component Analysis (PCA) with biplot, and PCA lollipop plots](#one)
 2.	[Principal Coordinate Analysis (PCoA)](#two)
 3.	[Hierarchical Clustered Heatmap](#three)
 4.	[Polar Dendrogram](#four)
-5.	[Spring-embedded network](#five)
-6.	[Hierarchical Edge Bundle](#six)
+5.	[Spring-embedded network with included statistical analysis](#five)
+6.	[Hierarchical Edge Bundle with included statistical analysis](#six)
 
 <br />
 
 <a id="one"></a>
 ## Tutorial 1: Principal Component Analysis (PCA) with biplot
 <p align="justify">
-<i>In this tutorial we will step through a workflow to produce a Principal Component Analysis (PCA) with a biplot. PCA is an exploratory multivariate data analysis technique which given a set of transformed and scaled observable variables can explain the degree of variance across a group of samples through their principal components. PCA is interpreted through the identification of any groups of samples which may cluster within any of the given axes along the principal components, indicating correlation within the groups, but does not indicate to which degree they are correlated. The overlay of loadings biplots indicate which metabolites contribute variance to which group of samples, and depending on the axes to which the biplot vectors project towards, indicate the relative direction of metabolite regulation.</i>
+<i>In this tutorial we will step through a workflow to produce a Principal Component Analysis (PCA) with a biplot, and also PCA lollipop plot. PCA is an exploratory multivariate data analysis technique which given a set of transformed and scaled observable variables can explain the degree of variance across a group of samples through their principal components. PCA is interpreted through the identification of any groups of samples which may cluster within any of the given axes along the principal components, indicating correlation within the groups, but does not indicate to which degree they are correlated. The overlay of loadings biplots indicate which metabolites contribute variance to which group of samples, and depending on the axes to which the biplot vectors project towards, indicate the relative direction of metabolite regulation. A PCA lollipop plot with bootstrapped confidence intervals is also included to indicate which features contribute to each component, and which are statistically significant.</I>
 </p>
 
 Launch tutorial 1 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial1.ipynb)
@@ -52,6 +52,14 @@ Launch tutorial 1 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 ### Example plot from tutorial 1:
 
 <img src="PCA_biplot.png" alt="PCA" width="75%" height="75%"/>
+
+<br />
+
+<img src="PCA_loadings_PC1.png" alt="PC1 Loadings" width="75%" height="75%"/>
+
+<br />
+
+<img src="PCA_loadings_PC2.png" alt="PC2 Loadings" width="75%" height="75%"/>
 
 <br />
 
@@ -101,7 +109,7 @@ Launch tutorial 4 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 <a id="five"></a>
 ## Tutorial 5: Spring-embedded network
-<i>In this tutorial we will step through a workflow to produce a Spring-embedded network (SEN) plot. SEN plots provide a means to represent correlations in an undirected graph where each node represents a metabolite and the spring constant of each edge between nodes represents the correlation coefficient. When the tension on the graph is allowed to relax and put in a low energy configuration, the springs push the nodes to their furthest allowed distance from each other in the graph layout. Where there are edges with higher correlation coefficients the spring tightens bringing nodes closer together and where there are lower correlation coefficients the spring loosens and stretches. SEN plots form a type of multivariate cluster analysis, where nodes clustered together are more positively correlated and nodes further apart are considered more negatively correlated. Additionally, univariate statistical analysis is also included in the form of p-values and other univariate statistics, such as p-values used for the size of nodes (which can be made to be inversely proportional with larger nodes being more significant), or VIP scores, D-ratio etc. The colours of the nodes can also be associated with other variables such as correlation to drug concentrations, positive/negative fold change, classes of metabolites or other data types, and the colours of the edges can also be used to represent the positive/negative value of the correlations. SEN plots can also be made to be interactive, allowing for further exploratory data analysis.</i>
+<i>In this tutorial we will step through a workflow to produce a Spring-embedded network (SEN) plot. SEN plots provide a means to represent correlations in an undirected graph where each node represents a metabolite and the spring constant of each edge between nodes represents the correlation coefficient. When the tension on the graph is allowed to relax and put in a low energy configuration, the springs push the nodes to their furthest allowed distance from each other in the graph layout. Where there are edges with higher correlation coefficients the spring tightens bringing nodes closer together and where there are lower correlation coefficients the spring loosens and stretches. SEN plots form a type of multivariate cluster analysis, where nodes clustered together are more positively correlated and nodes further apart are considered more negatively correlated. Additionally, univariate statistical analysis is also included in the form of p-values and other univariate statistics, such as p-values used for the size of nodes (which can be made to be inversely proportional with larger nodes being more significant), or VIP scores, D-ratio etc. The colours of the nodes can also be associated with other variables such as correlation to drug concentrations, positive/negative fold change, classes of metabolites or other data types, and the colours of the edges can also be used to represent the positive/negative value of the correlations. SEN plots can also be made to be interactive, allowing for further exploratory data analysis. Statistical analysis is included in this tutorial to provide a means to filter outliers, remove non-normally distributed data and to add further univariate data to the network plot.</I>
 
 Launch tutorial 5 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial5.ipynb)
 
@@ -117,7 +125,7 @@ Launch tutorial 5 by clicking the "Launch Binder" icon: [![Binder](https://mybin
 
 <a id="six"></a>
 ## Tutorial 6: Hierarchical Edge Bundle
-<i>In this tutorial we will step through a workflow to produce a Hierarchical edge bundle (HEB) plot. HEB plots are another means to visualise correlations in a circular hierarchical tree structure, with nodes on the outside and edges passing through the circle following a bundled curve until they connect to other nodes. The edges represent correlation coefficients and can be coloured accordingly based on the sign of the correlation and different classes or groups within the data can also be reflected in the HEB plot to illustrate how the different groups are correlated and to what degree. HEB plots are also interactive, allowing for further exploratory data analysis.</i>
+<i>In this tutorial we will step through a workflow to produce a Hierarchical edge bundle (HEB) plot. HEB plots are another means to visualise correlations in a circular hierarchical tree structure, with nodes on the outside and edges passing through the circle following a bundled curve until they connect to other nodes. The edges represent correlation coefficients and can be coloured accordingly based on the sign of the correlation and different classes or groups within the data can also be reflected in the HEB plot to illustrate how the different groups are correlated and to what degree. HEB plots are also interactive, allowing for further exploratory data analysis. Statistical analysis is included in this tutorial to provide a means to filter outliers, remove non-normally distributed data and to add further univariate data to visualise in the hierarchical edge bundle.</I>
 
 Launch tutorial 6 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial6.ipynb)
 
