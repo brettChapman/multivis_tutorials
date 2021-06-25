@@ -8,5 +8,5 @@ dependencies:
 - numpy=1.20.2
 - pandas=1.2.4
 - openpyxl=2.6.1
-- multivis=0.5.2
+- multivis=0.5.3
 - jupyter
