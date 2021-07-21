@@ -54,21 +54,21 @@ This repository contains twelve different tutorials spanning two case studies, e
 
 ## Tutorials
 
-1.1.	[Athlete performance at high altitude - Principal Component Analysis (PCA) with biplot, and PCA lollipop plots](#one)
-1.2.	[Athlete performance at high altitude - Principal Coordinate Analysis (PCoA) with included statistical analysis](#two)
-1.3.	[Athlete performance at high altitude - Hierarchical Clustered Heatmap](#three)
-1.4.	[Athlete performance at high altitude - Polar Dendrogram with included statistical analysis](#four)
-1.5.	[Athlete performance at high altitude - Spring-embedded network with included statistical analysis](#five)
-1.6.	[Athlete performance at high altitude - Hierarchical Edge Bundle with included statistical analysis](#six)
+1.1.	[Athlete performance at high altitude - Principal Component Analysis (PCA) with biplot, and PCA lollipop plots](#one) <br>
+1.2.	[Athlete performance at high altitude - Principal Coordinate Analysis (PCoA) with included statistical analysis](#two) <br>
+1.3.	[Athlete performance at high altitude - Hierarchical Clustered Heatmap](#three) <br>
+1.4.	[Athlete performance at high altitude - Polar Dendrogram with included statistical analysis](#four) <br>
+1.5.	[Athlete performance at high altitude - Spring-embedded network with included statistical analysis](#five) <br>
+1.6.	[Athlete performance at high altitude - Hierarchical Edge Bundle with included statistical analysis](#six) <br>
 
 <br />
 
-2.1.	[Gastric Cancer - Principal Component Analysis (PCA) with biplot, and PCA lollipop plots](#one)
-2.2.	[Gastric Cancer - Principal Coordinate Analysis (PCoA) with included statistical analysis](#two)
-2.3.	[Gastric Cancer - Hierarchical Clustered Heatmap](#three)
-2.4.	[Gastric Cancer - Polar Dendrogram with included statistical analysis](#four)
-2.5.	[Gastric Cancer - Spring-embedded network with included statistical analysis](#five)
-2.6.	[Gastric Cancer - Hierarchical Edge Bundle with included statistical analysis](#six)
+2.1.	[Gastric Cancer - Principal Component Analysis (PCA) with biplot, and PCA lollipop plots](#one) <br>
+2.2.	[Gastric Cancer - Principal Coordinate Analysis (PCoA) with included statistical analysis](#two) <br>
+2.3.	[Gastric Cancer - Hierarchical Clustered Heatmap](#three) <br>
+2.4.	[Gastric Cancer - Polar Dendrogram with included statistical analysis](#four) <br>
+2.5.	[Gastric Cancer - Spring-embedded network with included statistical analysis](#five) <br>
+2.6.	[Gastric Cancer - Hierarchical Edge Bundle with included statistical analysis](#six) <br>
 
 <br />
 
