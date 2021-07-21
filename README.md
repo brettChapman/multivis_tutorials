@@ -79,6 +79,7 @@ This repository contains twelve different tutorials spanning two case studies, e
 </p>
 
 Launch tutorial 1.1 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial1.1.ipynb)
+<br>
 Launch tutorial 2.1 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial2.1.ipynb)
 
 ### Example plots from tutorial 1.1:
@@ -116,6 +117,7 @@ Launch tutorial 2.1 by clicking the "Launch Binder" icon: [![Binder](https://myb
 </p>
 
 Launch tutorial 1.2 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial1.2.ipynb)
+<br>
 Launch tutorial 2.2 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial2.2.ipynb)
 
 ### Example plot from tutorial 1.2:
@@ -137,6 +139,7 @@ Launch tutorial 2.2 by clicking the "Launch Binder" icon: [![Binder](https://myb
 </p>
 
 Launch tutorial 1.3 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial1.3.ipynb)
+<br>
 Launch tutorial 2.3 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial2.3.ipynb)
 
 ### Example plot from tutorial 1.3:
@@ -156,6 +159,7 @@ Launch tutorial 2.3 by clicking the "Launch Binder" icon: [![Binder](https://myb
 <i>These tutorials step through a workflow to produce a Polar dendrogram. Polar dendrograms are simply a circular form of a dendrogram based on the hierarchical structure of the similarity or dissimilarities from HCA. Polar dendrograms are interpreted by visually identifying the different clustered branches containing closely associated features (e.g. metabolites), the same way with dendrograms in HCH, however now following a circular format. The mean or median peak area of each of the clusters is then determined to identify the overall trajectories of features between different groups/classes, to assist in elucidating their biological context.</I>
 
 Launch tutorial 1.4 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial1.4.ipynb)
+<br>
 Launch tutorial 2.4 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial2.4.ipynb)
 
 ### Example plot from tutorial 1.4:
@@ -183,6 +187,7 @@ Launch tutorial 2.4 by clicking the "Launch Binder" icon: [![Binder](https://myb
 <i>These tutorials will step through a workflow to produce a single-block and multi-block spring-embedded network (SEN) plot. SEN plots provide a means to represent how different features are associated with each other, as well as they associate between different groups/classes, as an undirected graph where each node represents a feature (e.g. metabolite) and the spring constant of each edge between nodes represents some association value such as correlation coefficient. When the tension on the graph is allowed to relax and put in a low energy configuration, the springs push the nodes to their furthest allowed distance from each other in the graph layout. Where there are edges with higher values the spring tightens bringing nodes closer together and where there are lower values the spring loosens and stretches. SEN plots form a type of multivariate cluster analysis, where nodes clustered together are more positively associated together and nodes further apart are considered more negatively associated. The inclusion of univariate and multivariate statistical analysis outputs in the form of pvalues, mean/median fold changes, and PC loadings, and any other type of statistical outputs provide another layer of information by illustrating such information as different sizes or colours of nodes. The colours of the nodes can also be associated with other variables such as correlation to drug concentrations, positive/negative fold change, classes of features (e.g. metabolites) or other data types, and the colours of the edges can also be used to represent the positive/negative value of the correlations. Statistical analysis is included in this tutorial to provide a means to filter outliers, remove data with missing values, determine the normality of the data, and to add any further univariate and multivariate statistics to the network plot. Generation of the spring-embedded network is not limited to interpreting matrices of correlation coefficients, but can take any values as long as the matrix contains features on the x-axis and groups/categories/samples on the y-axis. The number of counts of features assigned to different categories can also be used, for example different genomes on the x-axis vs identified protein family domains on the y-axis or using an every day example the number of times individuals visited destinations. All this data can be visualised as a network to identify patterns and previously un-identified associations.</I>
 
 Launch tutorial 1.5 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial1.5.ipynb)
+<br>
 Launch tutorial 2.5 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial2.5.ipynb)
 
 ### Example single-block plots from tutorial 1.5:
@@ -290,6 +295,7 @@ Launch tutorial 2.5 by clicking the "Launch Binder" icon: [![Binder](https://myb
 <i>These tutorials step through a workflow to produce a multi-block Hierarchical edge bundle (HEB) plot. HEB plots are another means to visualise associations among features and between different groups/classes, in a circular hierarchical tree structure, with nodes on the outside, optionally separated into groups/classes and edges passing through the circle following a bundled curve until they connect to other nodes. The edges represent an association value such as a correlation coefficient and can be coloured accordingly based on the sign of the association value or correlation (e.g. positively vs negatively correlated). Univariate and multivariate statistics can be embedded in the visualisation. Statistical analysis is included in this tutorial to provide a means to filter outliers, remove data with missing values, determine the normality of the data, and to add any further univariate and multivariate statistics to the hierarchical edge bundle.</I>
 
 Launch tutorial 1.6 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial1.6.ipynb)
+<br>
 Launch tutorial 2.6 by clicking the "Launch Binder" icon: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/brettChapman/multivis_tutorials/master?filepath=Tutorial2.6.ipynb)
 
 ### Example plot from tutorial 1.6:
