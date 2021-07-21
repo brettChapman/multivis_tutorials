@@ -1,0 +1,1165 @@
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <head>
+	        <meta charset="utf-8">
+	        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" type="text/css" href="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.css">
+        </head>
+
+        <style> 
+        body {
+            background-color: white;            
+        }
+        
+        .links line {
+            stroke-opacity: 0.6;
+        }
+    
+        .nodes circle {
+            stroke: #fff;
+            stroke-width: 1.5px;
+            opacity: 1.0;
+        }
+        
+        .text {
+            stroke: #fff;
+            stroke-width: 1.5px;
+            opacity: 1.0;
+        }
+    
+        div.tooltip {
+            position: absolute;
+            background-color: white;
+            max-width; 200px;
+            height: auto;
+            padding: 1px;
+            border-style: solid;
+            border-radius: 4px;
+            border-width: 1px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, .5);
+            pointer-events: none;
+        }
+        
+        #slider {
+            position: relative;
+            top: 2px;
+        }
+        
+        #nodeSizeDropdown, #nodeColorDropdown {  
+            position: relative;
+            margin-bottom: 10px;
+            left: 0px;
+            color: black;
+        }
+        
+        #save {
+            position: relative;
+            left: 0px;
+            color: black;
+        }
+        
+        #springPanel {
+            position: relative;            
+            height: 800px;
+            margin: 0 auto;
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .row {
+            padding-left: 15px;
+        }  
+        
+        text {
+                        
+            font-family: sans-serif;
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+        }
+        
+        td:nth-child(odd) {
+            background-color: #eee;
+            font-weight: bold;
+        }
+               
+        .slider.rzslider .rz-bar {
+            background: #D3D3D3;
+            height: 2px;
+        }
+        
+        .slider.rzslider .rz-pointer {
+            width: 8px;
+            height: 20px;
+            top: auto; /* to remove the default positioning */
+            bottom: 0;
+            background-color: #333;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+        }
+        
+        .slider.rzslider .rz-pointer:after {
+            display: none;
+        }
+        
+        form.searchBar {
+            padding-top: 4px;
+        }
+        
+        /* Style the search field */
+        form.searchBar input[type=text] {
+            padding: 3px;
+            font-size: 17px;
+            border: 1px solid grey;
+            float: left;
+            top: 30px;
+            width: 80%;
+            height: 30px;
+            background: #f1f1f1;
+        }
+        
+        /* Style the submit button */
+        form.searchBar button {
+            float: left;
+            width: 20%;
+            height: 30px;
+            padding: 3px;
+            background: #2196F3;
+            color: white;
+            font-size: 17px;
+            border: 1px solid grey;
+            border-left: none; /* Prevent double borders */
+            cursor: pointer;
+        }
+        
+        form.searchBar button:hover {
+            background: #0b7dda;
+        }
+        
+        /* Clear floats */
+        form.searchBar::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+         </style>
+
+        <body ng-app="rzSliderDemo">
+		        <div class="row" ng-controller="MainCtrl">
+			        <div class="col-4">
+				        <div class="row">
+                            <form class="searchBar">
+                                <input id="searchTerm" type="text" placeholder="Search.." name="search">
+                                <button type="submit" data-ng-click="searchNodes()"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                        
+                        <rzslider id="slider" class="slider" rz-slider-model="slider.minValue" rz-slider-high="slider.maxValue" rz-slider-options="slider.options"></rzslider>
+                        
+                        <div id="nodeSizeDropdown" class="row">Size nodes by 
+                            <select ng-options="o for o in node_size_options" data-ng-model="selectedNodeSizeOption" ng-change="updateNodeSize()"></select>
+                        </div>
+                       
+                        <div id="nodeColorDropdown" class="row">Colour nodes by 
+                            <select ng-options="o for o in node_coloring_options" data-ng-model="selectedNodeColorOption" ng-change="updateNodeColor()"></select> using
+                            <select ng-options="o for o in color_options" data-ng-model="selectedColorOption" ng-change="updateNodeColor()"></select> colour palette
+                        </div>
+              
+                        <div id="save" class="row">
+                            <button class="mb-4" data-ng-click="savebutton()">Save</button>
+                        </div>
+					</div>		
+			    </div>
+			    
+                <div id="springPanel"></div>
+        </body>
+	    
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+	    
+	    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>        		
+	    <script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
+	    
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://unpkg.com/force-in-a-box/dist/forceInABox.js"></script>
+        
+        <script>
+            (function(){var g=typeof exports!="undefined"&&exports||this;var b='<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';function e(h){return h&&h.lastIndexOf("http",0)==0&&h.lastIndexOf(window.location.host)==-1}function a(k,m){var h=k.querySelectorAll("image");var l=h.length;if(l==0){m()}for(var j=0;j<h.length;j++){(function(q){var o=q.getAttributeNS("http://www.w3.org/1999/xlink","href");if(o){if(e(o.value)){console.warn("Cannot render embedded images linking to external hosts: "+o.value);return}}var p=document.createElement("canvas");var i=p.getContext("2d");var n=new Image();o=o||q.getAttribute("href");n.src=o;n.onload=function(){p.width=n.width;p.height=n.height;i.drawImage(n,0,0);q.setAttributeNS("http://www.w3.org/1999/xlink","href",p.toDataURL("image/png"));l--;if(l==0){m()}};n.onerror=function(){console.log("Could not load "+o);l--;if(l==0){m()}}})(h[j])}}function f(h,k){var r="";var q=document.styleSheets;for(var o=0;o<q.length;o++){try{var u=q[o].cssRules}catch(s){console.warn("Stylesheet could not be loaded: "+q[o].href);continue}if(u!=null){for(var n=0;n<u.length;n++){var t=u[n];if(typeof(t.style)!="undefined"){var p=null;try{p=h.querySelector(t.selectorText)}catch(m){console.warn('Invalid CSS selector "'+t.selectorText+'"',m)}if(p){var l=k?k(t.selectorText):t.selectorText;r+=l+" { "+t.style.cssText+" }\n"}else{if(t.cssText.match(/^@font-face/)){r+=t.cssText+"\n"}}}}}}return r}function d(i,k,j){var h=(i.viewBox.baseVal&&i.viewBox.baseVal[j])||(k.getAttribute(j)!==null&&!k.getAttribute(j).match(/%$/)&&parseInt(k.getAttribute(j)))||i.getBoundingClientRect()[j]||parseInt(k.style[j])||parseInt(window.getComputedStyle(i).getPropertyValue(j));return(typeof h==="undefined"||h===null||isNaN(parseFloat(h)))?0:h}function c(h){h=encodeURIComponent(h);h=h.replace(/%([0-9A-F]{2})/g,function(i,j){var k=String.fromCharCode("0x"+j);return k==="%"?"%25":k});return decodeURIComponent(h)}g.svgAsDataUri=function(j,i,h){i=i||{};i.scale=i.scale||1;var k="http://www.w3.org/2000/xmlns/";a(j,function(){var u=document.createElement("div");var r=j.cloneNode(true);var l,t;if(j.tagName=="svg"){l=i.width||d(j,r,"width");t=i.height||d(j,r,"height")}else{if(j.getBBox){var o=j.getBBox();l=o.x+o.width;t=o.y+o.height;r.setAttribute("transform",r.getAttribute("transform").replace(/translate\(.*?\)/,""));var p=document.createElementNS("http://www.w3.org/2000/svg","svg");p.appendChild(r);r=p}else{console.error("Attempted to render non-SVG element",j);return}}r.setAttribute("version","1.1");r.setAttributeNS(k,"xmlns","http://www.w3.org/2000/svg");r.setAttributeNS(k,"xmlns:xlink","http://www.w3.org/1999/xlink");r.setAttribute("width",l*i.scale);r.setAttribute("height",t*i.scale);r.setAttribute("viewBox",[i.left||0,i.top||0,l,t].join(" "));u.appendChild(r);var q=f(j,i.selectorRemap);var v=document.createElement("style");v.setAttribute("type","text/css");v.innerHTML="<![CDATA[\n"+q+"\n]]>";var n=document.createElement("defs");n.appendChild(v);r.insertBefore(n,r.firstChild);var p=b+u.innerHTML;var m="data:image/svg+xml;base64,"+window.btoa(c(p));if(h){h(m)}})};g.svgAsPngUri=function(j,i,h){g.svgAsDataUri(j,i,function(k){var l=new Image();l.onload=function(){var n=document.createElement("canvas");n.width=l.width;n.height=l.height;var o=n.getContext("2d");if(i&&i.backgroundColor){o.fillStyle=i.backgroundColor;o.fillRect(0,0,n.width,n.height)}o.drawImage(l,0,0);var m=document.createElement("a");h(n.toDataURL("image/png"))};l.src=k})};g.saveSvgAsPng=function(j,i,h){h=h||{};g.svgAsPngUri(j,h,function(l){var k=document.createElement("a");k.download=i;k.href=l;document.body.appendChild(k);k.addEventListener("click",function(m){k.parentNode.removeChild(k)});k.click()})}})();
+        </script>
+
+        <script> 
+        var networkData = "{\"nodes\": [{\"id\": 0, \"Idx\": \"0\", \"Name\": \"M1\", \"Label\": \"Ocatanedioic acid\", \"Mode\": \"Negative\", \"mz\": \"173.0814936\", \"rt\": \"528.593\", \"F\": \"1.20580499949928\", \"pvalue\": \"0.316809429654668\", \"pFDR\": \"0.290528592310766\", \"RSD\": \"10.4712294328065\", \"Dratio\": \"2.8872207484304\", \"Group_mean_Day1\": \"0.6699123921018183\", \"Group_mean_CI_lower_Day1\": \"-0.06114443370777408\", \"Group_mean_CI_upper_Day1\": \"1.4615021734126437\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"-0.17389448112114417\", \"Group_mean_CI_lower_Day14\": \"-0.7952367320381323\", \"Group_mean_CI_upper_Day14\": \"0.2945241575497503\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"-0.42902667177048726\", \"Group_mean_CI_lower_Day3\": \"-0.7240874651837086\", \"Group_mean_CI_upper_Day3\": \"0.05263962662163689\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-0.259577943580889\", \"MeanFoldChange_CI_lower_Day14\": \"-13.891519651983428\", \"MeanFoldChange_CI_upper_Day14\": \"0.6058311753680476\", \"MeanFoldChange_sig_Day14\": \"False\", \"MeanFoldChange_Day3\": \"-0.6404220564191034\", \"MeanFoldChange_CI_lower_Day3\": \"-4.63968331483235\", \"MeanFoldChange_CI_upper_Day3\": \"0.12210175593438181\", \"MeanFoldChange_sig_Day3\": \"False\", \"Shapiro_statistic\": \"0.9646680355072021\", \"Shapiro_pvalue\": \"0.42569124698638916\", \"PC1\": \"0.17244948291047674\", \"PC2\": \"-0.07524630118446388\", \"PC1_lower\": \"-0.0005577401775869242\", \"PC1_upper\": \"0.385101066938396\", \"PC1_sig\": \"False\", \"PC2_lower\": \"-0.4047833691553003\", \"PC2_upper\": \"0.13550356498235816\", \"PC2_sig\": \"False\"}, {\"id\": 2, \"Idx\": \"2\", \"Name\": \"M3\", \"Label\": \"Dodecanedioc acid\", \"Mode\": \"Negative\", \"mz\": \"229.143848\", \"rt\": \"966.471\", \"F\": \"3.65988782518355\", \"pvalue\": \"0.0790391935278154\", \"pFDR\": \"0.191245625859604\", \"RSD\": \"19.8564515336576\", \"Dratio\": \"3.21674171536072\", \"Group_mean_Day1\": \"0.175318888601908\", \"Group_mean_CI_lower_Day1\": \"-0.032355196596316776\", \"Group_mean_CI_upper_Day1\": \"0.6129392949546593\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"-0.1939674771171652\", \"Group_mean_CI_lower_Day14\": \"-0.8213943396012002\", \"Group_mean_CI_upper_Day14\": \"0.6338269140321574\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"0.03618047737545014\", \"Group_mean_CI_lower_Day3\": \"-0.5305730731824438\", \"Group_mean_CI_upper_Day3\": \"0.7566576149866696\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-1.1063695341897932\", \"MeanFoldChange_CI_lower_Day14\": \"-30.03784790932855\", \"MeanFoldChange_CI_upper_Day14\": \"11.254842415556684\", \"MeanFoldChange_sig_Day14\": \"False\", \"MeanFoldChange_Day3\": \"0.20636953418980541\", \"MeanFoldChange_CI_lower_Day3\": \"-20.1214678537844\", \"MeanFoldChange_CI_upper_Day3\": \"26.057870571757555\", \"MeanFoldChange_sig_Day3\": \"False\", \"Shapiro_statistic\": \"0.9620373249053955\", \"Shapiro_pvalue\": \"0.3686094880104065\", \"PC1\": \"0.19374522680951523\", \"PC2\": \"-0.07016387974065656\", \"PC1_lower\": \"0.01409068583461547\", \"PC1_upper\": \"0.3381252938949702\", \"PC1_sig\": \"True\", \"PC2_lower\": \"-0.3647520164058092\", \"PC2_upper\": \"0.13083743757676555\", \"PC2_sig\": \"False\"}, {\"id\": 7, \"Idx\": \"7\", \"Name\": \"M8\", \"Label\": \"Glycocholic acid\", \"Mode\": \"Negative\", \"mz\": \"464.2996324\", \"rt\": \"979.16\", \"F\": \"7.62627977928109\", \"pvalue\": \"0.0055561816777377\", \"pFDR\": \"0.0760327539927116\", \"RSD\": \"11.9023111972631\", \"Dratio\": \"7.4631773966264\", \"Group_mean_Day1\": \"0.06998890025172755\", \"Group_mean_CI_lower_Day1\": \"-0.5698815846635877\", \"Group_mean_CI_upper_Day1\": \"0.9207930320705198\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"-0.36928713088931053\", \"Group_mean_CI_lower_Day14\": \"-1.0324796248637713\", \"Group_mean_CI_upper_Day14\": \"0.28212498531982066\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"0.3062971206627604\", \"Group_mean_CI_lower_Day3\": \"0.030292671716514293\", \"Group_mean_CI_upper_Day3\": \"0.6975551855085633\", \"Group_mean_sig_Day3\": \"True\", \"MeanFoldChange_Day14\": \"-5.2763671033707285\", \"MeanFoldChange_CI_lower_Day14\": \"-77.23627118401092\", \"MeanFoldChange_CI_upper_Day14\": \"-2.2817455104224393\", \"MeanFoldChange_sig_Day14\": \"True\", \"MeanFoldChange_Day3\": \"4.376367103370795\", \"MeanFoldChange_CI_lower_Day3\": \"1.3877705132871914\", \"MeanFoldChange_CI_upper_Day3\": \"128.92721765271594\", \"MeanFoldChange_sig_Day3\": \"True\", \"Shapiro_statistic\": \"0.9866953492164612\", \"Shapiro_pvalue\": \"0.9662158489227295\", \"PC1\": \"0.3461926347479639\", \"PC2\": \"-0.04940187034722127\", \"PC1_lower\": \"0.3146722007741797\", \"PC1_upper\": \"0.39770667546005795\", \"PC1_sig\": \"True\", \"PC2_lower\": \"-0.31989751964291235\", \"PC2_upper\": \"0.2185828682283626\", \"PC2_sig\": \"False\"}, {\"id\": 8, \"Idx\": \"8\", \"Name\": \"M9\", \"Label\": \"L-Tryptophan\", \"Mode\": \"Negative\", \"mz\": \"203.0821552\", \"rt\": \"337.889\", \"F\": \"1.33582291749258\", \"pvalue\": \"0.287394237048956\", \"pFDR\": \"0.284527643984525\", \"RSD\": \"4.28942262139224\", \"Dratio\": \"3.48064971062249\", \"Group_mean_Day1\": \"0.1919545545126603\", \"Group_mean_CI_lower_Day1\": \"-0.5486500217309663\", \"Group_mean_CI_upper_Day1\": \"0.9077609880073214\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"-0.3952693205276506\", \"Group_mean_CI_lower_Day14\": \"-1.0877684234460891\", \"Group_mean_CI_upper_Day14\": \"0.1292881118046286\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"0.22251022146627264\", \"Group_mean_CI_lower_Day3\": \"-0.29075331574989327\", \"Group_mean_CI_upper_Day3\": \"0.4973671696745612\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-2.059181776286432\", \"MeanFoldChange_CI_lower_Day14\": \"-1413.72085417059\", \"MeanFoldChange_CI_upper_Day14\": \"-0.11902458630373505\", \"MeanFoldChange_sig_Day14\": \"True\", \"MeanFoldChange_Day3\": \"1.159181776286517\", \"MeanFoldChange_CI_lower_Day3\": \"0.30294567501056874\", \"MeanFoldChange_CI_upper_Day3\": \"129.17445023451825\", \"MeanFoldChange_sig_Day3\": \"True\", \"Shapiro_statistic\": \"0.9613915085792542\", \"Shapiro_pvalue\": \"0.35556310415267944\", \"PC1\": \"0.2447834308059564\", \"PC2\": \"-0.12549316152690143\", \"PC1_lower\": \"0.02508198019640708\", \"PC1_upper\": \"0.3890123276803765\", \"PC1_sig\": \"True\", \"PC2_lower\": \"-0.40526391952190643\", \"PC2_upper\": \"0.15006854171503217\", \"PC2_sig\": \"False\"}, {\"id\": 9, \"Idx\": \"9\", \"Name\": \"M10\", \"Label\": \"Hexadecanedioic acid\", \"Mode\": \"Negative\", \"mz\": \"285.2057299\", \"rt\": \"1344.61\", \"F\": \"0.554781791967447\", \"pvalue\": \"0.543472507847197\", \"pFDR\": \"0.328266939980167\", \"RSD\": \"9.53718839791506\", \"Dratio\": \"4.94217218241756\", \"Group_mean_Day1\": \"0.3981250988495304\", \"Group_mean_CI_lower_Day1\": \"-0.21160793697613403\", \"Group_mean_CI_upper_Day1\": \"1.242321766641254\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"-0.038173853388734656\", \"Group_mean_CI_lower_Day14\": \"-0.48594647031394\", \"Group_mean_CI_upper_Day14\": \"0.5374414581920933\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"-0.3201387355758377\", \"Group_mean_CI_lower_Day3\": \"-0.7782272050830007\", \"Group_mean_CI_upper_Day3\": \"0.2745588001589844\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-0.09588406633755661\", \"MeanFoldChange_CI_lower_Day14\": \"-5.164369394075526\", \"MeanFoldChange_CI_upper_Day14\": \"5.681506668729458\", \"MeanFoldChange_sig_Day14\": \"False\", \"MeanFoldChange_Day3\": \"-0.8041159336624308\", \"MeanFoldChange_CI_lower_Day3\": \"-10.821491819787633\", \"MeanFoldChange_CI_upper_Day3\": \"3.343396943701009\", \"MeanFoldChange_sig_Day3\": \"False\", \"Shapiro_statistic\": \"0.9525793194770813\", \"Shapiro_pvalue\": \"0.21344029903411865\", \"PC1\": \"0.11196331429164533\", \"PC2\": \"-0.29139966992809235\", \"PC1_lower\": \"-0.12040356497961097\", \"PC1_upper\": \"0.37096961831799535\", \"PC1_sig\": \"False\", \"PC2_lower\": \"-0.43324434535472467\", \"PC2_upper\": \"-0.15428434821637943\", \"PC2_sig\": \"True\"}, {\"id\": 10, \"Idx\": \"10\", \"Name\": \"M11\", \"Label\": \"Pseudouridine\", \"Mode\": \"Negative\", \"mz\": \"243.0612565\", \"rt\": \"85.364\", \"F\": \"1.6435444299445\", \"pvalue\": \"0.221582868255957\", \"pFDR\": \"0.264951112801882\", \"RSD\": \"3.20575216891402\", \"Dratio\": \"5.19485252302597\", \"Group_mean_Day1\": \"0.5594981154910532\", \"Group_mean_CI_lower_Day1\": \"-0.13445536514387652\", \"Group_mean_CI_upper_Day1\": \"1.3354476603450784\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"-0.038856425657652544\", \"Group_mean_CI_lower_Day14\": \"-0.34507814174147355\", \"Group_mean_CI_upper_Day14\": \"0.24193702630650277\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"-0.46469187828429614\", \"Group_mean_CI_lower_Day3\": \"-1.0957165976670875\", \"Group_mean_CI_upper_Day3\": \"0.18791972473262014\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-0.06944871587914023\", \"MeanFoldChange_CI_lower_Day14\": \"-4.9567583718307\", \"MeanFoldChange_CI_upper_Day14\": \"0.8020445196853627\", \"MeanFoldChange_sig_Day14\": \"False\", \"MeanFoldChange_Day3\": \"-0.8305512841208612\", \"MeanFoldChange_CI_lower_Day3\": \"-36.030747211370524\", \"MeanFoldChange_CI_upper_Day3\": \"0.43894492242875816\", \"MeanFoldChange_sig_Day3\": \"False\", \"Shapiro_statistic\": \"0.9761365056037903\", \"Shapiro_pvalue\": \"0.7331560254096985\", \"PC1\": \"-0.005754866106387244\", \"PC2\": \"-0.2502900981607974\", \"PC1_lower\": \"-0.2292570268681882\", \"PC1_upper\": \"0.26990344407326566\", \"PC1_sig\": \"False\", \"PC2_lower\": \"-0.5160705629341151\", \"PC2_upper\": \"-0.06670826445281706\", \"PC2_sig\": \"True\"}, {\"id\": 24, \"Idx\": \"24\", \"Name\": \"M25\", \"Label\": \"Phenylalanine\", \"Mode\": \"Positive\", \"mz\": \"166.0867342\", \"rt\": \"282.6595\", \"F\": \"2.25529291656826\", \"pvalue\": \"0.13912098916702\", \"pFDR\": \"0.234071408622749\", \"RSD\": \"5.50620215040509\", \"Dratio\": \"4.749588166799\", \"Group_mean_Day1\": \"0.3380848647858223\", \"Group_mean_CI_lower_Day1\": \"-0.20225254442052776\", \"Group_mean_CI_upper_Day1\": \"0.9618972145990041\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"-0.04409641967861701\", \"Group_mean_CI_lower_Day14\": \"-0.6926600043675615\", \"Group_mean_CI_upper_Day14\": \"0.644913341216966\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"-0.260179958628601\", \"Group_mean_CI_lower_Day3\": \"-0.8853056419345255\", \"Group_mean_CI_upper_Day3\": \"0.19783219591891593\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-0.13043003183994117\", \"MeanFoldChange_CI_lower_Day14\": \"-5.855031127570655\", \"MeanFoldChange_CI_upper_Day14\": \"6.856749129181944\", \"MeanFoldChange_sig_Day14\": \"False\", \"MeanFoldChange_Day3\": \"-0.7695699681599936\", \"MeanFoldChange_CI_lower_Day3\": \"-24.196651297695805\", \"MeanFoldChange_CI_upper_Day3\": \"2.832875254273755\", \"MeanFoldChange_sig_Day3\": \"False\", \"Shapiro_statistic\": \"0.9804230332374573\", \"Shapiro_pvalue\": \"0.848711371421814\", \"PC1\": \"0.20009001262907583\", \"PC2\": \"-0.14316274839894724\", \"PC1_lower\": \"-0.0024336339268949073\", \"PC1_upper\": \"0.3608426631930404\", \"PC1_sig\": \"False\", \"PC2_lower\": \"-0.3737927372967724\", \"PC2_upper\": \"0.11474714122140507\", \"PC2_sig\": \"False\"}, {\"id\": 1, \"Idx\": \"1\", \"Name\": \"M2\", \"Label\": \"Glycoursodeoxycholic acid\", \"Mode\": \"Negative\", \"mz\": \"448.3048795\", \"rt\": \"1158.75\", \"F\": \"6.6741169557049\", \"pvalue\": \"0.00738194291064731\", \"pFDR\": \"0.0797503547732716\", \"RSD\": \"4.70683906005692\", \"Dratio\": \"24.3148629492232\", \"Group_mean_Day1\": \"-0.40990676543887283\", \"Group_mean_CI_lower_Day1\": \"-1.4013843317396697\", \"Group_mean_CI_upper_Day1\": \"0.2668690369454469\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"0.12072451528460866\", \"Group_mean_CI_lower_Day14\": \"-0.45079896518948265\", \"Group_mean_CI_upper_Day14\": \"0.5246989935495978\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"0.24819157361037755\", \"Group_mean_CI_lower_Day3\": \"-0.5023498160953321\", \"Group_mean_CI_upper_Day3\": \"0.6700047359149343\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-0.2945170108508776\", \"MeanFoldChange_CI_lower_Day14\": \"-5.5689127876967115\", \"MeanFoldChange_CI_upper_Day14\": \"6.665342372572221\", \"MeanFoldChange_sig_Day14\": \"False\", \"MeanFoldChange_Day3\": \"-0.605482989149124\", \"MeanFoldChange_CI_lower_Day3\": \"-4.474890371690458\", \"MeanFoldChange_CI_upper_Day3\": \"9.409859937114598\", \"MeanFoldChange_sig_Day3\": \"False\", \"Shapiro_statistic\": \"0.880607545375824\", \"Shapiro_pvalue\": \"0.0034694536589086056\", \"PC1\": \"0.1665878598801547\", \"PC2\": \"0.2479572135548602\", \"PC1_lower\": \"-0.07193853644870055\", \"PC1_upper\": \"0.3722778518657982\", \"PC1_sig\": \"False\", \"PC2_lower\": \"0.060447325025440556\", \"PC2_upper\": \"0.459865039595057\", \"PC2_sig\": \"True\"}, {\"id\": 5, \"Idx\": \"5\", \"Name\": \"M6\", \"Label\": \"Lactic Acid\", \"Mode\": \"Negative\", \"mz\": \"89.02512203\", \"rt\": \"84.363\", \"F\": \"4.92863410270874\", \"pvalue\": \"0.020552209789679\", \"pFDR\": \"0.111017251280658\", \"RSD\": \"10.3418071336858\", \"Dratio\": \"2.33253381281317\", \"Group_mean_Day1\": \"0.15500645807850225\", \"Group_mean_CI_lower_Day1\": \"-0.28115787968132494\", \"Group_mean_CI_upper_Day1\": \"0.7990342306245419\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"-0.2264943617446829\", \"Group_mean_CI_lower_Day14\": \"-0.834206116026895\", \"Group_mean_CI_upper_Day14\": \"0.7113301892036729\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"0.08698854947404858\", \"Group_mean_CI_lower_Day3\": \"-0.503577314659036\", \"Group_mean_CI_upper_Day3\": \"0.47117897359967503\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-1.4611930660977748\", \"MeanFoldChange_CI_lower_Day14\": \"-606.886409249721\", \"MeanFoldChange_CI_upper_Day14\": \"0.8553725585262083\", \"MeanFoldChange_sig_Day14\": \"False\", \"MeanFoldChange_Day3\": \"0.561193066097889\", \"MeanFoldChange_CI_lower_Day3\": \"-3.400404777738053\", \"MeanFoldChange_CI_upper_Day3\": \"49.77341099174838\", \"MeanFoldChange_sig_Day3\": \"False\", \"Shapiro_statistic\": \"0.9832053184509277\", \"Shapiro_pvalue\": \"0.9110454320907593\", \"PC1\": \"0.2345115676934212\", \"PC2\": \"0.009089406832528932\", \"PC1_lower\": \"0.12326465012787388\", \"PC1_upper\": \"0.43793192579930423\", \"PC1_sig\": \"True\", \"PC2_lower\": \"-0.1910672977729931\", \"PC2_upper\": \"0.25542215427091836\", \"PC2_sig\": \"False\"}, {\"id\": 12, \"Idx\": \"12\", \"Name\": \"M13\", \"Label\": \"L-Tyrosine\", \"Mode\": \"Negative\", \"mz\": \"180.0662313\", \"rt\": \"147.197\", \"F\": \"5.99178957598754\", \"pvalue\": \"0.0166447400985999\", \"pFDR\": \"0.107327359243358\", \"RSD\": \"9.40973021335313\", \"Dratio\": \"3.26851257085017\", \"Group_mean_Day1\": \"0.025309479769846543\", \"Group_mean_CI_lower_Day1\": \"-0.7553900385822045\", \"Group_mean_CI_upper_Day1\": \"0.5377689373958776\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"-0.4895139394404131\", \"Group_mean_CI_lower_Day14\": \"-1.1780086287971603\", \"Group_mean_CI_upper_Day14\": \"0.12323119922657325\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"0.4667354076475584\", \"Group_mean_CI_lower_Day3\": \"0.04615070953668748\", \"Group_mean_CI_upper_Day3\": \"0.7412024560377762\", \"Group_mean_sig_Day3\": \"True\", \"MeanFoldChange_Day14\": \"-19.341130038698584\", \"MeanFoldChange_CI_lower_Day14\": \"-9363.031776091455\", \"MeanFoldChange_CI_upper_Day14\": \"-7.232589730680124\", \"MeanFoldChange_sig_Day14\": \"True\", \"MeanFoldChange_Day3\": \"18.441130038698866\", \"MeanFoldChange_CI_lower_Day3\": \"16.578596401285264\", \"MeanFoldChange_CI_upper_Day3\": \"374.8980416073408\", \"MeanFoldChange_sig_Day3\": \"True\", \"Shapiro_statistic\": \"0.9280403852462769\", \"Shapiro_pvalue\": \"0.04895627871155739\", \"PC1\": \"0.2785071042849893\", \"PC2\": \"-0.10575151081770534\", \"PC1_lower\": \"0.18079722208397084\", \"PC1_upper\": \"0.41405696249041435\", \"PC1_sig\": \"True\", \"PC2_lower\": \"-0.37703531135874274\", \"PC2_upper\": \"0.17014195484913788\", \"PC2_sig\": \"False\"}, {\"id\": 25, \"Idx\": \"25\", \"Name\": \"M26\", \"Label\": \"Adenosine\", \"Mode\": \"Positive\", \"mz\": \"268.1044997\", \"rt\": \"234.219\", \"F\": \"8.87246686536154\", \"pvalue\": \"0.00218763259640172\", \"pFDR\": \"0.0549851100616676\", \"RSD\": \"8.1534965929558\", \"Dratio\": \"9.30871395831041\", \"Group_mean_Day1\": \"0.004607999017215573\", \"Group_mean_CI_lower_Day1\": \"-0.6275064415752211\", \"Group_mean_CI_upper_Day1\": \"0.5119616887125515\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"-0.00883797634093315\", \"Group_mean_CI_lower_Day14\": \"-0.6918907107107913\", \"Group_mean_CI_upper_Day14\": \"0.6934134890855421\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"0.0046907772254378925\", \"Group_mean_CI_lower_Day3\": \"-0.4846457917582039\", \"Group_mean_CI_upper_Day3\": \"0.5697348814006676\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-1.9179640247131782\", \"MeanFoldChange_CI_lower_Day14\": \"-102.99730571479148\", \"MeanFoldChange_CI_upper_Day14\": \"0.0032218934960877494\", \"MeanFoldChange_sig_Day14\": \"False\", \"MeanFoldChange_Day3\": \"1.0179640247129087\", \"MeanFoldChange_CI_lower_Day3\": \"-1.5353185724820126\", \"MeanFoldChange_CI_upper_Day3\": \"19.277056346389426\", \"MeanFoldChange_sig_Day3\": \"False\", \"Shapiro_statistic\": \"0.953192949295044\", \"Shapiro_pvalue\": \"0.22134192287921906\", \"PC1\": \"0.18260158848891245\", \"PC2\": \"0.07631015430284945\", \"PC1_lower\": \"0.08488741549045561\", \"PC1_upper\": \"0.39998143225871496\", \"PC1_sig\": \"True\", \"PC2_lower\": \"-0.23608353408524255\", \"PC2_upper\": \"0.28891743530947817\", \"PC2_sig\": \"False\"}, {\"id\": 19, \"Idx\": \"19\", \"Name\": \"M20\", \"Label\": \"L-Proline\", \"Mode\": \"Positive\", \"mz\": \"116.0716384\", \"rt\": \"56.656\", \"F\": \"6.9497544268455\", \"pvalue\": \"0.0113572429929878\", \"pFDR\": \"0.0896633812508486\", \"RSD\": \"5.94164179117505\", \"Dratio\": \"6.73931526213702\", \"Group_mean_Day1\": \"0.08786811808088969\", \"Group_mean_CI_lower_Day1\": \"-0.681574738606614\", \"Group_mean_CI_upper_Day1\": \"0.6885766699427774\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"-0.3395857473769249\", \"Group_mean_CI_lower_Day14\": \"-1.0043907712856268\", \"Group_mean_CI_upper_Day14\": \"0.24446786232616077\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"0.26050444110412857\", \"Group_mean_CI_lower_Day3\": \"-0.2219541914493111\", \"Group_mean_CI_upper_Day3\": \"0.8202058023849487\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-3.8647208429376945\", \"MeanFoldChange_CI_lower_Day14\": \"-412.9379145725075\", \"MeanFoldChange_CI_upper_Day14\": \"-1.3102644491094386\", \"MeanFoldChange_sig_Day14\": \"True\", \"MeanFoldChange_Day3\": \"2.9647208429377447\", \"MeanFoldChange_CI_lower_Day3\": \"0.9687732439814005\", \"MeanFoldChange_CI_upper_Day3\": \"790.9542939065516\", \"MeanFoldChange_sig_Day3\": \"True\", \"Shapiro_statistic\": \"0.9702001214027405\", \"Shapiro_pvalue\": \"0.5651350617408752\", \"PC1\": \"0.3062442684237178\", \"PC2\": \"-0.09699921335080855\", \"PC1_lower\": \"0.22746352740185546\", \"PC1_upper\": \"0.4045900787261337\", \"PC1_sig\": \"True\", \"PC2_lower\": \"-0.32624913019215357\", \"PC2_upper\": \"0.2582233836877866\", \"PC2_sig\": \"False\"}, {\"id\": 30, \"Idx\": \"30\", \"Name\": \"M31\", \"Label\": \"Tetradecanedioc acid\", \"Mode\": \"Positive\", \"mz\": \"520.3400103\", \"rt\": \"1436.77\", \"F\": \"2.28272289102931\", \"pvalue\": \"0.157126086204619\", \"pFDR\": \"0.239202968102066\", \"RSD\": \"16.4525760572793\", \"Dratio\": \"2.1451117209936\", \"Group_mean_Day1\": \"0.04726028572771321\", \"Group_mean_CI_lower_Day1\": \"-0.4747383691716385\", \"Group_mean_CI_upper_Day1\": \"0.5492257729780311\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"-0.10181135182874819\", \"Group_mean_CI_lower_Day14\": \"-1.1108878971990637\", \"Group_mean_CI_upper_Day14\": \"0.5292266946146478\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"0.05927709467378406\", \"Group_mean_CI_lower_Day3\": \"-0.5683602313639621\", \"Group_mean_CI_upper_Day3\": \"0.49740742939355387\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-2.154268647788697\", \"MeanFoldChange_CI_lower_Day14\": \"-911.6867852880082\", \"MeanFoldChange_CI_upper_Day14\": \"0.5483492483725806\", \"MeanFoldChange_sig_Day14\": \"False\", \"MeanFoldChange_Day3\": \"1.2542686477882263\", \"MeanFoldChange_CI_lower_Day3\": \"-0.5574341719662109\", \"MeanFoldChange_CI_upper_Day3\": \"718.5964212287876\", \"MeanFoldChange_sig_Day3\": \"False\", \"Shapiro_statistic\": \"0.9344798922538757\", \"Shapiro_pvalue\": \"0.071922168135643\", \"PC1\": \"0.20484593827931694\", \"PC2\": \"-0.004306799549378009\", \"PC1_lower\": \"0.043677902662234674\", \"PC1_upper\": \"0.43684807228932687\", \"PC1_sig\": \"True\", \"PC2_lower\": \"-0.2682438517366356\", \"PC2_upper\": \"0.3194576538650281\", \"PC2_sig\": \"False\"}, {\"id\": 3, \"Idx\": \"3\", \"Name\": \"M4\", \"Label\": \"Succinic Acid\", \"Mode\": \"Negative\", \"mz\": \"117.0193225\", \"rt\": \"133.4985\", \"F\": \"0.415028135103856\", \"pvalue\": \"0.626102281483585\", \"pFDR\": \"0.341497981950194\", \"RSD\": \"5.57758173557696\", \"Dratio\": \"4.02560182591193\", \"Group_mean_Day1\": \"0.7609845646230762\", \"Group_mean_CI_lower_Day1\": \"0.24892561156900614\", \"Group_mean_CI_upper_Day1\": \"1.7527853293960116\", \"Group_mean_sig_Day1\": \"True\", \"Group_mean_Day14\": \"-0.3074860972354534\", \"Group_mean_CI_lower_Day14\": \"-0.7047598865508036\", \"Group_mean_CI_upper_Day14\": \"0.10528500353305947\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"-0.37740001092532044\", \"Group_mean_CI_lower_Day3\": \"-0.8826605100399642\", \"Group_mean_CI_upper_Day3\": \"0.05840900127361851\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-0.4040635139396744\", \"MeanFoldChange_CI_lower_Day14\": \"-1.8688687459503543\", \"MeanFoldChange_CI_upper_Day14\": \"0.5823650214299818\", \"MeanFoldChange_sig_Day14\": \"False\", \"MeanFoldChange_Day3\": \"-0.4959364860603325\", \"MeanFoldChange_CI_lower_Day3\": \"-2.5214769390912384\", \"MeanFoldChange_CI_upper_Day3\": \"0.17085012076740874\", \"MeanFoldChange_sig_Day3\": \"False\", \"Shapiro_statistic\": \"0.9122267961502075\", \"Shapiro_pvalue\": \"0.019463900476694107\", \"PC1\": \"-0.035570980586395996\", \"PC2\": \"-0.24065668867653103\", \"PC1_lower\": \"-0.2569416493963536\", \"PC1_upper\": \"0.18655306979858097\", \"PC1_sig\": \"False\", \"PC2_lower\": \"-0.44974987243517267\", \"PC2_upper\": \"-0.14284876058157622\", \"PC2_sig\": \"True\"}, {\"id\": 4, \"Idx\": \"4\", \"Name\": \"M5\", \"Label\": \"Citric Acid\", \"Mode\": \"Negative\", \"mz\": \"191.019367\", \"rt\": \"109.544\", \"F\": \"0.741641380659948\", \"pvalue\": \"0.43526594776887\", \"pFDR\": \"0.311668591419043\", \"RSD\": \"9.17087428507904\", \"Dratio\": \"2.41711519436577\", \"Group_mean_Day1\": \"0.36668945071319603\", \"Group_mean_CI_lower_Day1\": \"0.01955656554702899\", \"Group_mean_CI_upper_Day1\": \"0.720366868139021\", \"Group_mean_sig_Day1\": \"True\", \"Group_mean_Day14\": \"-0.4037542986225847\", \"Group_mean_CI_lower_Day14\": \"-1.8691989928271724\", \"Group_mean_CI_upper_Day14\": \"0.12190024330175817\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"0.07373379298072932\", \"Group_mean_CI_lower_Day3\": \"-0.34915671020607963\", \"Group_mean_CI_upper_Day3\": \"0.39325010600655724\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-1.101079667924177\", \"MeanFoldChange_CI_lower_Day14\": \"-29.08654224645928\", \"MeanFoldChange_CI_upper_Day14\": \"0.5079712314156043\", \"MeanFoldChange_sig_Day14\": \"False\", \"MeanFoldChange_Day3\": \"0.20107966792423426\", \"MeanFoldChange_CI_lower_Day3\": \"-2.349836902670596\", \"MeanFoldChange_CI_upper_Day3\": \"1.1481354132597836\", \"MeanFoldChange_sig_Day3\": \"False\", \"Shapiro_statistic\": \"0.6538960933685303\", \"Shapiro_pvalue\": \"4.894235416941228e-07\", \"PC1\": \"-0.0764908295963896\", \"PC2\": \"-0.16057930914451077\", \"PC1_lower\": \"-0.5196218658595367\", \"PC1_upper\": \"0.04155848752972609\", \"PC1_sig\": \"False\", \"PC2_lower\": \"-0.5316682675556836\", \"PC2_upper\": \"-0.003816380435847018\", \"PC2_sig\": \"True\"}, {\"id\": 22, \"Idx\": \"22\", \"Name\": \"M23\", \"Label\": \"Tiglylcarnitine\", \"Mode\": \"Positive\", \"mz\": \"244.1547025\", \"rt\": \"377.654\", \"F\": \"5.59387431237903\", \"pvalue\": \"0.0147709507601346\", \"pFDR\": \"0.102201022523215\", \"RSD\": \"11.3892447497005\", \"Dratio\": \"3.26334888333282\", \"Group_mean_Day1\": \"0.07510788535634773\", \"Group_mean_CI_lower_Day1\": \"-0.5925551570051856\", \"Group_mean_CI_upper_Day1\": \"0.5034653622122925\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"0.06782343317009466\", \"Group_mean_CI_lower_Day14\": \"-0.736164668464933\", \"Group_mean_CI_upper_Day14\": \"0.6183545820630973\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"-0.13542052999081217\", \"Group_mean_CI_lower_Day3\": \"-0.7586285655403927\", \"Group_mean_CI_upper_Day3\": \"0.45644946265959147\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"0.9030134831823298\", \"MeanFoldChange_CI_lower_Day14\": \"-4.947219977370838\", \"MeanFoldChange_CI_upper_Day14\": \"20.205785256124102\", \"MeanFoldChange_sig_Day14\": \"False\", \"MeanFoldChange_Day3\": \"-1.8030134831823903\", \"MeanFoldChange_CI_lower_Day3\": \"-172.61111158247596\", \"MeanFoldChange_CI_upper_Day3\": \"0.3291429149654744\", \"MeanFoldChange_sig_Day3\": \"False\", \"Shapiro_statistic\": \"0.9515727162361145\", \"Shapiro_pvalue\": \"0.20104803144931793\", \"PC1\": \"-0.1335692019608247\", \"PC2\": \"-0.3258478848381951\", \"PC1_lower\": \"-0.4008653321689852\", \"PC1_upper\": \"0.025345694085906163\", \"PC1_sig\": \"False\", \"PC2_lower\": \"-0.43629275706846565\", \"PC2_upper\": \"-0.22289936931618784\", \"PC2_sig\": \"True\"}, {\"id\": 26, \"Idx\": \"26\", \"Name\": \"M27\", \"Label\": \"2-Octenoylcarnitine\", \"Mode\": \"Positive\", \"mz\": \"286.2015687\", \"rt\": \"733.323\", \"F\": \"3.25899622958699\", \"pvalue\": \"0.0691691202928987\", \"pFDR\": \"0.181637787173238\", \"RSD\": \"5.09172697780684\", \"Dratio\": \"12.793497260172\", \"Group_mean_Day1\": \"0.16693589571719647\", \"Group_mean_CI_lower_Day1\": \"-0.5386842325782565\", \"Group_mean_CI_upper_Day1\": \"1.0432670592225826\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"0.3384541509961475\", \"Group_mean_CI_lower_Day14\": \"-0.15471631559871576\", \"Group_mean_CI_upper_Day14\": \"0.819031201572938\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"-0.48869645714162724\", \"Group_mean_CI_lower_Day3\": \"-0.9724500097684482\", \"Group_mean_CI_upper_Day3\": \"-0.0703766470180937\", \"Group_mean_sig_Day3\": \"True\", \"MeanFoldChange_Day14\": \"2.0274498156437097\", \"MeanFoldChange_CI_lower_Day14\": \"0.2426008872306139\", \"MeanFoldChange_CI_upper_Day14\": \"428.1218957431143\", \"MeanFoldChange_sig_Day14\": \"True\", \"MeanFoldChange_Day3\": \"-2.927449815643727\", \"MeanFoldChange_CI_lower_Day3\": \"-149.8163387647891\", \"MeanFoldChange_CI_upper_Day3\": \"-0.9670740015328552\", \"MeanFoldChange_sig_Day3\": \"True\", \"Shapiro_statistic\": \"0.9638954401016235\", \"Shapiro_pvalue\": \"0.40827298164367676\", \"PC1\": \"-0.27646923684849956\", \"PC2\": \"-0.17648135410993088\", \"PC1_lower\": \"-0.41323456116256196\", \"PC1_upper\": \"-0.1548127239699437\", \"PC1_sig\": \"True\", \"PC2_lower\": \"-0.43691007562870915\", \"PC2_upper\": \"0.03343828792736345\", \"PC2_sig\": \"False\"}, {\"id\": 17, \"Idx\": \"17\", \"Name\": \"M18\", \"Label\": \"N-Phenylacetylglutamine\", \"Mode\": \"Positive\", \"mz\": \"265.1185383\", \"rt\": \"431.609\", \"F\": \"1.7535246837068\", \"pvalue\": \"0.2105977111565\", \"pFDR\": \"0.26252066462609\", \"RSD\": \"11.5769623523093\", \"Dratio\": \"4.59639777382069\", \"Group_mean_Day1\": \"-0.003564319042824171\", \"Group_mean_CI_lower_Day1\": \"-0.8025301714525721\", \"Group_mean_CI_upper_Day1\": \"0.6742158536439166\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"0.032185780443660585\", \"Group_mean_CI_lower_Day14\": \"-0.4229527540881806\", \"Group_mean_CI_upper_Day14\": \"0.49752415344381384\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"-0.028977893305119063\", \"Group_mean_CI_lower_Day3\": \"-0.5830198941366063\", \"Group_mean_CI_upper_Day3\": \"0.7794097711809878\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-9.02999424489182\", \"MeanFoldChange_CI_lower_Day14\": \"-7820.1648273962655\", \"MeanFoldChange_CI_upper_Day14\": \"-7.8904329115930985\", \"MeanFoldChange_sig_Day14\": \"True\", \"MeanFoldChange_Day3\": \"8.129994244891884\", \"MeanFoldChange_CI_lower_Day3\": \"2.916279828768804\", \"MeanFoldChange_CI_upper_Day3\": \"232.31460873313927\", \"MeanFoldChange_sig_Day3\": \"True\", \"Shapiro_statistic\": \"0.972248375415802\", \"Shapiro_pvalue\": \"0.6220740079879761\", \"PC1\": \"-0.24423779723332795\", \"PC2\": \"-0.10728592124118923\", \"PC1_lower\": \"-0.33242153290930504\", \"PC1_upper\": \"-0.09221439971908649\", \"PC1_sig\": \"True\", \"PC2_lower\": \"-0.351151606087112\", \"PC2_upper\": \"0.15973730803121697\", \"PC2_sig\": \"False\"}, {\"id\": 6, \"Idx\": \"6\", \"Name\": \"M7\", \"Label\": \"5-Hydroxytryptophan\", \"Mode\": \"Negative\", \"mz\": \"219.0768091\", \"rt\": \"217.493\", \"F\": \"1.25429929524897\", \"pvalue\": \"0.303982625217717\", \"pFDR\": \"0.286883151078054\", \"RSD\": \"16.8767206661306\", \"Dratio\": \"1.56437420232442\", \"Group_mean_Day1\": \"0.1318900429510546\", \"Group_mean_CI_lower_Day1\": \"-0.565663458438994\", \"Group_mean_CI_upper_Day1\": \"1.0126835300601682\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"-0.26766407269014975\", \"Group_mean_CI_lower_Day14\": \"-0.8364142876272267\", \"Group_mean_CI_upper_Day14\": \"0.06705040100379644\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"0.1489630340341948\", \"Group_mean_CI_lower_Day3\": \"-0.4092428154057207\", \"Group_mean_CI_upper_Day3\": \"0.7634141622814832\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-2.029448673312525\", \"MeanFoldChange_CI_lower_Day14\": \"-58.6949632580447\", \"MeanFoldChange_CI_upper_Day14\": \"-0.36486617821769823\", \"MeanFoldChange_sig_Day14\": \"True\", \"MeanFoldChange_Day3\": \"1.1294486733124813\", \"MeanFoldChange_CI_lower_Day3\": \"-0.18934208153891416\", \"MeanFoldChange_CI_upper_Day3\": \"236.8224899433585\", \"MeanFoldChange_sig_Day3\": \"False\", \"Shapiro_statistic\": \"0.9711446762084961\", \"Shapiro_pvalue\": \"0.5911327600479126\", \"PC1\": \"-0.0568054972129038\", \"PC2\": \"-0.2501907709749492\", \"PC1_lower\": \"-0.2952379317713466\", \"PC1_upper\": \"0.14961750448493763\", \"PC1_sig\": \"False\", \"PC2_lower\": \"-0.4522815413344841\", \"PC2_upper\": \"-0.10147785582540798\", \"PC2_sig\": \"True\"}, {\"id\": 14, \"Idx\": \"14\", \"Name\": \"M15\", \"Label\": \"L-kynurenine\", \"Mode\": \"Positive\", \"mz\": \"209.0927368\", \"rt\": \"276.984\", \"F\": \"0.319247535317545\", \"pvalue\": \"0.692310492334444\", \"pFDR\": \"0.350593722698766\", \"RSD\": \"5.17865186714287\", \"Dratio\": \"5.65052021106375\", \"Group_mean_Day1\": \"0.09907718201962462\", \"Group_mean_CI_lower_Day1\": \"-0.6073790317079558\", \"Group_mean_CI_upper_Day1\": \"0.8000034244443112\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"-0.20721375661066138\", \"Group_mean_CI_lower_Day14\": \"-0.8378391122813962\", \"Group_mean_CI_upper_Day14\": \"0.3250807619351546\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"0.11804429279300084\", \"Group_mean_CI_lower_Day3\": \"-0.5132431464168635\", \"Group_mean_CI_upper_Day3\": \"0.6549148906141307\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-2.091437729523007\", \"MeanFoldChange_CI_lower_Day14\": \"-71.35792906966083\", \"MeanFoldChange_CI_upper_Day14\": \"-0.4514759503677195\", \"MeanFoldChange_sig_Day14\": \"True\", \"MeanFoldChange_Day3\": \"1.191437729523023\", \"MeanFoldChange_CI_lower_Day3\": \"-0.033551042311724205\", \"MeanFoldChange_CI_upper_Day3\": \"172.96268448569137\", \"MeanFoldChange_sig_Day3\": \"False\", \"Shapiro_statistic\": \"0.9713036417961121\", \"Shapiro_pvalue\": \"0.5955555438995361\", \"PC1\": \"0.08286528768376251\", \"PC2\": \"-0.2700707599020682\", \"PC1_lower\": \"-0.26665346757002123\", \"PC1_upper\": \"0.28139155652673975\", \"PC1_sig\": \"False\", \"PC2_lower\": \"-0.47077779288029115\", \"PC2_upper\": \"-0.09032789575744543\", \"PC2_sig\": \"True\"}, {\"id\": 15, \"Idx\": \"15\", \"Name\": \"M16\", \"Label\": \"5-methoxyindole acetic acid\", \"Mode\": \"Positive\", \"mz\": \"206.081515\", \"rt\": \"571.1215\", \"F\": \"0.709517138467766\", \"pvalue\": \"0.48625231217395\", \"pFDR\": \"0.317531477283698\", \"RSD\": \"9.41871509843643\", \"Dratio\": \"3.11389510574256\", \"Group_mean_Day1\": \"0.04553337614280166\", \"Group_mean_CI_lower_Day1\": \"-0.9382999252650893\", \"Group_mean_CI_upper_Day1\": \"0.5612777232991344\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"-0.1389307883047067\", \"Group_mean_CI_lower_Day14\": \"-0.8163163687821321\", \"Group_mean_CI_upper_Day14\": \"0.5098480831071733\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"0.09795074977617939\", \"Group_mean_CI_lower_Day3\": \"-0.4955599623791091\", \"Group_mean_CI_upper_Day3\": \"0.6384757939861411\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-3.051185747109819\", \"MeanFoldChange_CI_lower_Day14\": \"-571.3370031307613\", \"MeanFoldChange_CI_upper_Day14\": \"-0.6008018076769409\", \"MeanFoldChange_sig_Day14\": \"True\", \"MeanFoldChange_Day3\": \"2.1511857471096913\", \"MeanFoldChange_CI_lower_Day3\": \"0.511603205310118\", \"MeanFoldChange_CI_upper_Day3\": \"1518.6367265791534\", \"MeanFoldChange_sig_Day3\": \"True\", \"Shapiro_statistic\": \"0.9404083490371704\", \"Shapiro_pvalue\": \"0.10276886820793152\", \"PC1\": \"0.09117344866564156\", \"PC2\": \"-0.31041414537733125\", \"PC1_lower\": \"-0.286797648786738\", \"PC1_upper\": \"0.2863471326910233\", \"PC1_sig\": \"False\", \"PC2_lower\": \"-0.4870061450221106\", \"PC2_upper\": \"-0.1556657708775379\", \"PC2_sig\": \"True\"}, {\"id\": 20, \"Idx\": \"20\", \"Name\": \"M21\", \"Label\": \"Indole-3-acetic acid\", \"Mode\": \"Positive\", \"mz\": \"176.0711015\", \"rt\": \"645.97\", \"F\": \"0.0122606069327192\", \"pvalue\": \"0.975768069413858\", \"pFDR\": \"0.405038073655443\", \"RSD\": \"7.19041618128093\", \"Dratio\": \"4.63330305499193\", \"Group_mean_Day1\": \"0.08455431493905459\", \"Group_mean_CI_lower_Day1\": \"-0.45026460867451085\", \"Group_mean_CI_upper_Day1\": \"0.9952348822573455\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"-0.4910172760367469\", \"Group_mean_CI_lower_Day14\": \"-0.8121628297617418\", \"Group_mean_CI_upper_Day14\": \"0.1188205394830713\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"0.4149183925915877\", \"Group_mean_CI_lower_Day3\": \"-0.09817719953161512\", \"Group_mean_CI_upper_Day3\": \"1.1371797506323198\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-5.807122633429937\", \"MeanFoldChange_CI_lower_Day14\": \"-2401.731272532993\", \"MeanFoldChange_CI_upper_Day14\": \"-1.970144053642723\", \"MeanFoldChange_sig_Day14\": \"True\", \"MeanFoldChange_Day3\": \"4.907122633429817\", \"MeanFoldChange_CI_lower_Day3\": \"1.728099383185769\", \"MeanFoldChange_CI_upper_Day3\": \"1349.115144257915\", \"MeanFoldChange_sig_Day3\": \"True\", \"Shapiro_statistic\": \"0.9241067171096802\", \"Shapiro_pvalue\": \"0.038792144507169724\", \"PC1\": \"-0.1138118828929457\", \"PC2\": \"-0.1298587446740061\", \"PC1_lower\": \"-0.3397664188022196\", \"PC1_upper\": \"0.03915898441560709\", \"PC1_sig\": \"False\", \"PC2_lower\": \"-0.44114650315664544\", \"PC2_upper\": \"0.11709040224022857\", \"PC2_sig\": \"False\"}, {\"id\": 28, \"Idx\": \"28\", \"Name\": \"M29\", \"Label\": \"Cortisol \", \"Mode\": \"Positive\", \"mz\": \"363.217288\", \"rt\": \"779.069\", \"F\": \"3.83166105052219\", \"pvalue\": \"0.0478722499051548\", \"pFDR\": \"0.167497360787185\", \"RSD\": \"4.94256748210212\", \"Dratio\": \"10.4163145783544\", \"Group_mean_Day1\": \"-0.1289975854572149\", \"Group_mean_CI_lower_Day1\": \"-0.8505156989664338\", \"Group_mean_CI_upper_Day1\": \"0.6815669126494286\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"0.23052650486067994\", \"Group_mean_CI_lower_Day14\": \"-0.5916812046653093\", \"Group_mean_CI_upper_Day14\": \"0.6995544680781265\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"-0.11442867794918868\", \"Group_mean_CI_lower_Day3\": \"-0.5850607507708805\", \"Group_mean_CI_upper_Day3\": \"0.5431947788585136\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-1.787060618565915\", \"MeanFoldChange_CI_lower_Day14\": \"-42.79024005871493\", \"MeanFoldChange_CI_upper_Day14\": \"0.22026391055568775\", \"MeanFoldChange_sig_Day14\": \"False\", \"MeanFoldChange_Day3\": \"0.8870606185659317\", \"MeanFoldChange_CI_lower_Day3\": \"-0.488448839131329\", \"MeanFoldChange_CI_upper_Day3\": \"57.0363315380413\", \"MeanFoldChange_sig_Day3\": \"False\", \"Shapiro_statistic\": \"0.9842675924301147\", \"Shapiro_pvalue\": \"0.9308350086212158\", \"PC1\": \"-0.22332319914360774\", \"PC2\": \"-0.2279285063753742\", \"PC1_lower\": \"-0.3692302601846114\", \"PC1_upper\": \"-0.07863532649035664\", \"PC1_sig\": \"True\", \"PC2_lower\": \"-0.3977922191625507\", \"PC2_upper\": \"-0.06732743962090713\", \"PC2_sig\": \"True\"}, {\"id\": 18, \"Idx\": \"18\", \"Name\": \"M19\", \"Label\": \"L-Methionine\", \"Mode\": \"Positive\", \"mz\": \"150.0587442\", \"rt\": \"91.824\", \"F\": \"3.53514377309872\", \"pvalue\": \"0.0626089680675837\", \"pFDR\": \"0.178492343562938\", \"RSD\": \"8.64583168129658\", \"Dratio\": \"3.89815801526016\", \"Group_mean_Day1\": \"-0.029883628081695375\", \"Group_mean_CI_lower_Day1\": \"-0.6178308508059711\", \"Group_mean_CI_upper_Day1\": \"0.6195631442918434\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"-0.5106212992271381\", \"Group_mean_CI_lower_Day14\": \"-0.9679419022491732\", \"Group_mean_CI_upper_Day14\": \"0.3296041514970849\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"0.5375165645006496\", \"Group_mean_CI_lower_Day3\": \"0.04202091267397705\", \"Group_mean_CI_upper_Day3\": \"0.8325278858928173\", \"Group_mean_sig_Day3\": \"True\", \"MeanFoldChange_Day14\": \"17.086991506895007\", \"MeanFoldChange_CI_lower_Day14\": \"10.70760121320253\", \"MeanFoldChange_CI_upper_Day14\": \"4430.410491932291\", \"MeanFoldChange_sig_Day14\": \"True\", \"MeanFoldChange_Day3\": \"-17.98699150689453\", \"MeanFoldChange_CI_lower_Day3\": \"-254.61550626225835\", \"MeanFoldChange_CI_upper_Day3\": \"-15.81856774292104\", \"MeanFoldChange_sig_Day3\": \"True\", \"Shapiro_statistic\": \"0.9473448991775513\", \"Shapiro_pvalue\": \"0.156107097864151\", \"PC1\": \"0.2626191434816008\", \"PC2\": \"-0.09752660257557916\", \"PC1_lower\": \"0.17673253902583766\", \"PC1_upper\": \"0.39057628188283866\", \"PC1_sig\": \"True\", \"PC2_lower\": \"-0.34411193219881725\", \"PC2_upper\": \"0.140708593720313\", \"PC2_sig\": \"False\"}, {\"id\": 11, \"Idx\": \"11\", \"Name\": \"M12\", \"Label\": \"Uric acid\", \"Mode\": \"Negative\", \"mz\": \"335.0480195\", \"rt\": \"94.622\", \"F\": \"1.81229025915499\", \"pvalue\": \"0.19267708311762\", \"pFDR\": \"0.254613216625571\", \"RSD\": \"4.05003744537164\", \"Dratio\": \"3.41003186997637\", \"Group_mean_Day1\": \"-0.12945048766991232\", \"Group_mean_CI_lower_Day1\": \"-0.6720221164540227\", \"Group_mean_CI_upper_Day1\": \"0.4964759440218477\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"0.467560549517406\", \"Group_mean_CI_lower_Day14\": \"-0.26273992339136376\", \"Group_mean_CI_upper_Day14\": \"1.0602396638770215\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"-0.3510551106144916\", \"Group_mean_CI_lower_Day3\": \"-0.8015927261212484\", \"Group_mean_CI_upper_Day3\": \"0.17459652236820605\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-3.6118871232810297\", \"MeanFoldChange_CI_lower_Day14\": \"-132.8317951399882\", \"MeanFoldChange_CI_upper_Day14\": \"-0.2455094958162256\", \"MeanFoldChange_sig_Day14\": \"True\", \"MeanFoldChange_Day3\": \"2.711887123281081\", \"MeanFoldChange_CI_lower_Day3\": \"0.19525964648227162\", \"MeanFoldChange_CI_upper_Day3\": \"109.72764646536882\", \"MeanFoldChange_sig_Day3\": \"True\", \"Shapiro_statistic\": \"0.9615869522094727\", \"Shapiro_pvalue\": \"0.3594714403152466\", \"PC1\": \"0.014866350052389257\", \"PC2\": \"-0.2732034585846764\", \"PC1_lower\": \"-0.25851304153231924\", \"PC1_upper\": \"0.22191741479508365\", \"PC1_sig\": \"False\", \"PC2_lower\": \"-0.4224553247273658\", \"PC2_upper\": \"-0.1693991835268935\", \"PC2_sig\": \"True\"}, {\"id\": 21, \"Idx\": \"21\", \"Name\": \"M22\", \"Label\": \"N-Acetyl-L-Carnosine\", \"Mode\": \"Positive\", \"mz\": \"269.1244755\", \"rt\": \"86.4285\", \"F\": \"1.38601671741523\", \"pvalue\": \"0.275898715204706\", \"pFDR\": \"0.279896703904986\", \"RSD\": \"16.1867420693445\", \"Dratio\": \"2.74485776155857\", \"Group_mean_Day1\": \"0.12201814999914455\", \"Group_mean_CI_lower_Day1\": \"-0.5053548333118318\", \"Group_mean_CI_upper_Day1\": \"0.8566266602856055\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"0.06551824416390181\", \"Group_mean_CI_lower_Day14\": \"-0.45732148234996706\", \"Group_mean_CI_upper_Day14\": \"0.45564746672928413\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"-0.1753345791631285\", \"Group_mean_CI_lower_Day3\": \"-0.9089903617361605\", \"Group_mean_CI_upper_Day3\": \"0.4961004323621573\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"0.5369549051871476\", \"MeanFoldChange_CI_lower_Day14\": \"-0.32785698701163407\", \"MeanFoldChange_CI_upper_Day14\": \"1129.7639300012252\", \"MeanFoldChange_sig_Day14\": \"False\", \"MeanFoldChange_Day3\": \"-1.4369549051871195\", \"MeanFoldChange_CI_lower_Day3\": \"-95.55024744383817\", \"MeanFoldChange_CI_upper_Day3\": \"-0.21836148536927538\", \"MeanFoldChange_sig_Day3\": \"True\", \"Shapiro_statistic\": \"0.973461389541626\", \"Shapiro_pvalue\": \"0.6565824151039124\", \"PC1\": \"0.05168316636650007\", \"PC2\": \"-0.2574735388537442\", \"PC1_lower\": \"-0.21845062847576843\", \"PC1_upper\": \"0.3299353219908201\", \"PC1_sig\": \"False\", \"PC2_lower\": \"-0.4591966679591912\", \"PC2_upper\": \"0.006229925620836777\", \"PC2_sig\": \"False\"}, {\"id\": 16, \"Idx\": \"16\", \"Name\": \"M17\", \"Label\": \"Linoleic acida\", \"Mode\": \"Positive\", \"mz\": \"281.2480499\", \"rt\": \"1874.25\", \"F\": \"2.4896267766394\", \"pvalue\": \"0.112329435663305\", \"pFDR\": \"0.217522033318334\", \"RSD\": \"14.1852213838824\", \"Dratio\": \"3.77599733726548\", \"Group_mean_Day1\": \"0.13839759950921016\", \"Group_mean_CI_lower_Day1\": \"-0.578558417522935\", \"Group_mean_CI_upper_Day1\": \"1.1081174078846538\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"0.5123070397009198\", \"Group_mean_CI_lower_Day14\": \"0.022455185344022875\", \"Group_mean_CI_upper_Day14\": \"0.8714279699336365\", \"Group_mean_sig_Day14\": \"True\", \"Group_mean_Day3\": \"-0.6368648792592072\", \"Group_mean_CI_lower_Day3\": \"-0.9031270716121572\", \"Group_mean_CI_upper_Day3\": \"-0.3888292826889238\", \"Group_mean_sig_Day3\": \"True\", \"MeanFoldChange_Day14\": \"3.701704664804006\", \"MeanFoldChange_CI_lower_Day14\": \"1.2021025718665823\", \"MeanFoldChange_CI_upper_Day14\": \"256.907608769875\", \"MeanFoldChange_sig_Day14\": \"True\", \"MeanFoldChange_Day3\": \"-4.601704664803993\", \"MeanFoldChange_CI_lower_Day3\": \"-268.1726866632658\", \"MeanFoldChange_CI_upper_Day3\": \"-1.474420317183721\", \"MeanFoldChange_sig_Day3\": \"True\", \"Shapiro_statistic\": \"0.9810763597488403\", \"Shapiro_pvalue\": \"0.8645429015159607\", \"PC1\": \"-0.19567876116512725\", \"PC2\": \"-0.0036212491383563685\", \"PC1_lower\": \"-0.37511874907003095\", \"PC1_upper\": \"-0.06004511604530182\", \"PC1_sig\": \"True\", \"PC2_lower\": \"-0.2972054181578466\", \"PC2_upper\": \"0.2610219410907508\", \"PC2_sig\": \"False\"}, {\"id\": 31, \"Idx\": \"31\", \"Name\": \"M32\", \"Label\": \"Bilirubin\", \"Mode\": \"Positive\", \"mz\": \"585.2705643\", \"rt\": \"2059.93\", \"F\": \"10.7952965941857\", \"pvalue\": \"0.00197127360314567\", \"pFDR\": \"0.053951209522482\", \"RSD\": \"12.0698594478432\", \"Dratio\": \"4.47565519524638\", \"Group_mean_Day1\": \"-0.07735289849977248\", \"Group_mean_CI_lower_Day1\": \"-0.4684534695216534\", \"Group_mean_CI_upper_Day1\": \"0.5768081620063126\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"0.2408440611804749\", \"Group_mean_CI_lower_Day14\": \"-0.22903245938384614\", \"Group_mean_CI_upper_Day14\": \"1.2133279234981684\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"-0.17122645253068217\", \"Group_mean_CI_lower_Day3\": \"-0.6968955344423807\", \"Group_mean_CI_upper_Day3\": \"0.6570594339576632\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-3.113575132303327\", \"MeanFoldChange_CI_lower_Day14\": \"-530.5091745358993\", \"MeanFoldChange_CI_upper_Day14\": \"-1.2653583028236246\", \"MeanFoldChange_sig_Day14\": \"True\", \"MeanFoldChange_Day3\": \"2.213575132303359\", \"MeanFoldChange_CI_lower_Day3\": \"-0.09414928362359426\", \"MeanFoldChange_CI_upper_Day3\": \"2173.8568384598775\", \"MeanFoldChange_sig_Day3\": \"False\", \"Shapiro_statistic\": \"0.8993741869926453\", \"Shapiro_pvalue\": \"0.009464846923947334\", \"PC1\": \"-0.030223253518448467\", \"PC2\": \"-0.048384492866098645\", \"PC1_lower\": \"-0.18185891092776293\", \"PC1_upper\": \"0.15692227006448617\", \"PC1_sig\": \"False\", \"PC2_lower\": \"-0.2950164356530447\", \"PC2_upper\": \"0.2514158598179987\", \"PC2_sig\": \"False\"}, {\"id\": 13, \"Idx\": \"13\", \"Name\": \"M14\", \"Label\": \"Hypoxanthine\", \"Mode\": \"Positive\", \"mz\": \"137.0463946\", \"rt\": \"100.593\", \"F\": \"3.31714245291838\", \"pvalue\": \"0.0618275109477684\", \"pFDR\": \"0.177911813619459\", \"RSD\": \"4.13574593254638\", \"Dratio\": \"7.85418774439855\", \"Group_mean_Day1\": \"-0.1203172768686424\", \"Group_mean_CI_lower_Day1\": \"-0.6701281101781081\", \"Group_mean_CI_upper_Day1\": \"0.3843430057079579\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"0.4762410460193481\", \"Group_mean_CI_lower_Day14\": \"-0.06791226427661386\", \"Group_mean_CI_upper_Day14\": \"1.3741919072353825\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"-0.36795549683757317\", \"Group_mean_CI_lower_Day3\": \"-0.9383096441468524\", \"Group_mean_CI_upper_Day3\": \"0.06472918813909752\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"-3.958209979596605\", \"MeanFoldChange_CI_lower_Day14\": \"-354.3388036707843\", \"MeanFoldChange_CI_upper_Day14\": \"0.4334336105425037\", \"MeanFoldChange_sig_Day14\": \"False\", \"MeanFoldChange_Day3\": \"3.058209979596632\", \"MeanFoldChange_CI_lower_Day3\": \"1.0816061813779287\", \"MeanFoldChange_CI_upper_Day3\": \"331.2738895472546\", \"MeanFoldChange_sig_Day3\": \"True\", \"Shapiro_statistic\": \"0.9563542008399963\", \"Shapiro_pvalue\": \"0.26651644706726074\", \"PC1\": \"0.012251610687248754\", \"PC2\": \"-0.019658216698057424\", \"PC1_lower\": \"-0.14882690714683583\", \"PC1_upper\": \"0.16501745539214646\", \"PC1_sig\": \"False\", \"PC2_lower\": \"-0.24356407162568988\", \"PC2_upper\": \"0.35949550501720373\", \"PC2_sig\": \"False\"}, {\"id\": 23, \"Idx\": \"23\", \"Name\": \"M24\", \"Label\": \"cis-Aconitic acid\", \"Mode\": \"Positive\", \"mz\": \"175.0241655\", \"rt\": \"108.0405\", \"F\": \"0.597833901234562\", \"pvalue\": \"0.499568785381846\", \"pFDR\": \"0.320784580564316\", \"RSD\": \"19.0264380635713\", \"Dratio\": \"1.73876227280005\", \"Group_mean_Day1\": \"0.16273969428868057\", \"Group_mean_CI_lower_Day1\": \"-0.0833052292266495\", \"Group_mean_CI_upper_Day1\": \"0.42350522373991484\", \"Group_mean_sig_Day1\": \"False\", \"Group_mean_Day14\": \"0.2225165887213265\", \"Group_mean_CI_lower_Day14\": \"-0.04450579493976618\", \"Group_mean_CI_upper_Day14\": \"0.4601098805774918\", \"Group_mean_sig_Day14\": \"False\", \"Group_mean_Day3\": \"-0.36898231358114075\", \"Group_mean_CI_lower_Day3\": \"-1.8651982793459543\", \"Group_mean_CI_upper_Day3\": \"0.26392953995763113\", \"Group_mean_sig_Day3\": \"False\", \"MeanFoldChange_Day14\": \"1.3673160054400062\", \"MeanFoldChange_CI_lower_Day14\": \"-5.458004028202232\", \"MeanFoldChange_CI_upper_Day14\": \"30.636591069067965\", \"MeanFoldChange_sig_Day14\": \"False\", \"MeanFoldChange_Day3\": \"-2.267316005440017\", \"MeanFoldChange_CI_lower_Day3\": \"-51.168619008840146\", \"MeanFoldChange_CI_upper_Day3\": \"2.987362312128125\", \"MeanFoldChange_sig_Day3\": \"False\", \"Shapiro_statistic\": \"0.608169674873352\", \"Shapiro_pvalue\": \"1.2893957546111778e-07\", \"PC1\": \"0.055292527889299274\", \"PC2\": \"-0.06590068867907853\", \"PC1_lower\": \"-0.01554324164891947\", \"PC1_upper\": \"0.5454551846431143\", \"PC1_sig\": \"False\", \"PC2_lower\": \"-0.5315696582176722\", \"PC2_upper\": \"0.06655791046469363\", \"PC2_sig\": \"False\"}], \"links\": [{\"source\": 0, \"target\": 2, \"weight\": 0.4547697002026427, \"color\": \"red\"}, {\"source\": 0, \"target\": 7, \"weight\": 0.4235313258316822, \"color\": \"red\"}, {\"source\": 0, \"target\": 8, \"weight\": 0.4434955315557379, \"color\": \"red\"}, {\"source\": 0, \"target\": 9, \"weight\": 0.42419323920509455, \"color\": \"red\"}, {\"source\": 0, \"target\": 10, \"weight\": 0.40350481850693465, \"color\": \"red\"}, {\"source\": 0, \"target\": 24, \"weight\": 0.42686240365623795, \"color\": \"red\"}, {\"source\": 2, \"target\": 5, \"weight\": 0.4004522251911742, \"color\": \"red\"}, {\"source\": 2, \"target\": 7, \"weight\": 0.4844641572289073, \"color\": \"red\"}, {\"source\": 2, \"target\": 9, \"weight\": 0.5011960761652083, \"color\": \"red\"}, {\"source\": 2, \"target\": 19, \"weight\": 0.5025890733996604, \"color\": \"red\"}, {\"source\": 2, \"target\": 30, \"weight\": 0.44546249946491373, \"color\": \"red\"}, {\"source\": 7, \"target\": 5, \"weight\": 0.44966091576957695, \"color\": \"red\"}, {\"source\": 7, \"target\": 8, \"weight\": 0.5522804561236638, \"color\": \"red\"}, {\"source\": 7, \"target\": 9, \"weight\": 0.37095937942009927, \"color\": \"red\"}, {\"source\": 7, \"target\": 12, \"weight\": 0.6731023566843768, \"color\": \"red\"}, {\"source\": 7, \"target\": 18, \"weight\": 0.7460030363167851, \"color\": \"red\"}, {\"source\": 7, \"target\": 19, \"weight\": 0.7097283501217914, \"color\": \"red\"}, {\"source\": 7, \"target\": 24, \"weight\": 0.5118494073341066, \"color\": \"red\"}, {\"source\": 7, \"target\": 25, \"weight\": 0.4115540959200865, \"color\": \"red\"}, {\"source\": 7, \"target\": 30, \"weight\": 0.40074659764667964, \"color\": \"red\"}, {\"source\": 8, \"target\": 10, \"weight\": 0.40246807986109856, \"color\": \"red\"}, {\"source\": 8, \"target\": 12, \"weight\": 0.7775873336501062, \"color\": \"red\"}, {\"source\": 8, \"target\": 18, \"weight\": 0.5846687758683451, \"color\": \"red\"}, {\"source\": 8, \"target\": 24, \"weight\": 0.5841535531341525, \"color\": \"red\"}, {\"source\": 9, \"target\": 10, \"weight\": 0.48581436038909925, \"color\": \"red\"}, {\"source\": 9, \"target\": 11, \"weight\": 0.3434068387242718, \"color\": \"red\"}, {\"source\": 9, \"target\": 14, \"weight\": 0.33444702777288016, \"color\": \"red\"}, {\"source\": 9, \"target\": 15, \"weight\": 0.3412666757084098, \"color\": \"red\"}, {\"source\": 9, \"target\": 19, \"weight\": 0.408384070930546, \"color\": \"red\"}, {\"source\": 9, \"target\": 21, \"weight\": 0.3475876631972028, \"color\": \"red\"}, {\"source\": 10, \"target\": 3, \"weight\": 0.38240386705184826, \"color\": \"red\"}, {\"source\": 10, \"target\": 4, \"weight\": 0.35632616337210815, \"color\": \"red\"}, {\"source\": 10, \"target\": 16, \"weight\": 0.3369848187409419, \"color\": \"red\"}, {\"source\": 10, \"target\": 24, \"weight\": 0.35563707106340586, \"color\": \"red\"}, {\"source\": 24, \"target\": 1, \"weight\": 0.3178771023277117, \"color\": \"red\"}, {\"source\": 24, \"target\": 12, \"weight\": 0.5007293873922372, \"color\": \"red\"}, {\"source\": 24, \"target\": 18, \"weight\": 0.4481244060423967, \"color\": \"red\"}, {\"source\": 24, \"target\": 19, \"weight\": 0.34738316355877474, \"color\": \"red\"}, {\"source\": 1, \"target\": 5, \"weight\": 0.40990437326781093, \"color\": \"red\"}, {\"source\": 1, \"target\": 12, \"weight\": 0.31878620785475803, \"color\": \"red\"}, {\"source\": 1, \"target\": 25, \"weight\": 0.3740907406749846, \"color\": \"red\"}, {\"source\": 5, \"target\": 19, \"weight\": 0.44668311928473703, \"color\": \"red\"}, {\"source\": 5, \"target\": 25, \"weight\": 0.4483867913163057, \"color\": \"red\"}, {\"source\": 5, \"target\": 30, \"weight\": 0.3126120956104148, \"color\": \"red\"}, {\"source\": 12, \"target\": 18, \"weight\": 0.7635537711364857, \"color\": \"red\"}, {\"source\": 12, \"target\": 19, \"weight\": 0.5123988131056694, \"color\": \"red\"}, {\"source\": 12, \"target\": 25, \"weight\": 0.31288425365666284, \"color\": \"red\"}, {\"source\": 12, \"target\": 30, \"weight\": 0.34367788062517207, \"color\": \"red\"}, {\"source\": 19, \"target\": 14, \"weight\": 0.3627230153583134, \"color\": \"red\"}, {\"source\": 19, \"target\": 18, \"weight\": 0.5925609131198953, \"color\": \"red\"}, {\"source\": 19, \"target\": 21, \"weight\": 0.5069514971279656, \"color\": \"red\"}, {\"source\": 19, \"target\": 30, \"weight\": 0.6313914849805888, \"color\": \"red\"}, {\"source\": 30, \"target\": 21, \"weight\": 0.43776815487022946, \"color\": \"red\"}, {\"source\": 30, \"target\": 23, \"weight\": 0.3160133483961805, \"color\": \"red\"}, {\"source\": 3, \"target\": 4, \"weight\": 0.37586115947373133, \"color\": \"red\"}, {\"source\": 3, \"target\": 22, \"weight\": 0.4319658241625961, \"color\": \"red\"}, {\"source\": 3, \"target\": 26, \"weight\": 0.4319741374971302, \"color\": \"red\"}, {\"source\": 4, \"target\": 17, \"weight\": 0.4324354874558965, \"color\": \"red\"}, {\"source\": 22, \"target\": 11, \"weight\": 0.5037010307246242, \"color\": \"red\"}, {\"source\": 22, \"target\": 14, \"weight\": 0.3283530572299838, \"color\": \"red\"}, {\"source\": 22, \"target\": 15, \"weight\": 0.571753662952238, \"color\": \"red\"}, {\"source\": 22, \"target\": 17, \"weight\": 0.4102762372353547, \"color\": \"red\"}, {\"source\": 22, \"target\": 26, \"weight\": 0.5300819528805065, \"color\": \"red\"}, {\"source\": 22, \"target\": 28, \"weight\": 0.6256012559834364, \"color\": \"red\"}, {\"source\": 26, \"target\": 16, \"weight\": 0.5813054743897101, \"color\": \"red\"}, {\"source\": 26, \"target\": 17, \"weight\": 0.5463646224376507, \"color\": \"red\"}, {\"source\": 26, \"target\": 28, \"weight\": 0.48534288021584326, \"color\": \"red\"}, {\"source\": 17, \"target\": 20, \"weight\": 0.5047208256566542, \"color\": \"red\"}, {\"source\": 17, \"target\": 28, \"weight\": 0.6551557826074689, \"color\": \"red\"}, {\"source\": 6, \"target\": 14, \"weight\": 0.5056415820297622, \"color\": \"red\"}, {\"source\": 6, \"target\": 15, \"weight\": 0.46228685355151217, \"color\": \"red\"}, {\"source\": 6, \"target\": 20, \"weight\": 0.4225659695114665, \"color\": \"red\"}, {\"source\": 6, \"target\": 28, \"weight\": 0.36601780086358604, \"color\": \"red\"}, {\"source\": 14, \"target\": 13, \"weight\": 0.31353862201792404, \"color\": \"red\"}, {\"source\": 14, \"target\": 15, \"weight\": 0.5514863476047512, \"color\": \"red\"}, {\"source\": 14, \"target\": 18, \"weight\": 0.3257725051123931, \"color\": \"red\"}, {\"source\": 14, \"target\": 21, \"weight\": 0.5166947211245551, \"color\": \"red\"}, {\"source\": 15, \"target\": 11, \"weight\": 0.578625436655811, \"color\": \"red\"}, {\"source\": 15, \"target\": 21, \"weight\": 0.39577579053489714, \"color\": \"red\"}, {\"source\": 20, \"target\": 28, \"weight\": 0.5452977767028065, \"color\": \"red\"}, {\"source\": 11, \"target\": 21, \"weight\": 0.4606125864723005, \"color\": \"red\"}, {\"source\": 11, \"target\": 31, \"weight\": 0.3356063598691936, \"color\": \"red\"}, {\"source\": 21, \"target\": 23, \"weight\": 0.38703990088106976, \"color\": \"red\"}]}"
+                
+        var params = JSON.parse(JSON.stringify({'link_type': 'score', 'link_width': 0.5, 'node_text_size': 15, 'node_size_scale': {'pvalue': {'scale': 'reverse_linear', 'range': [5, 30]}, 'Mode': {'scale': 'ordinal', 'range': [10, 25]}, 'mz': {'scale': 'linear', 'range': [5, 30]}, 'rt': {'scale': 'log', 'range': [10, 50]}, 'pFDR': {'scale': 'reverse_linear', 'range': [10, 30]}, 'F': {'scale': 'log', 'range': [10, 50]}, 'RSD': {'scale': 'reverse_log', 'range': [5, 20]}, 'Dratio': {'scale': 'log', 'range': [5, 20]}, 'PC1': {'scale': 'linear', 'range': [5, 30]}, 'PC2': {'scale': 'linear', 'range': [5, 30]}, 'PC1_sig': {'scale': 'ordinal', 'range': [5, 30]}, 'PC2_sig': {'scale': 'reverse_ordinal', 'range': [5, 30]}}, 'node_color_scale': {'pvalue': {'scale': 'linear'}, 'Mode': {'scale': 'reverse_ordinal'}, 'mz': {'scale': 'linear'}, 'rt': {'scale': 'log'}, 'pFDR': {'scale': 'linear'}, 'F': {'scale': 'log'}, 'RSD': {'scale': 'log'}, 'Dratio': {'scale': 'log'}, 'PC1': {'scale': 'linear'}, 'PC2': {'scale': 'linear'}, 'PC1_sig': {'scale': 'ordinal'}, 'PC2_sig': {'scale': 'reverse_ordinal'}}, 'displayLabel': 'true', 'node_data': ['Name', 'Label', 'Mode', 'mz', 'rt', 'F', 'pvalue', 'pFDR', 'RSD', 'Dratio', 'PC1', 'PC2', 'PC1_sig', 'PC2_sig'], 'chargeStrength': -120, 'useGroupInABox': 'false', 'groupFociStrength': 0.2, 'intraGroupStrength': 0.01, 'groupLayoutTemplate': 'treemap', 'fix_nodes': 'true'}));
+            
+        var canvas = document.getElementById("springPanel");
+        var springNetwork = d3.select(canvas).append("svg").attr("id", "springNetwork");
+        
+        var redrawCount = 0;
+        var prevRedrawCount = 0;
+        
+        function redraw(){
+        
+            if (redrawCount !== prevRedrawCount) {
+                setTimeout(function(){
+                    window.location.reload();
+                });
+                window.location.reload(); 
+            }
+            
+            prevRedrawCount = redrawCount;
+
+			redrawCount = redrawCount+1;
+			
+			var scheme_list = ['Category10','Accent','Dark2','Paired','Pastel1','Pastel2','Set1','Set2','Set3', 'Tableau10']
+            var interpolate_list = ['BrBG', 'PRGn', 'PiYG', 'PuOr', 'RdBu', 'RdGy', 'RdYlBu', 'RdYlGn', 'Spectral', 'Blues', 'Greens', 'Greys', 'Oranges', 'Purples', 'Reds', 'Turbo', 'Viridis', 'Inferno', 'Magma', 'Plasma', 'Cividis', 'Warm', 'Cool', 'Cubehelix', 'BuGn', 'BuPu', 'GnBu', 'OrRd', 'PuBuGn', 'PuBu', 'PuRd', 'RdPu', 'YlGnBu', 'YlGn', 'YlOrBr', 'YlOrRd', 'Rainbow', 'Sinebow'];
+            var color_options = scheme_list.concat(interpolate_list)
+                        
+            var colorDomain = [];
+                    
+            var width = canvas.clientWidth;
+            var height = canvas.clientHeight;
+             
+            springNetwork.selectAll("*").remove();
+            
+            var svg = d3.select("svg#springNetwork")
+                                .attr("width", width)
+                                .attr("height", height);
+                                
+            svg.call(d3.zoom().on('zoom', zoomed))
+                .on("dblclick.zoom", null);
+        
+            var simulation = d3.forceSimulation()
+                    .force("link", d3.forceLink().id(d => d.id))            
+                    .force("center", d3.forceCenter(width / 2, height / 2));        
+        
+            var container = svg.append('g');
+        
+            var toggle = 0;
+        
+            var tooltip = d3.select("body")
+                .append("div")
+                .attr("class", "tooltip")
+                .style("opacity", 0);
+        
+            var graph = JSON.parse(networkData);
+            
+            var graphRec = JSON.parse(JSON.stringify(graph));
+            
+            if (params.link_type == "score") {            
+                var link_type_text = "Score";
+            } else if (params.link_type == "pvalue") {
+                var link_type_text = "Pvalue";
+            }
+            
+            var link = container.append("g")
+                .attr("class", "links")
+                .selectAll("line");
+            
+            var node = container.append("g")
+                .attr("class", "nodes")
+                .selectAll("circle");
+            
+            var label = container.selectAll(".text");
+        
+            var linkedByIndex = {};
+        
+            graphRec.links.forEach( function(d) {
+                linkedByIndex[d.source + ',' + d.target] = 1;
+                linkedByIndex[d.target + ',' + d.source] = 1;
+            });
+            
+            if (Object.keys(params.node_size_scale).length === 0) {
+                graph.nodes.forEach( function (d) { d.size = 10; });                
+            } else {
+                updateNodeSize(Object.keys(params.node_size_scale)[0])                
+            }
+            
+            if (Object.keys(params.node_color_scale).length === 0) {
+                graph.nodes.forEach( function (d) { d.color = "#808080"; }); 
+            } else {
+                updateNodeColor(Object.keys(params.node_color_scale)[0], color_options[0])
+            }
+            
+            function updateNodeSize(centrality) {
+                
+                var range = []
+                var reversed_range = []
+                
+                var scaleType = params.node_size_scale[centrality].scale
+                range = params.node_size_scale[centrality].range
+                reversed_range = JSON.parse(JSON.stringify(range.slice().reverse()))
+                
+                var centrality_values = []
+                graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { centrality_values.push(parseFloat(0)); } else { centrality_values.push(d[centrality]); }});
+                
+                scaledValues = []
+                area_values = []
+                volume_values = []
+                
+                if ((scaleType != "ordinal") && (scaleType != "reverse_ordinal")) {
+                    centrality_values = centrality_values.map(function (x) {
+                            return parseFloat(x);
+                    });
+                    
+                    initScale = d3.scaleLinear()
+                                    .domain(d3.extent(centrality_values))
+                                    .range([1,10]);
+                    
+                    centrality_values.forEach( function (d) { scaledValues.push(initScale(parseFloat(d))); });
+                    scaledValues.forEach( function (d) { area_values.push(parseFloat(Math.PI * (d * d))); });
+                    scaledValues.forEach( function (d) { volume_values.push(parseFloat(4 / 3 * (Math.PI * (d * d * d)))); });
+                } else {
+                    scaledValues = centrality_values.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
+                    var ordinal_range = []
+                    ordinal_range = [...Array(scaledValues.length).keys()];
+                    
+                    initOrdinalRange = d3.scaleLinear()
+                                    .domain(d3.extent(ordinal_range))
+                                    .range(range);
+                    
+                    var scaled_range = []
+                    ordinal_range.forEach( function (d) { scaled_range.push(initOrdinalRange(d)); });
+                    var reversed_scaled_range = []
+                    reversed_scaled_range = JSON.parse(JSON.stringify(scaled_range.slice().reverse()))
+                }
+                                  
+                if (scaleType == "linear") {
+                    
+                    linearScale = d3.scaleLinear()
+                         .domain(d3.extent(scaledValues))
+                         .range(range);
+                     
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = linearScale(initScale(parseFloat(0))); } else { d.size = linearScale(initScale(parseFloat(d[centrality]))); }});
+                  
+                } else if (scaleType == "reverse_linear") {
+                    
+                    reversedLinearScale = d3.scaleLinear()
+                        .domain(d3.extent(scaledValues))
+                        .range(reversed_range);
+                        
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = reversedLinearScale(initScale(parseFloat(0))); } else { d.size = reversedLinearScale(initScale(parseFloat(d[centrality]))); }});
+                
+                } else if (scaleType == "log") {
+                   
+                    logScale = d3.scaleLog()
+                        .domain(d3.extent(scaledValues))
+                        .range(range);  	        
+                             
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = logScale(initScale(parseFloat(0))); } else { d.size = logScale(initScale(parseFloat(d[centrality]))); }});
+                  
+                } else if (scaleType == "reverse_log") {
+                    
+                    reversedLogScale = d3.scaleLog()
+                        .domain(d3.extent(scaledValues))
+                        .range(reversed_range);
+                     
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = reversedLogScale(initScale(parseFloat(0))); } else { d.size = reversedLogScale(initScale(parseFloat(d[centrality]))); }});
+                
+                } else if (scaleType == "square") {
+                   
+                    squareScale = d3.scalePow()
+                        .domain(d3.extent(scaledValues))
+                        .exponent(2)
+                        .range(range);
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = squareScale(initScale(parseFloat(0))); } else { d.size = squareScale(initScale(parseFloat(d[centrality]))); }});
+                  
+                } else if (scaleType == "reverse_square") {
+                   
+                    reversedSquareScale = d3.scalePow()
+                        .domain(d3.extent(scaledValues))
+                        .exponent(2)
+                        .range(reversed_range);
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = reversedSquareScale(initScale(parseFloat(0))); } else { d.size = reversedSquareScale(initScale(parseFloat(d[centrality]))); }});
+                
+                } else if (scaleType == "area") {
+                    
+                    areaScale = d3.scaleLinear()
+                        .domain(d3.extent(area_values))
+                        .range(range);
+                     
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = areaScale(Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0)))); } else { d.size = areaScale(Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])))); }});
+                     
+                } else if (scaleType == "reverse_area") {
+                    
+                    reversedAreaScale = d3.scaleLinear()
+                        .domain(d3.extent(area_values))
+                        .range(reversed_range);
+                        
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = reversedAreaScale(Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0)))); } else { d.size = reversedAreaScale(Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])))); }});
+                     
+                } else if (scaleType == "volume") {
+                    
+                    volumeScale = d3.scaleLinear()
+                        .domain(d3.extent(volume_values))
+                        .range(range);
+                     
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = volumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0)) * initScale(parseFloat(0))))); } else { d.size = volumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality]))))); }});
+                  
+                } else if (scaleType == "reverse_volume") {
+                 
+                    reversedVolumeScale = d3.scaleLinear()
+                        .domain(d3.extent(volume_values))
+                        .range(reversed_range);
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.size = reversedVolumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0)) * initScale(parseFloat(0))))); } else { d.size = reversedVolumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality]))))); }});
+                      
+                } else if (scaleType == "ordinal") {
+                
+                    ordinalScale = d3.scaleOrdinal()
+                         .domain(scaledValues)
+                         .range(scaled_range);
+                                        
+                    graph.nodes.forEach( function (d) { d.size = ordinalScale(d[centrality]); });
+                } else if (scaleType == "reverse_ordinal") {
+                
+                    reversedOrdinalScale = d3.scaleOrdinal()
+                         .domain(scaledValues)
+                         .range(reversed_scaled_range);
+                                        
+                    graph.nodes.forEach( function (d) { d.size = reversedOrdinalScale(d[centrality]); });
+                }
+            }
+            
+            function updateNodeColor(centrality, colorOption) {
+                
+                var range = []
+                var reversed_range = []
+                
+                var scaleType = params.node_color_scale[centrality].scale
+                range = [0,1]
+                reversed_range = JSON.parse(JSON.stringify(range.slice().reverse()))
+                
+                var centrality_values = []
+                graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { centrality_values.push(parseFloat(0)); } else { centrality_values.push(d[centrality]); }});
+                
+                scaledValues = []
+                area_values = []
+                volume_values = []
+                
+                if ((scaleType != "ordinal") && (scaleType != "reverse_ordinal")) {                
+                    centrality_values = centrality_values.map(function (x) {
+                            return parseFloat(x);
+                    });
+                    
+                    initScale = d3.scaleLinear()
+                                    .domain(d3.extent(centrality_values))
+                                    .range([1,10]);
+                    
+                    centrality_values.forEach( function (d) { scaledValues.push(initScale(parseFloat(d))); });
+                    scaledValues.forEach( function (d) { area_values.push(parseFloat(Math.PI * (d * d))); });
+                    scaledValues.forEach( function (d) { volume_values.push(parseFloat(4 / 3 * (Math.PI * (d * d * d)))); });
+                } else {
+                    scaledValues = centrality_values.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
+                    var ordinal_range = []
+                    ordinal_range = [...Array(scaledValues.length).keys()];
+                    
+                    initOrdinalRange = d3.scaleLinear()
+                                    .domain(d3.extent(ordinal_range))
+                                    .range(range);
+                                                    
+                    var scaled_range = []
+                    ordinal_range.forEach( function (d) { scaled_range.push(initOrdinalRange(d)); });
+                    var reversed_scaled_range = []
+                    reversed_scaled_range = JSON.parse(JSON.stringify(scaled_range.slice().reverse()))
+                }        
+                
+                colorDomain = []                
+                if (scaleType == "linear") {
+                    
+                    linearScale = d3.scaleLinear()
+                         .domain(d3.extent(scaledValues))
+                         .range(range);
+                     
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = linearScale(initScale(parseFloat(0))); } else { d.color = linearScale(initScale(parseFloat(d[centrality]))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(linearScale(initScale(parseFloat(0)))); } else { colorDomain.push(linearScale(initScale(parseFloat(d[centrality])))); }});
+                  
+                } else if (scaleType == "reverse_linear") {
+                    
+                    reversedLinearScale = d3.scaleLinear()
+                        .domain(d3.extent(scaledValues))
+                        .range(reversed_range);
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = reversedLinearScale(initScale(parseFloat(0))); } else { d.color = reversedLinearScale(initScale(parseFloat(d[centrality]))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(reversedLinearScale(initScale(parseFloat(0)))); } else { colorDomain.push(reversedLinearScale(initScale(parseFloat(d[centrality])))); }});
+                    
+                } else if (scaleType == "log") {
+                   
+                    logScale = d3.scaleLog()
+                        .domain(d3.extent(scaledValues))
+                        .range(range);  	        
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = logScale(initScale(parseFloat(0))); } else { d.color = logScale(initScale(parseFloat(d[centrality]))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(logScale(initScale(parseFloat(0)))); } else { colorDomain.push(logScale(initScale(parseFloat(d[centrality])))); }});
+                  
+                } else if (scaleType == "reverse_log") {
+                    
+                    reversedLogScale = d3.scaleLog()
+                        .domain(d3.extent(scaledValues))
+                        .range(reversed_range);
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = reversedLogScale(initScale(parseFloat(0))); } else { d.color = reversedLogScale(initScale(parseFloat(d[centrality]))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(reversedLogScale(initScale(parseFloat(0)))); } else { colorDomain.push(reversedLogScale(initScale(parseFloat(d[centrality])))); }});
+                    
+                } else if (scaleType == "square") {
+                   
+                    squareScale = d3.scalePow()
+                        .domain(d3.extent(scaledValues))
+                        .exponent(2)
+                        .range(range);
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = squareScale(initScale(parseFloat(0))); } else { d.color = squareScale(initScale(parseFloat(d[centrality]))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(squareScale(initScale(parseFloat(0)))); } else { colorDomain.push(squareScale(initScale(parseFloat(d[centrality])))); }});
+                  
+                } else if (scaleType == "reverse_square") {
+                   
+                    reversedSquareScale = d3.scalePow()
+                        .domain(d3.extent(scaledValues))
+                        .exponent(2)
+                        .range(reversed_range);
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = reversedSquareScale(initScale(parseFloat(0))); } else { d.color = reversedSquareScale(initScale(parseFloat(d[centrality]))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(reversedSquareScale(initScale(parseFloat(0)))); } else { colorDomain.push(reversedSquareScale(initScale(parseFloat(d[centrality])))); }});
+                    
+                } else if (scaleType == "area") {
+                
+                    areaScale = d3.scaleLinear()
+                        .domain(d3.extent(area_values))
+                        .range(range);
+                                        
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = areaScale(Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0)))); } else { d.color = areaScale(Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(areaScale(Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0))))); } else { colorDomain.push(areaScale(Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality]))))); }});
+                     
+                } else if (scaleType == "reverse_area") {
+                
+                    reversedAreaScale = d3.scaleLinear()
+                        .domain(d3.extent(area_values))
+                        .range(reversed_range);
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = reversedAreaScale(Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0)))); } else { d.color = reversedAreaScale(Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(reversedAreaScale(Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0))))); } else { colorDomain.push(reversedAreaScale(Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality]))))); }});
+                    
+                } else if (scaleType == "volume") {
+                    
+                    volumeScale = d3.scaleLinear()
+                        .domain(d3.extent(volume_values))
+                        .range(range);
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = volumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0)) * initScale(parseFloat(0))))); } else { d.color = volumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality]))))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(volumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0)) * initScale(parseFloat(0)))))); } else { colorDomain.push(volumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])))))); }});
+                  
+                } else if (scaleType == "reverse_volume") {
+                 
+                    reversedVolumeScale = d3.scaleLinear()
+                        .domain(d3.extent(volume_values))
+                        .range(reversed_range);
+                    
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { d.color = reversedVolumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0)) * initScale(parseFloat(0))))); } else { d.color = reversedVolumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality]))))); }});
+                    graph.nodes.forEach( function (d) { if (typeof d[centrality] === 'undefined') { colorDomain.push(reversedVolumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(0)) * initScale(parseFloat(0)) * initScale(parseFloat(0)))))); } else { colorDomain.push(reversedVolumeScale(4 / 3 * (Math.PI * (initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])) * initScale(parseFloat(d[centrality])))))); }});
+                    
+                } else if (scaleType == "ordinal") {
+                
+                    ordinalScale = d3.scaleOrdinal()
+                        .domain(scaledValues)
+                        .range(scaled_range);
+                                        
+                    graph.nodes.forEach( function (d) { d.color = ordinalScale(d[centrality]); });
+                    graph.nodes.forEach( function (d) { colorDomain.push(ordinalScale(d[centrality])); });
+                    
+                } else if (scaleType == "reverse_ordinal") {
+                
+                    reversedOrdinalScale = d3.scaleOrdinal()
+                        .domain(scaledValues)
+                        .range(reversed_scaled_range);
+                                        
+                    graph.nodes.forEach( function (d) { d.color = reversedOrdinalScale(d[centrality]); });
+                    graph.nodes.forEach( function (d) { colorDomain.push(reversedOrdinalScale(d[centrality])); });
+                }
+                        
+                if (scheme_list.includes(colorOption)) {
+                    var color_palette = d3.scaleQuantize()
+                                            .domain(d3.extent(colorDomain))
+                                            .range(d3["scheme" + colorOption]);
+                } else if (interpolate_list.includes(colorOption)) {
+                    
+                    if (colorOption == 'Cubehelix') {
+                        colorOption = colorOption.concat('Default')
+                    }
+                    
+                    var color_palette = d3.scaleSequential()
+                                            .interpolator(d3["interpolate" + colorOption])
+                                            .domain(colorDomain);
+                }                
+                
+                node.attr("fill", function(d) { if (typeof d[centrality] === 'undefined') { return "#808080"; } else { return color_palette(d.color); }});
+            }
+            
+            simulation
+                .force("charge", d3.forceManyBody().strength(params.chargeStrength).distanceMax(500))            
+                .force("collide", d3.forceCollide().radius( function (d) { return d.size; }));
+        
+            update();
+        
+            function update() {
+                
+                node = node.data(graph.nodes, d => d.id);
+        
+                node.exit().remove();
+            
+                var newNode = node.enter().append("circle")
+                        .attr('r', function(d, i) { return d.size; })      		    
+                        .attr("fill", function(d) { return d.color; })
+                        .attr('class', 'node')
+                        .on('mouseover.tooltip', function(d) {
+                                tooltip.transition()
+                                    .duration(300)
+                                    .style("opacity", .8);
+                                
+                                peak_data = params.node_data;
+                                                                
+                                if (Number.isNaN(Number(d[peak_data[0]]))) {                                
+                                    var init_value = d[peak_data[0]]                                    
+                                } else if (typeof Number(d[peak_data[0]]) == 'number') { 
+                                    var init_value = Number(d[peak_data[0]]).toExponential();
+                                }
+                                
+                                html_line = peak_data[0] + ": " + init_value;
+                                
+                                peak_data.forEach(function(p) { 
+                                
+                                    if (p !== peak_data[0]) {
+                                        if (Number.isNaN(Number(d[p]))) {
+                                            var data_value = d[p];
+                                        } else if (typeof Number(d[p]) == 'number') {
+                                            var data_value = Number(d[p]).toExponential();
+                                        }
+                                        
+                                        html_line = html_line + "<br/>" + p + ": " + data_value;
+                                                                                                        
+                                    }
+                                });
+                                
+                                tooltip.html(html_line)
+                                        .style("left", (d3.event.pageX) + "px")
+                                        .style("top", (d3.event.pageY + 10) + "px");                  
+                        })      		    
+                        .on('dblclick', releaseNode)
+                        .on('click', fade(0.1))
+                        .on("mouseout.tooltip", function() {
+                                tooltip.transition()
+                                    .duration(100)
+                                    .style("opacity", 0);
+                        })  				
+                        .on("mousemove", function() {
+                                tooltip.style("left", (d3.event.pageX) + "px")
+                                    .style("top", (d3.event.pageY + 10) + "px");
+                        })
+                        .call(d3.drag()
+                            .on("start", dragstarted)
+                            .on("drag", dragged)
+                            .on("end", dragended));
+                                            
+                node = node.merge(newNode);
+            
+                label = label.data(graph.nodes, d => d.id);
+            
+                label.exit().remove();
+               
+                var newLabel = label.enter().append("text")
+                        .text(function (d) { if (params.displayLabel == "true") { return d.Label; } else { return d.Name; } })
+                        .style("text-anchor", "middle")
+                            .style("fill", "black")
+                            .style("font-family", "Helvetica")
+                            .style("font-size", params.node_text_size)
+                        .attr('class', 'node')
+                        .on('mouseover.tooltip', function(d) {
+                                tooltip.transition()
+                                        .duration(300)
+                                        .style("opacity", .8);
+                                
+                                peak_data = params.node_data;
+                                
+                                if (Number.isNaN(Number(d[peak_data[0]]))) {                                
+                                    var init_value = d[peak_data[0]]                                    
+                                } else if (typeof Number(d[peak_data[0]]) == 'number') { 
+                                    var init_value = Number(d[peak_data[0]]).toExponential();
+                                }
+                                
+                                html_line = peak_data[0] + ": " + init_value;
+                                
+                                peak_data.forEach(function(p) { 
+                                
+                                    if (p !== peak_data[0]) {
+                                        if (Number.isNaN(Number(d[p]))) {
+                                            var data_value = d[p];
+                                        } else if (typeof Number(d[p]) == 'number') {
+                                            var data_value = Number(d[p]).toExponential();
+                                        }
+                                        
+                                        html_line = html_line + "<br/>" + p + ": " + data_value;
+                                                                                                        
+                                    }
+                                });
+                                                
+                                tooltip.html(html_line)
+                                        .style("left", (d3.event.pageX) + "px")
+                                        .style("top", (d3.event.pageY + 10) + "px");
+                        })
+                        .on('dblclick', releaseNode)
+                        .on('click', fade(0.1))      		    
+                        .on("mouseout.tooltip", function() {
+                                tooltip.transition()
+                                    .duration(100)
+                                    .style("opacity", 0);
+                        })  			
+                        .on("mousemove", function() {
+                                tooltip.style("left", (d3.event.pageX) + "px")
+                                    .style("top", (d3.event.pageY + 10) + "px");
+                        })
+                        .call(d3.drag()
+                            .on("start", dragstarted)
+                            .on("drag", dragged)
+                            .on("end", dragended));
+            
+                label = label.merge(newLabel);
+        
+                //Add no links
+                link = link.data([]);
+        
+                //Remove all old links, leaving no links
+                link.exit().remove();
+                
+                //Add new links
+                link = link.data(graph.links);
+        
+                //Remove all old links, leaving only the new links
+                link.exit().remove();
+                
+                var newLink = link.enter().append("line")
+                            .attr("class", "link")
+                            .attr("stroke-width", params.link_width)
+                            .style("stroke", function(d) { return d.color; })
+                            .on('mouseover.tooltip', function(d) {
+                                    tooltip.transition()
+                                            .duration(300)
+                                            .style("opacity", .8);
+                                    
+                                    if (params.displayLabel == "true") {                                                
+                                        var source = d.source.Label;
+                                        var target = d.target.Label;
+                                    } else { 
+                                        var source = d.source.Name;
+                                        var target = d.target.Name;
+                                    }
+                                           
+                                    tooltip.html("Source: "+ source + 
+                                                "<br/>Target: " + target +
+                                                "<br/>" + link_type_text + ": "  + d.weight.toPrecision(3))                                                
+                                                    .style("left", (d3.event.pageX) + "px")
+                                                    .style("top", (d3.event.pageY + 10) + "px");
+                            })
+                            .on("mouseout.tooltip", function() {
+                                    tooltip.transition()
+                                            .duration(100)
+                                            .style("opacity", 0);
+                            })
+                            .on("mousemove", function() {
+                                    tooltip.style("left", (d3.event.pageX) + "px")
+                                            .style("top", (d3.event.pageY + 10) + "px");
+                            });
+            
+                link = link.merge(newLink);
+                
+                //Test to see if there are multiple blocks in the data. If none then set useGroupInABox to false
+                var blocks = []
+                graph.nodes.forEach(function(n) { if (n.Block !== undefined) { blocks.push(n.Block) }}); 
+                
+                if (params.useGroupInABox == "true") {
+                    var useGroupInABox = true;
+                    
+                    if (blocks.length == 0) {
+                        useGroupInABox = false;
+                    }
+                } else {
+                    var useGroupInABox = false;
+                }
+                
+                if (useGroupInABox == true) {
+                    var groupingForce = forceInABox()
+                            .strength(params.groupFociStrength)
+                            .template(params.groupLayoutTemplate)
+                            .groupBy("Block")
+                            .linkStrengthIntraCluster(params.intraGroupStrength)
+                            .size([width, height]);
+                    
+                    simulation
+                        .nodes(graph.nodes)
+                        .on("tick", ticked)
+                        .force("group", groupingForce);
+                } else {
+                    simulation
+                        .nodes(graph.nodes)
+                        .on("tick", ticked);
+                }
+                          
+                simulation.force("link")
+                    .links(graph.links);
+                
+                simulation.alphaTarget(0.1).restart();
+            }
+            
+            function ticked() {
+                link
+                    .attr("x1", function(d) { return d.source.x; })
+                    .attr("y1", function(d) { return d.source.y; })
+                    .attr("x2", function(d) { return d.target.x; })
+                    .attr("y2", function(d) { return d.target.y; });    
+                
+                node       
+                    .attr("cx", function(d) { return d.x = Math.max(d3.select(this).attr("r"), Math.min(width - d3.select(this).attr("r"), d.x)); })
+                    .attr("cy", function(d) { return d.y = Math.max(d3.select(this).attr("r"), Math.min(height - d3.select(this).attr("r"), d.y)); });    
+                          
+                label.attr("x", function(d){ return d.x; })
+                     .attr("y", function (d) {return d.y + 5; });            
+                
+            }
+            
+            Number.prototype.countDecimals = function () {
+                if(Math.floor(this.valueOf()) === this.valueOf()) return 0;
+        
+                var value = 0;
+                var check = this.toString().includes("e-");
+                
+                if (check) {
+                    
+    	            var value = this.toString().split("-")[1];
+                     
+                } else {
+    	            
+                    var value1 = this.toString().split(".")[1];
+                    var value2 = value1.trimLeft("0");
+                     
+                    var value = value1.length - value2.length + 1;
+                }        
+                
+                return value
+            }
+            
+            var sliderMin = '';
+            var sliderMax = '';
+            
+            var sliderScoreDecimalPlaces = 6;
+            
+            if (params.link_type == "score") {
+                sliderMin = Number(d3.min(graph.links, function(d) {return d.weight; }).toFixed(sliderScoreDecimalPlaces))
+                sliderMax = Number(d3.max(graph.links, function(d) {return d.weight; }).toFixed(sliderScoreDecimalPlaces))
+                sliderStep = Number(1/Math.pow(10, sliderScoreDecimalPlaces));
+                sliderPrecision = sliderScoreDecimalPlaces;
+            } else if (params.link_type == "pvalue") {
+                sliderMin = Number(d3.min(graph.links, function(d) {return d.weight; }).toFixed(Number(d3.min(graph.links, function(d) {return d.weight; }).countDecimals())))
+                sliderMax = Number(d3.max(graph.links, function(d) {return d.weight; }).toFixed(Number(d3.min(graph.links, function(d) {return d.weight; }).countDecimals())))
+                sliderStep = Number(d3.min(graph.links, function(d) {return d.weight; }).toFixed(Number(d3.min(graph.links, function(d) {return d.weight; }).countDecimals())))
+                sliderPrecision = Number(d3.min(graph.links, function(d) {return d.weight; }).countDecimals())
+            }
+            
+            var app = angular.module('rzSliderDemo', ['rzSlider']);
+            
+            app.controller('MainCtrl', function ($scope) {
+                
+                $scope.node_size_options = Object.keys(params.node_size_scale);
+  				$scope.selectedNodeSizeOption = $scope.node_size_options[0];    
+                
+                $scope.updateNodeSize = function() {
+                
+                    var centrality = $scope.selectedNodeSizeOption;
+                    
+                    if (typeof centrality != 'undefined') {
+                        updateNodeSize(centrality)
+                    }
+                        
+                    node.attr('r', function(d) { return d.size; } );  
+                    
+                    simulation.force("collide", d3.forceCollide().radius( function (d) { return d.size; }));
+                    simulation.alphaTarget(0.1).restart();    										
+  				}
+  				
+  				var centrality = $scope.selectedNodeSizeOption;
+  				
+  				if (typeof centrality != 'undefined') {
+                    updateNodeSize(centrality)                  
+                }
+  				
+  				node.attr('r', function(d) { return d.size; } );  
+                    
+                simulation.force("collide", d3.forceCollide().radius( function (d) { return d.size; }));
+                simulation.alphaTarget(0.1).restart();
+                
+                $scope.node_coloring_options = Object.keys(params.node_color_scale);
+  				$scope.selectedNodeColorOption = $scope.node_coloring_options[0];
+  				
+  				$scope.scheme_list = scheme_list;
+                   
+                $scope.interpolate_list = interpolate_list;
+                    
+                $scope.color_options = color_options;
+                              
+                $scope.selectedColorOption = $scope.color_options[0]; 				
+  				
+                $scope.updateNodeColor = function() {
+                
+                    var nodeColorOption = $scope.selectedNodeColorOption
+                
+                    if (typeof nodeColorOption != 'undefined') {                        
+                        var colorOption = $scope.selectedColorOption             
+                        var scaleType = params.node_color_scale[nodeColorOption].scale                    
+                    
+                        if ((scaleType == "ordinal") || (scaleType == "reverse_ordinal")) {
+                        
+                            if (!scheme_list.includes(colorOption)) {
+                                $scope.selectedColorOption = scheme_list[0];
+                                colorOption = $scope.selectedColorOption
+                            }
+                        
+                            $scope.color_options = scheme_list;
+                        } else {
+                            $scope.color_options = color_options;
+                        }
+                    
+                        updateNodeColor(nodeColorOption, colorOption)
+                    } else {
+                        $scope.node_coloring_options = ['None']
+                        $scope.selectedNodeColorOption = 'None'
+                        $scope.color_options = ['Grey']
+                        $scope.selectedColorOption = 'Grey'
+                        
+                        node.attr("fill", function(d) { return d.color; })           
+                    }
+                    
+                    simulation.alphaTarget(0.1).restart();
+                }
+                
+                var nodeColorOption = $scope.selectedNodeColorOption         
+                    
+                if (typeof nodeColorOption != 'undefined') {
+                    var colorOption = $scope.selectedColorOption             
+                    var scaleType = params.node_color_scale[nodeColorOption].scale
+                    
+                    if ((scaleType == "ordinal") || (scaleType == "reverse_ordinal")) {
+                    
+                        if (!scheme_list.includes(colorOption)) {
+                            $scope.selectedColorOption = scheme_list[0];
+                            colorOption = $scope.selectedColorOption
+                        }                    
+                    
+                        $scope.color_options = scheme_list;
+                    } else {
+                        $scope.color_options = color_options;
+                    }
+                    
+                    updateNodeColor(nodeColorOption, colorOption)
+                } else {
+                    $scope.node_coloring_options = ['None']
+                    $scope.selectedNodeColorOption = 'None'
+                    $scope.color_options = ['Grey']
+                    $scope.selectedColorOption = 'Grey'
+                        
+                    node.attr("fill", function(d) { return d.color; })           
+                }
+                
+                simulation.alphaTarget(0.1).restart();
+                                
+                $scope.savebutton = function () {
+                	
+                      var options = {
+                                canvg: window.canvg,
+                                backgroundColor: 'white',
+                                height: height+100,
+                                width: width+100,
+                                left: -50,
+                                top: -50,
+                                scale: 5/window.devicePixelRatio,
+                                encoderOptions: 1,
+                                ignoreMouse : true,
+                                ignoreAnimation : true,
+                        }
+		                		                
+                        saveSvgAsPng(d3.select('svg#springNetwork').node(), "networkPlot.png", options);           					
+        		}
+        		
+        		$scope.searchNodes = function () {
+        		        peak_data = params.node_data;
+        		        var term = document.getElementById('searchTerm').value;
+        		        
+        		        var matching_terms = []
+        		        
+        		        var selected = container.selectAll('.node').filter(function (d, i) {
+        		                //Default query column
+        		                var match = 'Label'
+        		                
+        		                peak_data.forEach( function(t) { if (d[t].toLowerCase().includes(term.toLowerCase())) { matching_terms.push(t); } });
+        		                
+        		                if (typeof matching_terms[0] != 'undefined') { match = matching_terms[0]; };
+        		                return d[match].toLowerCase().search(term.toLowerCase()) == -1;
+        		        });
+                		selected.style('opacity', '0');
+						var link = container.selectAll('.link');
+                		link.style('stroke-opacity', '0');
+                		d3.selectAll('.node').transition()
+                        		.duration(5000)
+                        		.style('opacity', '1');
+                		d3.selectAll('.link').transition()
+                		        .duration(5000)
+                		        .style('stroke-opacity', '0.6');
+            	}
+            	         	
+            	var slider_options = {
+        		        showSelectionBar: true,                    
+            			floor: sliderMin,
+                        ceil: sliderMax,                          		
+                        step: sliderStep,
+            			precision: sliderPrecision,                          	
+            			getSelectionBarColor: function() { return '#2AE02A'; },
+            			getPointerColor: function() { return '#D3D3D3'; },
+            			pointerSize: 1,
+            			onChange: function () {
+              
+                            var minThreshold = $scope.slider.minValue
+                            var maxThreshold = $scope.slider.maxValue
+                                
+                            graph.links.splice(0, graph.links.length);
+                            graphRec.links.forEach( function (d) { if ((d.weight >= minThreshold) && (d.weight <= maxThreshold)) { graph.links.push(d); }});
+                                
+                            //Update link dictionary
+                            linkedByIndex = {} 
+                            graphRec.links.forEach( function (d) {
+                                if ((d.weight >= minThreshold) && (d.weight <= maxThreshold)) {
+                                                                  
+                                    var source = JSON.stringify(d.source.id);
+                                    var target = JSON.stringify(d.target.id);
+                                                   
+                                    if (typeof source == 'undefined') {
+                                        source = JSON.stringify(d.source);
+                                    }
+                                                
+                                    if (typeof target == 'undefined') {
+                                        target = JSON.stringify(d.target);
+                                    }
+                                                                                        
+                                    linkedByIndex[source + ',' + target] = 1;
+                                    linkedByIndex[target + ',' + source] = 1;	  						         
+                                }
+                            });
+                                  
+                            update(); 
+            			}
+        		}
+            	
+            	if (params.link_type == "pvalue") {
+            	    slider_options['logScale'] = true;
+            	}
+            	
+            	$scope.slider = {
+        				minValue: sliderMin,
+        				maxValue: sliderMax,                     
+                        options: slider_options
+    			};
+			});
+        
+            function dragstarted(d) {
+            
+                if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            }
+        
+            function dragged(d) {
+                d.fx = d3.event.x;
+                d.fy = d3.event.y;
+            }
+        
+            function dragended(d) {
+                if (!d3.event.active) simulation.alphaTarget(0);
+                
+                if (params.fix_nodes == "true") {
+                    d.fx = d3.event.x;
+                    d.fy = d3.event.y;
+                } else {
+                    d.fx = null;
+                    d.fy = null;
+                }
+            }
+                
+            function releaseNode(d) {        
+                d.fx = null;
+                d.fy = null;
+            }
+                
+            function zoomed() {
+                container.attr("transform", "translate(" + d3.event.transform.x + ", " + d3.event.transform.y + ") scale(" + d3.event.transform.k + ")");
+            }
+        
+            function neighboring(a, b) {
+                return linkedByIndex[a.id + ',' + b.id] || linkedByIndex[b.id + ',' + a.id] || a.id === b.id;
+            }          
+        
+            function fade(opacity) {
+                return d => {
+            
+                    if (toggle == 0) {
+            
+                        node.style('stroke-opacity', function (o) {
+                            const nodeOpacity = neighboring(d, o) ? 1 : opacity;
+                            this.setAttribute('fill-opacity', nodeOpacity);
+                            return nodeOpacity;
+                        });
+                  
+                        label.style('stroke-opacity', function (o) {
+                            const labelOpacity = neighboring(d, o) ? 1 : opacity;
+                            this.setAttribute('fill-opacity', labelOpacity);
+                            return labelOpacity;
+                        });
+        
+                        link.style('stroke-opacity', o => (o.source === d || o.target === d ? 1 : opacity));
+                            
+                        toggle = 1;
+                    } else {
+                     
+                        node.style('stroke-opacity', function (o) {
+                            const nodeOpacity = 1;
+                            this.setAttribute('fill-opacity', nodeOpacity);
+                            return nodeOpacity;
+                        });
+                  
+                        label.style('stroke-opacity', function (o) {
+                            const labelOpacity = 1;
+                            this.setAttribute('fill-opacity', labelOpacity);
+                            return labelOpacity;
+                        });          
+        
+                        link.style('stroke-opacity', 0.6);
+               
+                        toggle = 0;
+                    }
+                };
+            }
+        }
+        
+        redraw();
+        
+        window.addEventListener("resize", redraw); 
+         </script>
+        
