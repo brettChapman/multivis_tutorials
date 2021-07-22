@@ -368,11 +368,8 @@ source activate multivis_tutorials
 jupyter notebook
 ```
 
-Note: if you receive any of the following errors: "fatal: destination path 'multivis_tutorials' already exists and is not an empty directory" or "CondaValueError: prefix already exists: /Users/[insert your username]/opt/anaconda3/envs/multivis_tutorials", then you need to delete the 'multivis_tutorials' folder in the specified directories. The directory can be deleted using Terminal / Command Prompt  with:
+Note: if you receive any of the following errors: "fatal: destination path 'multivis_tutorials' already exists and is not an empty directory" and/or "CondaValueError: prefix already exists: /Users/[insert your username]/opt/anaconda3/envs/multivis_tutorials", then you need to delete the 'multivis_tutorials' folder in the specified directories. The directory can be deleted using Terminal / Command Prompt  with:
 ```console
-rm -dr multivis_tutorials 
-```
-Or
-```console
-sudo rm -dr /Users/[insert your username]/opt/anaconda3/envs/multivis_tutorials
+rm -dfr multivis_tutorials 
+rm -dfr /Users/[insert your username]/opt/anaconda3/envs/multivis_tutorials
 ```
