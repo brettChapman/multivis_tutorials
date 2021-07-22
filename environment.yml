@@ -5,6 +5,7 @@ channels:
 - brett.chapman
 dependencies:
 - python>=3.5
+- mscorefonts=0.01
 - openpyxl=2.6.1
 - multivis=0.5.4
 - ipython=7.25.0
