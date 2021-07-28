@@ -5,8 +5,7 @@ channels:
 - brett.chapman
 dependencies:
 - python>=3.5
-- openpyxl=2.6.1
-- multivis=0.5.4
+- multivis=0.5.5
 - ipython=7.25.0
 - ipykernel=6.0.0
 - jupyter
