@@ -143,7 +143,7 @@ Launch tutorial 2.2 by clicking the "Launch Binder" icon: [![Binder](https://not
 <a id="three"></a>
 ## Tutorial 1.3 and 2.3: Feature Plot
 <p align="justify">
-<i>These tutorials step through a workflow to produce a different feature plots to identify trajectories of different features in relation to each other and depending on the type of feature plot, the distribution of each feature can be visualised, compared and provides a way to identify any features which may contain outliers or large differences in magnitude (concentration/expression level), between various groups/classes in the data.</i>
+<i>These tutorials step through a workflow to produce different feature plots with the aim of comparing trajectories of features and depending on the type of feature plot, the distribution of each feature can be visualised and compared, providing a way to identify any features which may contain outliers or large differences in magnitude (concentration/expression level), between various groups/classes in the data.</i>
 </p>
 
 Launch tutorial 1.3 by clicking the "Launch Binder" icon: [![Binder](https://notebooks.gesis.org/binder/badge_logo.svg)](https://notebooks.gesis.org/binder/v2/gh/brettChapman/multivis_tutorials/HEAD?filepath=Tutorial1.3.ipynb)
