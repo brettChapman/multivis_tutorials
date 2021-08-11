@@ -62,7 +62,7 @@ This repository contains twelve different tutorials spanning two case studies, e
 
 1.1.	[Athlete performance at high altitude - Principal Component Analysis (PCA) with loadings plot and PCA lollipop plots](#one) <br>
 1.2.	[Athlete performance at high altitude - Principal Coordinate Analysis (PCoA)](#two) <br>
-1.3.	[Athlete performance at high altitude - Feature Plot and ](#three) <br>
+1.3.	[Athlete performance at high altitude - Feature Plot](#three) <br>
 1.4.	[Athlete performance at high altitude - Hierarchical Clustered Heatmap](#four) <br>
 1.5.	[Athlete performance at high altitude - Polar Dendrogram](#five) <br>
 1.6.	[Athlete performance at high altitude - Spring-embedded network](#six) <br>
@@ -71,12 +71,12 @@ This repository contains twelve different tutorials spanning two case studies, e
 <br />
 
 2.1.	[Gastric Cancer - Principal Component Analysis (PCA) with loadings plot and PCA lollipop plots](#one) <br>
-2.2.	[Gastric Cancer - Principal Coordinate Analysis (PCoA) with included statistical analysis](#two) <br>
+2.2.	[Gastric Cancer - Principal Coordinate Analysis (PCoA)](#two) <br>
 2.3.	[Gastric Cancer - Feature Plot](#three) <br>
 2.4.	[Gastric Cancer - Hierarchical Clustered Heatmap](#four) <br>
-2.5.	[Gastric Cancer - Polar Dendrogram with included statistical analysis](#five) <br>
-2.6.	[Gastric Cancer - Spring-embedded network with included statistical analysis](#six) <br>
-2.7.	[Gastric Cancer - Hierarchical Edge Bundle with included statistical analysis](#seven) <br>
+2.5.	[Gastric Cancer - Polar Dendrogram](#five) <br>
+2.6.	[Gastric Cancer - Spring-embedded network](#six) <br>
+2.7.	[Gastric Cancer - Hierarchical Edge Bundle](#seven) <br>
 
 <br />
 
