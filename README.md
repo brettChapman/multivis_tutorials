@@ -190,7 +190,9 @@ Launch tutorial 2.3 by clicking the "Launch Binder" icon: [![Binder](https://not
 
 ### Example plots from tutorial 2.3:
 
-<img src="pointPlot_features_gastric_cancer.png" alt="Mean Peak Area Point Plot - gastric cancer" width="75%" height="75%"/>
+#### Median Peak Area Point plot
+
+<img src="pointPlot_features_gastric_cancer.png" alt="Median Peak Area Point Plot - gastric cancer" width="75%" height="75%"/>
 
 <br />
 
@@ -272,12 +274,6 @@ Launch tutorial 2.5 by clicking the "Launch Binder" icon: [![Binder](https://not
 
 <br />
 
-#### Peak Area Violin plot
-
-<img src="violinPlot_clusters_altitude_study.png" alt="Peak Area Clusters Violin Plot - altitude study" width="75%" height="75%"/>
-
-<br />
-
 #### Peak Area Box plot
 
 <img src="boxPlot_clusters_altitude_study.png" alt="Peak Area Clusters Box Plot - altitude study" width="75%" height="75%"/>
@@ -311,12 +307,6 @@ Launch tutorial 2.5 by clicking the "Launch Binder" icon: [![Binder](https://not
 #### Median Peak Area Point plot
 
 <img src="pointPlot_clusters_gastric_cancer.png" alt="Median Peak Area Clusters Point Plot - gastric cancer" width="75%" height="75%"/>
-
-<br />
-
-#### Peak Area Violin plot
-
-<img src="violinPlot_clusters_gastric_cancer.png" alt="Peak Area Clusters Violin Plot - gastric cancer" width="75%" height="75%"/>
 
 <br />
 
