@@ -152,37 +152,37 @@ Launch tutorial 2.3 by clicking the "Launch Binder" icon: [![Binder](https://not
 
 ### Example plots from tutorial 1.3:
 
-## Mean Peak Area Point plot
+#### Mean Peak Area Point plot
 
 <img src="pointPlot_features_altitude_study.png" alt="Mean Peak Area Point Plot - altitude study" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Violin plot
+#### Peak Area Violin plot
 
 <img src="violinPlot_features_altitude_study.png" alt="Peak Area Violin Plot - altitude study" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Box plot
+#### Peak Area Box plot
 
 <img src="boxPlot_features_altitude_study.png" alt="Peak Area Box Plot - altitude study" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Swarm plot
+#### Peak Area Swarm plot
 
 <img src="swarmPlot_features_altitude_study.png" alt="Peak Area Swarm Plot - altitude study" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Violin-Swarm plot
+#### Peak Area Violin-Swarm plot
 
 <img src="violin-swarmPlot_features_altitude_study.png" alt="Peak Area Violin-Swarm Plot - altitude study" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Box-Swarm plot
+#### Peak Area Box-Swarm plot
 
 <img src="box-swarmPlot_features_altitude_study.png" alt="Peak Area Violin-Swarm Plot - altitude study" width="75%" height="75%"/>
 
@@ -194,31 +194,31 @@ Launch tutorial 2.3 by clicking the "Launch Binder" icon: [![Binder](https://not
 
 <br />
 
-## Peak Area Violin plot
+#### Peak Area Violin plot
 
 <img src="violinPlot_features_gastric_cancer.png" alt="Peak Area Violin Plot - gastric cancer" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Box plot
+#### Peak Area Box plot
 
 <img src="boxPlot_features_gastric_cancer.png" alt="Peak Area Box Plot - gastric cancer" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Swarm plot
+#### Peak Area Swarm plot
 
 <img src="swarmPlot_features_gastric_cancer.png" alt="Peak Area Swarm Plot - gastric cancer" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Violin-Swarm plot
+#### Peak Area Violin-Swarm plot
 
 <img src="violin-swarmPlot_features_gastric_cancer.png" alt="Peak Area Violin-Swarm Plot - gastric cancer" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Box-Swarm plot
+#### Peak Area Box-Swarm plot
 
 <img src="box-swarmPlot_features_gastric_cancer.png" alt="Peak Area Violin-Swarm Plot - gastric cancer" width="75%" height="75%"/>
 
@@ -260,43 +260,43 @@ Launch tutorial 2.5 by clicking the "Launch Binder" icon: [![Binder](https://not
 
 ### Example plots of aggregated peak areas from clusters in the polar dendrogram in tutorial 1.5:
 
-## Mean Peak Area Point plot
+#### Mean Peak Area Point plot
 
 <img src="pointPlot_clusters_altitude_study.png" alt="Mean Peak Area Clusters Point Plot - altitude study" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Violin plot
+#### Peak Area Violin plot
 
 <img src="violinPlot_clusters_altitude_study.png" alt="Peak Area Clusters Violin Plot - altitude study" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Violin plot
+#### Peak Area Violin plot
 
 <img src="violinPlot_clusters_altitude_study.png" alt="Peak Area Clusters Violin Plot - altitude study" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Box plot
+#### Peak Area Box plot
 
 <img src="boxPlot_clusters_altitude_study.png" alt="Peak Area Clusters Box Plot - altitude study" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Swarm plot
+#### Peak Area Swarm plot
 
 <img src="swarmPlot_clusters_altitude_study.png" alt="Peak Area Clusters Swarm Plot - altitude study" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Violin-Swarm plot
+#### Peak Area Violin-Swarm plot
 
 <img src="violin-swarmPlot_clusters_altitude_study.png" alt="Peak Area Clusters Violin-Swarm Plot - altitude study" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Box-Swarm plot
+#### Peak Area Box-Swarm plot
 
 <img src="box-swarmPlot_clusters_altitude_study.png" alt="Peak Area Clusters Violin-Swarm Plot - altitude study" width="75%" height="75%"/>
 
@@ -308,43 +308,43 @@ Launch tutorial 2.5 by clicking the "Launch Binder" icon: [![Binder](https://not
 
 ### Example plots of aggregated peak areas from clusters in the polar dendrogram in tutorial 2.5:
 
-## Median Peak Area Point plot
+#### Median Peak Area Point plot
 
 <img src="pointPlot_clusters_gastric_cancer.png" alt="Median Peak Area Clusters Point Plot - gastric cancer" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Violin plot
+#### Peak Area Violin plot
 
 <img src="violinPlot_clusters_gastric_cancer.png" alt="Peak Area Clusters Violin Plot - gastric cancer" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Violin plot
+#### Peak Area Violin plot
 
 <img src="violinPlot_clusters_gastric_cancer.png" alt="Peak Area Clusters Violin Plot - gastric cancer" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Box plot
+#### Peak Area Box plot
 
 <img src="boxPlot_clusters_gastric_cancer.png" alt="Peak Area Clusters Box Plot - gastric cancer" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Swarm plot
+#### Peak Area Swarm plot
 
 <img src="swarmPlot_clusters_gastric_cancer.png" alt="Peak Area Clusters Swarm Plot - gastric cancer" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Violin-Swarm plot
+#### Peak Area Violin-Swarm plot
 
 <img src="violin-swarmPlot_clusters_gastric_cancer.png" alt="Peak Area Clusters Violin-Swarm Plot - gastric cancer" width="75%" height="75%"/>
 
 <br />
 
-## Peak Area Box-Swarm plot
+#### Peak Area Box-Swarm plot
 
 <img src="box-swarmPlot_clusters_gastric_cancer.png" alt="Peak Area Clusters Violin-Swarm Plot - gastric cancer" width="75%" height="75%"/>
 
@@ -360,13 +360,13 @@ Launch tutorial 2.6 by clicking the "Launch Binder" icon: [![Binder](https://not
 
 ### Example single-block plots from tutorial 1.6:
 
-## Positive correlation network
+#### Positive correlation network
 
 <iframe width="100%" height="1200" src="springNetwork_positive_single-block_altitude_study.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <br />
 
-## Negative correlation network
+#### Negative correlation network
 
 <iframe width="100%" height="1200" src="springNetwork_negative_single-block_altitude_study.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
@@ -374,13 +374,13 @@ Launch tutorial 2.6 by clicking the "Launch Binder" icon: [![Binder](https://not
 
 ### Example single-block plots with a dashboard from tutorial 1.6:
 
-## Positive correlation network
+#### Positive correlation network
 
 <iframe width="100%" height="1200" src="springNetwork_positive_single-block_altitude_study_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <br />
 
-## Negative correlation network
+#### Negative correlation network
 
 <iframe width="100%" height="1200" src="springNetwork_negative_single-block_altitude_study_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
@@ -388,13 +388,13 @@ Launch tutorial 2.6 by clicking the "Launch Binder" icon: [![Binder](https://not
 
 ### Example multi-block plots from tutorial 1.6:
 
-## Positive correlation network
+#### Positive correlation network
 
 <iframe width="100%" height="1200" src="springNetwork_positive_multi-block_altitude_study.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <br />
 
-## Negative correlation network
+#### Negative correlation network
 
 <iframe width="100%" height="1200" src="springNetwork_negative_multi-block_altitude_study.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
@@ -402,13 +402,13 @@ Launch tutorial 2.6 by clicking the "Launch Binder" icon: [![Binder](https://not
 
 ### Example multi-block plots with a dashboard from tutorial 1.6:
 
-## Positive correlation network
+#### Positive correlation network
 
 <iframe width="100%" height="1200" src="springNetwork_positive_multi-block_altitude_study_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <br />
 
-## Negative correlation network
+#### Negative correlation network
 
 <iframe width="100%" height="1200" src="springNetwork_negative_multi-block_altitude_study_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
@@ -416,7 +416,7 @@ Launch tutorial 2.6 by clicking the "Launch Binder" icon: [![Binder](https://not
 
 ### Example single-block plots from tutorial 2.6:
 
-## Positive correlation network
+#### Positive correlation network
 
 <iframe width="100%" height="1200" src="springNetwork_positive_single-block_gastric_cancer.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
@@ -424,7 +424,7 @@ Launch tutorial 2.6 by clicking the "Launch Binder" icon: [![Binder](https://not
 
 ### Example single-block plots with a dashboard from tutorial 2.6:
 
-## Positive correlation network
+#### Positive correlation network
 
 <iframe width="100%" height="1200" src="springNetwork_positive_single-block_gastric_cancer_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
@@ -432,13 +432,13 @@ Launch tutorial 2.6 by clicking the "Launch Binder" icon: [![Binder](https://not
 
 ### Example multi-block plots from tutorial 2.6:
 
-## Positive correlation network
+#### Positive correlation network
 
 <iframe width="100%" height="1200" src="springNetwork_positive_multi-block_gastric_cancer.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <br />
 
-## Negative correlation network
+#### Negative correlation network
 
 <iframe width="100%" height="1200" src="springNetwork_negative_multi-block_gastric_cancer.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
@@ -446,13 +446,13 @@ Launch tutorial 2.6 by clicking the "Launch Binder" icon: [![Binder](https://not
 
 ### Example multi-block plots with a dashboard from tutorial 2.6:
 
-## Positive correlation network
+#### Positive correlation network
 
 <iframe width="100%" height="1200" src="springNetwork_positive_multi-block_gastric_cancer_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <br />
 
-## Negative correlation network
+#### Negative correlation network
 
 <iframe width="100%" height="1200" src="springNetwork_negative_multi-block_gastric_cancer_dashboard.html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
