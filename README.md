@@ -60,7 +60,7 @@ This repository contains twelve different tutorials spanning two case studies, e
 
 ## Tutorials
 
-1.1.	[Athlete performance at high altitude - Principal Component Analysis (PCA) with biplot and PCA lollipop plots](#one) <br>
+1.1.	[Athlete performance at high altitude - Principal Component Analysis (PCA) with loadings plot and PCA lollipop plots](#one) <br>
 1.2.	[Athlete performance at high altitude - Principal Coordinate Analysis (PCoA)](#two) <br>
 1.3.	[Athlete performance at high altitude - Feature Plot and ](#three) <br>
 1.4.	[Athlete performance at high altitude - Hierarchical Clustered Heatmap](#four) <br>
@@ -70,7 +70,7 @@ This repository contains twelve different tutorials spanning two case studies, e
 
 <br />
 
-2.1.	[Gastric Cancer - Principal Component Analysis (PCA) with biplot, and PCA lollipop plots](#one) <br>
+2.1.	[Gastric Cancer - Principal Component Analysis (PCA) with loadings plot and PCA lollipop plots](#one) <br>
 2.2.	[Gastric Cancer - Principal Coordinate Analysis (PCoA) with included statistical analysis](#two) <br>
 2.3.	[Gastric Cancer - Feature Plot](#three) <br>
 2.4.	[Gastric Cancer - Hierarchical Clustered Heatmap](#four) <br>
