@@ -5,7 +5,7 @@ channels:
 - brett.chapman
 dependencies:
 - python>=3.5
-- multivis=0.5.5
+- multivis=0.5.6
 - ipython=7.25.0
 - ipykernel=6.0.0
 - jupyter
