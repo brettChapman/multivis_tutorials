@@ -158,6 +158,74 @@ Launch tutorial 2.3 by clicking the "Launch Binder" icon: [![Binder](https://not
 
 <br />
 
+#### Peak Area Violin plot
+
+<img src="violinPlot_features_altitude_study.png" alt="Peak Area Violin Plot - altitude study" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Box plot
+
+<img src="boxPlot_features_altitude_study.png" alt="Peak Area Box Plot - altitude study" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Swarm plot
+
+<img src="swarmPlot_features_altitude_study.png" alt="Peak Area Swarm Plot - altitude study" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Violin-Swarm plot
+
+<img src="violin-swarmPlot_features_altitude_study.png" alt="Peak Area Violin-Swarm Plot - altitude study" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Box-Swarm plot
+
+<img src="box-swarmPlot_features_altitude_study.png" alt="Peak Area Violin-Swarm Plot - altitude study" width="75%" height="75%"/>
+
+<br />
+
+### Example plots from tutorial 2.3:
+
+#### Median Peak Area Point plot
+
+<img src="pointPlot_features_gastric_cancer.png" alt="Median Peak Area Point Plot - gastric cancer" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Violin plot
+
+<img src="violinPlot_features_gastric_cancer.png" alt="Peak Area Violin Plot - gastric cancer" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Box plot
+
+<img src="boxPlot_features_gastric_cancer.png" alt="Peak Area Box Plot - gastric cancer" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Swarm plot
+
+<img src="swarmPlot_features_gastric_cancer.png" alt="Peak Area Swarm Plot - gastric cancer" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Violin-Swarm plot
+
+<img src="violin-swarmPlot_features_gastric_cancer.png" alt="Peak Area Violin-Swarm Plot - gastric cancer" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Box-Swarm plot
+
+<img src="box-swarmPlot_features_gastric_cancer.png" alt="Peak Area Violin-Swarm Plot - gastric cancer" width="75%" height="75%"/>
+
+<br />
+
 <a id="four"></a>
 ## Tutorial 1.4 and 2.4: Hierarchical Clustered Heatmap
 <p align="justify">
@@ -197,6 +265,78 @@ Launch tutorial 2.5 by clicking the "Launch Binder" icon: [![Binder](https://not
 #### Mean Peak Area Point plot
 
 <img src="pointPlot_clusters_altitude_study.png" alt="Mean Peak Area Clusters Point Plot - altitude study" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Violin plot
+
+<img src="violinPlot_clusters_altitude_study.png" alt="Peak Area Clusters Violin Plot - altitude study" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Box plot
+
+<img src="boxPlot_clusters_altitude_study.png" alt="Peak Area Clusters Box Plot - altitude study" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Swarm plot
+
+<img src="swarmPlot_clusters_altitude_study.png" alt="Peak Area Clusters Swarm Plot - altitude study" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Violin-Swarm plot
+
+<img src="violin-swarmPlot_clusters_altitude_study.png" alt="Peak Area Clusters Violin-Swarm Plot - altitude study" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Box-Swarm plot
+
+<img src="box-swarmPlot_clusters_altitude_study.png" alt="Peak Area Clusters Violin-Swarm Plot - altitude study" width="75%" height="75%"/>
+
+<br />
+
+### Example plots from tutorial 2.5:
+
+<img src="polarDendrogram_gastric_cancer.png" alt="Polar Dendrogram - gastric cancer" width="75%" height="75%"/>
+
+### Example plots of aggregated peak areas from clusters in the polar dendrogram in tutorial 2.5:
+
+#### Median Peak Area Point plot
+
+<img src="pointPlot_clusters_gastric_cancer.png" alt="Median Peak Area Clusters Point Plot - gastric cancer" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Violin plot
+
+<img src="violinPlot_clusters_gastric_cancer.png" alt="Peak Area Clusters Violin Plot - gastric cancer" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Box plot
+
+<img src="boxPlot_clusters_gastric_cancer.png" alt="Peak Area Clusters Box Plot - gastric cancer" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Swarm plot
+
+<img src="swarmPlot_clusters_gastric_cancer.png" alt="Peak Area Clusters Swarm Plot - gastric cancer" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Violin-Swarm plot
+
+<img src="violin-swarmPlot_clusters_gastric_cancer.png" alt="Peak Area Clusters Violin-Swarm Plot - gastric cancer" width="75%" height="75%"/>
+
+<br />
+
+#### Peak Area Box-Swarm plot
+
+<img src="box-swarmPlot_clusters_gastric_cancer.png" alt="Peak Area Clusters Violin-Swarm Plot - gastric cancer" width="75%" height="75%"/>
 
 <br />
 
