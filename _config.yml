@@ -1,5 +1,3 @@
 title: Multivariate Visualisation Tutorials
-description: Tutorials demonstrating different visualisations of multivariate data.
 show_downloads: true
-google_analytics:
-theme: jekyll-theme-minimal
+theme: jekyll-theme-cayman
