@@ -1,3 +1,7 @@
+---
+title: The title you want for the site
+---
+
 # Multivariate Visualisation Tutorials
 
 <p align="justify">
