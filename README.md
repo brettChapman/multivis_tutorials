@@ -1,9 +1,3 @@
----
-title: The title you want for the site
----
-
-# Multivariate Visualisation Tutorials
-
 <p align="justify">
 This repository contains twelve different tutorials spanning two case studies, explaining visualisations, from PCA, PCA loadings lollipop plots, PCoA, Hierarchical Clustered Heatmaps (HCH), Polar Dendrograms, Peak area plots, Spring-embedded network plots, and Hierarchical Edge Bundle plots, with included statistical analysis. Tutorials 1.1 to 1.6 cover a dataset from (<a href="https://physoc.onlinelibrary.wiley.com/doi/full/10.1113/EP087159">Lawler et al. (2018)</a>) published in <i>Experimental Physiology</i>, while tutorials 2.1 to 2.6 cover a dataset from (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4716538/">Chan, A, et al. (2016)</a>) published in <i>British Journal of Cancer</i>. The tutorials stress the importance of multivariate analysis and provide multiple options for statistical analysis and multivariate visualisation. Each tutorial can be downloaded and run locally through Jupyter Notebook or run on the cloud through Binder.
 </p>
